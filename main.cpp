@@ -165,11 +165,19 @@ void inputObjects(std::vector<Kuznitsa> &vk)
         while(1)
         {
             unsigned int tochka = getch(); // —читывает символ из потока, но не выводит его в поток.
-                              // Ёто своего рода защита ввода
+                                           // Ёто своего рода защита ввода
+            if(tochka == 13)
+            {
+                std::cout << 0 << std::endl;
+                std::cin.putback(tochka);
+                vk[vk.size() - 1].object()->setToch(tochka);
+                std::cin.get();
+                break;
+            }
             if(tochka >= '0' && tochka <= '9')
             {
                 inputNumber(tochka);
-                std::cout << tochka;
+                std::cout << tochka << std::endl;
                 vk[vk.size() - 1].object()->setToch(tochka);
                 std::cin.get();
                 break;
