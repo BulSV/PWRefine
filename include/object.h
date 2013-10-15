@@ -42,6 +42,7 @@ public:
     void refine(TOCHKA toch, STONES st);
     CATEGORY cat() const;
     std::string pro() const;
+    void setToch(int tochka);
     int toch() const;
     int mirazh() const;
     int nebeska() const;

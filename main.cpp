@@ -7,6 +7,33 @@
 #include <windows.h>
 #include <iomanip>
 
+void inputNumber(unsigned int &c)
+{
+    std::cout << c - '0' << '\r';
+    char *cNum = new char;
+    unsigned int num = 0;
+
+    cNum[0] = c;
+    num = c - '0';
+    c = getch();
+
+    if(c >= '0' && c <= '9')
+    {
+        cNum[1] = c;
+        num = cNum[0] - '0';
+        num *= 10;
+        num += cNum[1] - '0';
+    }
+    else
+    {
+        std::cin.putback(c);
+    }
+
+    c = num;
+    cNum = 0;
+    delete cNum;
+}
+
 void inputObjects(std::vector<Kuznitsa> &vk)
 {
     int i = 0;
@@ -133,6 +160,22 @@ void inputObjects(std::vector<Kuznitsa> &vk)
             }
         default: exit(-8);
         }
+
+        std::cout << "¬ведите уровень заточки:\n";
+        while(1)
+        {
+            unsigned int tochka = getch(); // —читывает символ из потока, но не выводит его в поток.
+                              // Ёто своего рода защита ввода
+            if(tochka >= '0' && tochka <= '9')
+            {
+                inputNumber(tochka);
+                std::cout << tochka;
+                vk[vk.size() - 1].object()->setToch(tochka);
+                std::cin.get();
+                break;
+            }
+        }
+        std::cout << std::endl;
     }
 }
 
@@ -235,33 +278,6 @@ void outputResults(const std::vector<Kuznitsa> &vk)
     << std::setw(8) << podzemka << " "
     << std::setw(10) << mirozdanka
     << std::endl << std::endl;
-}
-
-void inputNumber(unsigned int &c)
-{
-    std::cout << c - '0' << '\r';
-    char *cNum = new char;
-    unsigned int num = 0;
-
-    cNum[0] = c;
-    num = c - '0';
-    c = getch();
-
-    if(c >= '0' && c <= '9')
-    {
-        cNum[1] = c;
-        num = cNum[0] - '0';
-        num *= 10;
-        num += cNum[1] - '0';
-    }
-    else
-    {
-        std::cin.putback(c);
-    }
-
-    c = num;
-    cNum = 0;
-    delete cNum;
 }
 
 void zatochka(std::vector<Kuznitsa> &vk)

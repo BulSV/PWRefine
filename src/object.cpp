@@ -58,6 +58,11 @@ std::string Object::pro() const
     return itsProperty;
 }
 
+void Object::setToch(int tochka)
+{
+    itsTochka = (tochka >=0 && tochka <= 12) ? tochka : 0;
+}
+
 int Object::toch() const
 {
     return itsTochka;
