@@ -34,22 +34,58 @@ void inputNumber(unsigned int &c)
     delete cNum;
 }
 
+void inputSymbol(int &ch, char beginCh, char endCh)
+{
+	bool flag = false;
+	int tempCh;
+	while(1)
+	{
+		ch = getch(); // Считывает символ из потока, но не выводит его в поток.
+					  // Это своего рода защита ввода
+		if(flag && ch == 13)
+		{
+			std::cin.putback(ch);
+			ch = tempCh;
+			break;
+		}
+		if(ch >= beginCh && ch <= endCh)
+		{
+			std::cout << '\r' << (char)ch;
+			tempCh = ch;
+			ch = getch();
+			if(ch == 13)
+			{
+				std::cin.putback(ch);
+				ch = tempCh;
+				break;
+			}
+			std::cout << '\r';
+			std::cout << (char)ch;
+			flag = true;
+		}
+	}
+	std::cin.get();
+
+	std::cout << std::endl;
+}
+
 void inputObjects(std::vector<Kuznitsa> &vk)
 {
     int i = 0;
-    char cat;
+    int cat;
     std::string predmet;
     std::string pro;
 
     std::cout << "Введите предметы для заточки.\n";
+    std::cout << "Предмет № " << i++ << ":\n";
 
     while(cat != 'q')
     {
-        std::cout << "Предмет № " << i++ << " или выход (q):\n";
+
         std::cout << "0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги,\n";
         std::cout << "5 - Наручи, 6 - Плащ, 7 - Ожерелье, 8 - Пояс, 9 - Кольцо\n";
 
-        while(1)
+        /*while(1)
         {
             int ch = getch(); // Считывает символ из потока, но не выводит его в поток.
                               // Это своего рода защита ввода
@@ -60,10 +96,46 @@ void inputObjects(std::vector<Kuznitsa> &vk)
                 std::cin.get();
                 break;
             }
-        }
-        std::cout << std::endl;
+        }*/
 
-        if(cat == 'q') break;
+        /*bool flag = false;
+        while(1)
+        {
+            int ch = getch(); // Считывает символ из потока, но не выводит его в поток.
+                              // Это своего рода защита ввода
+            if(flag && ch == 13)
+            {
+                std::cin.putback(ch);
+                break;
+            }
+            if( (ch >= '0' && ch <= '9') || ch == 'q')
+            {
+                cat = ch;
+                std::cout << '\r' << cat;
+                ch = getch();
+                if(ch == 13)
+                {
+                    std::cin.putback(ch);
+                    break;
+                }
+                //std::cout << (char)8;
+                std::cout << '\r';
+                std::cout << (char)ch;
+                flag = true;
+            }
+        }
+        std::cin.get();
+
+        std::cout << std::endl;*/
+
+        cat = getch();
+        if(cat == 'q')
+        {
+            std::cout << (char)cat << std::endl;
+            std::cin.get();
+            break;
+        }
+        inputSymbol(cat, '0', '9');
 
         switch(cat)
         {
@@ -165,7 +237,7 @@ void inputObjects(std::vector<Kuznitsa> &vk)
         while(1)
         {
             unsigned int tochka = getch(); // Считывает символ из потока, но не выводит его в поток.
-                              // Это своего рода защита ввода
+                                           // Это своего рода защита ввода
             if(tochka >= '0' && tochka <= '9')
             {
                 inputNumber(tochka);
@@ -176,6 +248,7 @@ void inputObjects(std::vector<Kuznitsa> &vk)
             }
         }
         std::cout << std::endl;
+        std::cout << "Предмет № " << i++ << " или выход (q):\n";
     }
 }
 
@@ -232,7 +305,6 @@ void outputResults(const std::vector<Kuznitsa> &vk)
     int podzemka = 0;
     int mirozdanka = 0;
 
-    //std::cout << "Предмет №\tКатегория\tОписание\t\tЗаточка\tМиражей\tНебесок\tПодземок Мирозданок\n";
     std::cout.fill(' ');
 
     std::cout << std::left << std::setw(10) << "Предмет №"
@@ -248,14 +320,6 @@ void outputResults(const std::vector<Kuznitsa> &vk)
 
     for(unsigned int i = 0; i < vk.size(); ++i)
     {
-        /*std::cout << i << "\t\t";
-        std::cout << CATEGORYtoString(vk.at(i).object()->cat()) << "\t\t";
-        std::cout << vk.at(i).object()->pro() << "\t";
-        std::cout << vk.at(i).object()->toch() << "\t";
-        std::cout << vk.at(i).object()->mirazh() << "\t";
-        std::cout << vk.at(i).object()->nebeska() << "\t";
-        std::cout << vk.at(i).object()->podzemka() << "\t ";
-        std::cout << vk.at(i).object()->mirozdanka() << "\n";*/
         std::cout << std::left << std::setw(9) << i << " ";
         std::cout << std::left << std::setw(9) << CATEGORYtoString(vk.at(i).object()->cat()) << " ";
         std::cout << std::left << std::setw(29) << vk.at(i).object()->pro() << " ";
