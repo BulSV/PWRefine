@@ -47,6 +47,7 @@ public:
     {
         LEADING = 0x01,
         TRAILING = 0x02,
+        ALLZEROS = LEADING | TRAILING,
         NOCHANGED = -1
     };
 	void check(unsigned int ch);

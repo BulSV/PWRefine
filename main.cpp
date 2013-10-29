@@ -6,68 +6,8 @@
 #include <conio.h>
 #include <windows.h>
 #include <iomanip>
-
-void inputNumber(unsigned int &c)
-{
-    std::cout << c - '0' << '\r';
-    char *cNum = new char;
-    unsigned int num = 0;
-
-    cNum[0] = c;
-    num = c - '0';
-    c = getch();
-
-    if(c >= '0' && c <= '9')
-    {
-        cNum[1] = c;
-        num = cNum[0] - '0';
-        num *= 10;
-        num += cNum[1] - '0';
-    }
-    else
-    {
-        std::cin.putback(c);
-    }
-
-    c = num;
-    cNum = 0;
-    delete cNum;
-}
-
-void inputSymbol(int &ch, char beginCh, char endCh)
-{
-	bool flag = false;
-	int tempCh;
-	while(1)
-	{
-		ch = getch(); // Считывает символ из потока, но не выводит его в поток.
-					  // Это своего рода защита ввода
-		if(flag && ch == 13)
-		{
-			std::cin.putback(ch);
-			ch = tempCh;
-			break;
-		}
-		if(ch >= beginCh && ch <= endCh)
-		{
-			std::cout << '\r' << (char)ch;
-			tempCh = ch;
-			ch = getch();
-			if(ch == 13)
-			{
-				std::cin.putback(ch);
-				ch = tempCh;
-				break;
-			}
-			std::cout << '\r';
-			std::cout << (char)ch;
-			flag = true;
-		}
-	}
-	std::cin.get();
-
-	std::cout << std::endl;
-}
+#include "include/iochecker.h"
+#include <stdlib.h>
 
 void inputObjects(std::vector<Kuznitsa> &vk)
 {
@@ -79,63 +19,25 @@ void inputObjects(std::vector<Kuznitsa> &vk)
     std::cout << "Введите предметы для заточки.\n";
     std::cout << "Предмет № " << i++ << ":\n";
 
-    while(cat != 'q')
+    std::vector<unsigned char> vInput;
+    iochecker ioInput(1, &vInput, "0123456789q");
+
+    while(1)
     {
 
         std::cout << "0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги,\n";
         std::cout << "5 - Наручи, 6 - Плащ, 7 - Ожерелье, 8 - Пояс, 9 - Кольцо\n";
 
-        /*while(1)
-        {
-            int ch = getch(); // Считывает символ из потока, но не выводит его в поток.
-                              // Это своего рода защита ввода
-            if( (ch >= '0' && ch <= '9') || ch == 'q')
-            {
-                cat = ch;
-                std::cout << cat;
-                std::cin.get();
-                break;
-            }
-        }*/
+        ioInput.check(_getch());
 
-        /*bool flag = false;
-        while(1)
-        {
-            int ch = getch(); // Считывает символ из потока, но не выводит его в поток.
-                              // Это своего рода защита ввода
-            if(flag && ch == 13)
-            {
-                std::cin.putback(ch);
-                break;
-            }
-            if( (ch >= '0' && ch <= '9') || ch == 'q')
-            {
-                cat = ch;
-                std::cout << '\r' << cat;
-                ch = getch();
-                if(ch == 13)
-                {
-                    std::cin.putback(ch);
-                    break;
-                }
-                //std::cout << (char)8;
-                std::cout << '\r';
-                std::cout << (char)ch;
-                flag = true;
-            }
-        }
-        std::cin.get();
+        cat = atoi(ioInput.charBuffer(iochecker::ALLZEROS));
 
-        std::cout << std::endl;*/
-
-        cat = getch();
         if(cat == 'q')
         {
             std::cout << (char)cat << std::endl;
             std::cin.get();
             break;
-        }
-        inputSymbol(cat, '0', '9');
+        }        
 
         switch(cat)
         {
@@ -234,18 +136,20 @@ void inputObjects(std::vector<Kuznitsa> &vk)
         }
 
         std::cout << "Введите уровень заточки:\n";
+
+        std::vector<unsigned char> vTochka;
+        iochecker ioTochka(2, &vTochka, "0123456789");
+
         while(1)
         {
-            unsigned int tochka = getch(); // Считывает символ из потока, но не выводит его в поток.
-                                           // Это своего рода защита ввода
-            if(tochka >= '0' && tochka <= '9')
-            {
-                inputNumber(tochka);
-                std::cout << tochka;
-                vk[vk.size() - 1].object()->setToch(tochka);
-                std::cin.get();
-                break;
-            }
+            ioTochka.check(_getch());
+
+            unsigned int tochka = atoi(ioTochka.charBuffer(iochecker::ALLZEROS));
+
+            std::cout << tochka;
+            vk[vk.size() - 1].object()->setToch(tochka);
+            std::cin.get();
+            break;
         }
         std::cout << std::endl;
         std::cout << "Предмет № " << i++ << " или выход (q):\n";
@@ -352,19 +256,23 @@ void zatochka(std::vector<Kuznitsa> &vk)
     while(1)
     {
         std::cout << "Введите порядковый номер предмета для заточки или вывести список всех предметов (p):\n";
+
+        std::vector<unsigned char> vRN;
+        iochecker ioRN(2, &vRN, "0123456789pp");
+
         while(1)
         {
-            unsigned int ch = getch(); // Считывает символ из потока, но не выводит его в поток.
-                                       // Это своего рода защита ввода
-            if( ch >= '0' && ch <= '9' )
+            ioRN.check(_getch());
+            unsigned int ch = 0;
+
+            if(isdigit(atoi(ioRN.charBuffer(iochecker::ALLZEROS))))
             {
-                inputNumber(ch);
-                i = ch;
-                std::cout << i;
+                ch = atoi(ioRN.charBuffer(iochecker::ALLZEROS));
+                std::cout << ch;
                 std::cin.get();
                 break;
             }
-            if(ch == 'p')
+            else
             {
                 choice = ch;
                 std::cout << choice;
@@ -385,15 +293,17 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
             while(1)
             {
-                int ch = getch(); // Считывает символ из потока, но не выводит его в поток.
-                                  // Это своего рода защита ввода
-                if( ch >= '0' && ch <= '3')
-                {
-                    stone = ch - '0';
-                    std::cout << stone;
-                    std::cin.get();
-                    break;
-                }
+                std::vector<unsigned char> vStones;
+                iochecker ioStones(1, &vStones, "0123");
+
+                ioStones.check(_getch());
+
+                int ch = atoi(ioStones.charBuffer(iochecker::ALLZEROS));
+
+                stone = ch - '0';
+                std::cout << stone;
+                std::cin.get();
+                break;
             }
             std::cout << std::endl;
 
@@ -429,8 +339,13 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
         while(1)
         {
-            int ch = getch(); // Считывает символ из потока, но не выводит его в поток.
-                              // Это своего рода защита ввода
+            std::vector<unsigned char> vPRQ;
+            iochecker ioPRQ(1, &vPRQ, "prq");
+
+            ioPRQ.check(_getch());
+
+            int ch = atoi(ioPRQ.charBuffer(iochecker::ALLZEROS));
+
             if( ch == 'r' || ch == 'q')
             {
                 choice = ch;

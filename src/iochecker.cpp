@@ -247,7 +247,7 @@ std::istream &operator >>(std::istream &input, iochecker &o)
 
 std::vector<unsigned char> iochecker::buffer(ZEROFLAGS zeros)
 {
-    if((zeros == LEADING) && m_buf->size() > 1)
+    if((zeros == LEADING || zeros == ALLZEROS) && m_buf->size() > 1)
     {
         while(m_buf->at(0) == '0' && m_buf->at(1) != '.')
         {
@@ -257,7 +257,7 @@ std::vector<unsigned char> iochecker::buffer(ZEROFLAGS zeros)
         return *m_buf;
     }
 
-    if((zeros == TRAILING) && m_buf->size() > 1)
+    if((zeros == TRAILING || zeros == ALLZEROS) && m_buf->size() > 1)
     {
         bool dot = false;
         unsigned int i = 0;
