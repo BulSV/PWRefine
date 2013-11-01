@@ -39,6 +39,6 @@ HEADERS += \
 OTHER_FILES += \
     TODO.txt \
     draftFile.cpp \
-    iochecker.h \
-    newinputfunc.h
+    newinputfunc.h \
+    draftIochecker.h
 

@@ -40,7 +40,7 @@ bool cmp(const char *mas, const int &ch)
 
 while(buf.size() != lim)
 {
-    ch = getch();
+    ch = _getch();
     if(cmp(mas, ch))
     {
         buf.push_back(ch);

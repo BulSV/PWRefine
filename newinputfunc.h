@@ -1,7 +1,7 @@
 bool flag = false;
 while(1)
 {
-int ch = getch(); // —читывает символ из потока, но не выводит его в поток.
+int ch = _getch(); // —читывает символ из потока, но не выводит его в поток.
 // Ёто своего рода защита ввода
 if(flag && ch == 13)
 {
@@ -12,7 +12,7 @@ if( (ch >= '0' && ch <= '9') || ch == 'q')
 {
     cat = ch;
     std::cout << '\r' << cat;
-    ch = getch();
+    ch = _getch();
     if(ch == 13)
     {
         std::cin.putback(ch);
@@ -34,7 +34,7 @@ void inputSymbol(int &ch, char beginCh, char endCh)
     int tempCh;
     while(1)
     {
-        ch = getch(); // —читывает символ из потока, но не выводит его в поток.
+        ch = _getch(); // —читывает символ из потока, но не выводит его в поток.
         // Ёто своего рода защита ввода
         if(flag && ch == 13)
         {
@@ -46,7 +46,7 @@ void inputSymbol(int &ch, char beginCh, char endCh)
         {
             std::cout << '\r' << (char)ch;
             tempCh = ch;
-            ch = getch();
+            ch = _getch();
             if(ch == 13)
             {
                 std::cin.putback(ch);

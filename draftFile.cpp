@@ -3,115 +3,115 @@
 
 const char* iochecker::repeatedChars(const char* in, bool mask = true)
 {
-	std::string unRptMask;
-	std::string symMask = in;
+    std::string unRptMask;
+    std::string symMask = in;
 
-	for(unsigned int i = 0; i < symMask.size(); ++i)
-	{
-		for(unsigned int j = i + 1; j < symMask.size(); ++j)
-		{
-			if(symMask.at(i) == symMask.at(j))
-			{
-				unRptMask.push_back(symMask.at(j));
-				symMask.erase(j, 1);
-			}
-		}
-	}
+    for(unsigned int i = 0; i < symMask.size(); ++i)
+    {
+        for(unsigned int j = i + 1; j < symMask.size(); ++j)
+        {
+            if(symMask.at(i) == symMask.at(j))
+            {
+                unRptMask.push_back(symMask.at(j));
+                symMask.erase(j, 1);
+            }
+        }
+    }
 
-	if(!mask)
+    if(!mask)
     {
         return repeatedChars(unRptMask.c_str());
     }
 
-	return symMask.c_str();
+    return symMask.c_str();
 }
 
 bool iochecker::eqSym(const char *mas, const unsigned char &ch)
 {
-	while(*mas)
-	{
-		if(*mas == ch)
-		{
-			return true;
-		}
-		++mas;
-	}
-	return false;
+    while(*mas)
+    {
+        if(*mas == ch)
+        {
+            return true;
+        }
+        ++mas;
+    }
+    return false;
 }
 
 void iochecker::checker(unsigned int ch)
 {
-	fillUnMaskSmbs();
-	if(eqSym(repeatedChars(m_mas), ch) && 
-	(!eqSym(repeatedChars(m_mas, false), ch) || !emergUnMaskSym(ch)) && 
-	m_buf->size() < m_lim)
-	{		
-		std::cout << (char)ch;
-		m_buf->push_back(ch);
-		checker(_getch());
-	}
-	else
-	{
-		switch(ch)
-		{
-		case BACKSPACE:
-		{
-			std::cout << (char)BACKSPACE << ' ' << (char)BACKSPACE;
-			m_buf->pop_back();
-			checker(_getch());
-			break;
-		}
-		case ENTER:
-		{
-			std::cin.putback(ch);
-			break;
-		}
-		default:
-		{
-			checker(_getch());
-		}
-		}
-	}
+    fillUnMaskSmbs();
+    if(eqSym(repeatedChars(m_mas), ch) &&
+    (!eqSym(repeatedChars(m_mas, false), ch) || !emergUnMaskSym(ch)) &&
+    m_buf->size() < m_lim)
+    {
+        std::cout << (char)ch;
+        m_buf->push_back(ch);
+        checker(_getch());
+    }
+    else
+    {
+        switch(ch)
+        {
+        case BACKSPACE:
+        {
+            std::cout << (char)BACKSPACE << ' ' << (char)BACKSPACE;
+            m_buf->pop_back();
+            checker(_getch());
+            break;
+        }
+        case ENTER:
+        {
+            std::cin.putback(ch);
+            break;
+        }
+        default:
+        {
+            checker(_getch());
+        }
+        }
+    }
 }
 
 private:
-	struct UnMaksSymStruct
-	{
-		bool symWas;
-		char name;
-	};
+    struct UnMaksSymStruct
+    {
+        bool symWas;
+        char name;
+    };
 
 std::vector<UnMaksSymStruct> m_vUnMaskSmbs;
 void iochecker::fillUnMaskSmbs()
 {
-	UnMaksSymStruct smb;
-	std::string s = repeatedChars(m_mas, false);
-	for(unsigned int i = 0; i < s.size(); ++i)
-	{
-		smb.name = s.at(i);
-		smb.symWas = false;
-		m_vUnMaskSmbs.push_back(smb);
-	}
+    UnMaksSymStruct smb;
+    std::string s = repeatedChars(m_mas, false);
+    for(unsigned int i = 0; i < s.size(); ++i)
+    {
+        smb.name = s.at(i);
+        smb.symWas = false;
+        m_vUnMaskSmbs.push_back(smb);
+    }
 }
 
 bool iochecker::emergUnMaskSym(unsigned char ch)
 {
-	for(unsigned int i = 0; i < m_vUnMaskSmbs.size(); ++i)
-	{
-		if(m_vUnMaskSmbs.at(i).name == ch)
-		{
-			if(m_vUnMaskSmbs.at(i).symWas)
-			{
-				return true;
-			}
-			else
-			{
-				m_vUnMaskSmbs.at(i).symWas = true;
-			}
-		}
-	}
-	
-	return false;
+    for(unsigned int i = 0; i < m_vUnMaskSmbs.size(); ++i)
+    {
+        if(m_vUnMaskSmbs.at(i).name == ch)
+        {
+            if(m_vUnMaskSmbs.at(i).symWas)
+            {
+                return true;
+            }
+            else
+            {
+                m_vUnMaskSmbs.at(i).symWas = true;
+            }
+        }
+    }
+
+    return false;
 }
 /******************************************************************************/
 enum ZEROFLAGS
@@ -183,4 +183,27 @@ std::string iochecker::stringBuffer(ZEROFLAGS zeros)
 const char *iochecker::charBuffer(ZEROFLAGS zeros)
 {
     return stringBuffer(zeros).c_str();
+}
+/******************************************************************************/
+bool iochecker::isDigit(const char* c)
+{
+    while(*c)
+    {
+        if(*c < 48 && *c > 57)
+        {
+            return false;
+        }
+        ++c;
+    }
+
+    return true;
+}
+
+int iochecker::stoi(const char* c)
+{
+    if(!isDigit)
+    {
+        return 0;
+    }
+
 }

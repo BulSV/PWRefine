@@ -12,15 +12,12 @@
 void inputObjects(std::vector<Kuznitsa> &vk)
 {
     int i = 0;
-    int cat;
+    char cat;
     std::string predmet;
     std::string pro;
 
     std::cout << "Введите предметы для заточки.\n";
     std::cout << "Предмет № " << i++ << ":\n";
-
-    std::vector<unsigned char> vInput;
-    iochecker ioInput(1, &vInput, "0123456789q");
 
     while(1)
     {
@@ -28,105 +25,114 @@ void inputObjects(std::vector<Kuznitsa> &vk)
         std::cout << "0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги,\n";
         std::cout << "5 - Наручи, 6 - Плащ, 7 - Ожерелье, 8 - Пояс, 9 - Кольцо\n";
 
+        std::vector<unsigned char> vInput;
+        iochecker ioInput(1, &vInput, "0123456789q");
+
         ioInput.check(_getch());
 
-        cat = atoi(ioInput.charBuffer(iochecker::ALLZEROS));
+        if(iochecker::isDigit(ioInput.charBuffer(iochecker::ALLZEROS)))
+        {
+            cat = (char)iochecker::stoi(ioInput.charBuffer(iochecker::ALLZEROS));
+        }
+        else
+        {
+            cat = ioInput.buffer(iochecker::ALLZEROS).at(0);
+        }
 
         if(cat == 'q')
         {
-            std::cout << (char)cat << std::endl;
+            std::cout << std::endl;
             std::cin.get();
             break;
-        }        
+        }
 
         switch(cat)
         {
-        case '0': predmet = "оружия";
+        case 0: predmet = "оружия";
                   break;
-        case '1': predmet = "шлема";
+        case 1: predmet = "шлема";
                   break;
-        case '2': predmet = "накидки";
+        case 2: predmet = "накидки";
                   break;
-        case '3': predmet = "бриджей";
+        case 3: predmet = "бриджей";
                   break;
-        case '4': predmet = "сапог";
+        case 4: predmet = "сапог";
                   break;
-        case '5': predmet = "наручей";
+        case 5: predmet = "наручей";
                   break;
-        case '6': predmet = "плаща";
+        case 6: predmet = "плаща";
                   break;
-        case '7': predmet = "ожерелья";
+        case 7: predmet = "ожерелья";
                   break;
-        case '8': predmet = "пояса";
+        case 8: predmet = "пояса";
                   break;
-        case '9': predmet = "кольца";
+        case 9: predmet = "кольца";
                   break;
         default: exit(-7);
         }
 
-        std::cout << "Введите название " << predmet << ":\n";
-        //std::cin.ignore(); // Обязательно перед getline()
+        std::cout << "\nВведите название " << predmet << ":\n";
+        std::cin.ignore(); // Обязательно перед getline()
         std::getline(std::cin, pro); // Считывает всю строку (даже с пробелами)
         std::cout << std::endl;
 
         switch(cat)
         {
-        case 'q': break;
-        case '0':
+        case 0:
             {
                 Kuznitsa k(WEAPON, pro);
                 vk.push_back(k);
                 break;
             }
-        case '1':
+        case 1:
             {
                 Kuznitsa k(SHLEM, pro);
                 vk.push_back(k);
                 break;
             }
-        case '2':
+        case 2:
             {
                 Kuznitsa k(NAKIDKA, pro);
                 vk.push_back(k);
                 break;
             }
-        case '3':
+        case 3:
             {
                 Kuznitsa k(BRIDGY, pro);
                 vk.push_back(k);
                 break;
             }
-        case '4':
+        case 4:
             {
                 Kuznitsa k(SAPOGI, pro);
                 vk.push_back(k);
                 break;
             }
-        case '5':
+        case 5:
             {
                 Kuznitsa k(NARUCHI, pro);
                 vk.push_back(k);
                 break;
             }
-        case '6':
+        case 6:
             {
                 Kuznitsa k(PLASCH, pro);
                 vk.push_back(k);
                 break;
             }
-        case '7':
+        case 7:
             {
                 Kuznitsa k(OZHERELYE, pro);
                 vk.push_back(k);
                 break;
             }
-        case '8':
+        case 8:
             {
                 Kuznitsa k(POYAS, pro);
                 vk.push_back(k);
                 break;
             }
-        case '9':
+        case 9:
             {
                 Kuznitsa k(RING, pro);
                 vk.push_back(k);
@@ -144,9 +150,8 @@ void inputObjects(std::vector<Kuznitsa> &vk)
         {
             ioTochka.check(_getch());
 
-            unsigned int tochka = atoi(ioTochka.charBuffer(iochecker::ALLZEROS));
+            unsigned int tochka = iochecker::stoi(ioTochka.charBuffer(iochecker::ALLZEROS));
 
-            std::cout << tochka;
             vk[vk.size() - 1].object()->setToch(tochka);
             std::cin.get();
             break;
@@ -257,26 +262,24 @@ void zatochka(std::vector<Kuznitsa> &vk)
     {
         std::cout << "Введите порядковый номер предмета для заточки или вывести список всех предметов (p):\n";
 
-        std::vector<unsigned char> vRN;
-        iochecker ioRN(2, &vRN, "0123456789pp");
-
         while(1)
         {
-            ioRN.check(_getch());
-            unsigned int ch = 0;
+            std::vector<unsigned char> vRN;
+            iochecker ioRN(2, &vRN, "0123456789pp");
 
-            if(isdigit(atoi(ioRN.charBuffer(iochecker::ALLZEROS))))
+            ioRN.check(_getch());
+
+            if(iochecker::isDigit(ioRN.charBuffer(iochecker::ALLZEROS)))
             {
-                ch = atoi(ioRN.charBuffer(iochecker::ALLZEROS));
-                std::cout << ch;
+                i = iochecker::stoi(ioRN.charBuffer(iochecker::ALLZEROS));
+
                 std::cin.get();
                 break;
             }
             else
             {
-                choice = ch;
-                std::cout << choice;
                 std::cin.get();
+                std::cout << std::endl;
                 outputResults(vk);
                 std::cout << "Введите порядковый номер предмета для заточки или вывести список всех предметов (p):\n";
             }
@@ -298,10 +301,9 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
                 ioStones.check(_getch());
 
-                int ch = atoi(ioStones.charBuffer(iochecker::ALLZEROS));
+                int ch = iochecker::stoi(ioStones.charBuffer(iochecker::ALLZEROS));
 
-                stone = ch - '0';
-                std::cout << stone;
+                stone = ch;
                 std::cin.get();
                 break;
             }
@@ -344,20 +346,20 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
             ioPRQ.check(_getch());
 
-            int ch = atoi(ioPRQ.charBuffer(iochecker::ALLZEROS));
+            int ch = ioPRQ.buffer(iochecker::ALLZEROS).at(0);
 
             if( ch == 'r' || ch == 'q')
             {
                 choice = ch;
-                std::cout << choice;
                 std::cin.get();
+                std::cout << std::endl;
                 break;
             }
             if(ch == 'p')
             {
                 choice = ch;
-                std::cout << choice;
                 std::cin.get();
+                std::cout << std::endl;
                 outputResults(vk);
                 std::cout << "Показать список всех предметов (p), продолжить заточку (r) или завершить программу (q)?\n";
             }
@@ -372,8 +374,8 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
 int main()
 {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    //SetConsoleCP(1251);
+    //SetConsoleOutputCP(1251);
 
     std::vector<Kuznitsa> vk;
     char choice;
@@ -385,7 +387,7 @@ int main()
         std::cout << "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?\n";
         while(1)
         {
-            int ch = getch(); // Считывает символ из потока, но не выводит его в поток.
+            int ch = _getch(); // Считывает символ из потока, но не выводит его в поток.
                               // Это своего рода защита ввода
             if( ch == 'p' || ch == 'r')
             {

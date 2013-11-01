@@ -1,4 +1,5 @@
 #include "../include/iochecker.h"
+#include <stdlib.h>
 
 #define BACKSPACE 8
 #define ENTER 13
@@ -76,11 +77,17 @@ void iochecker::checker(unsigned int ch)
         case BACKSPACE:
         {
             std::cout << (char)BACKSPACE << ' ' << (char)BACKSPACE;
-            if(emergUnMaskSym(m_buf->at(m_buf->size() - 1)))
+            if(m_buf->size())
             {
-                unEmergUnMaskSym(m_buf->at(m_buf->size() - 1));
+                if(emergUnMaskSym(m_buf->at(m_buf->size() - 1)))
+                {
+                    unEmergUnMaskSym(m_buf->at(m_buf->size() - 1));
+                }
+                if(m_buf->size() > 0)
+                {
+                    m_buf->pop_back();
+                }
             }
-            m_buf->pop_back();
             checker(_getch());
             break;
         }
@@ -99,7 +106,7 @@ void iochecker::checker(unsigned int ch)
 }
 
 std::ostream &operator <<(std::ostream &output, const iochecker &o)
-{	 
+{
     output << o.m_outputSymLim << o.m_lim;
     output << o.m_outputCheckMass << o.m_mas;
     output << o.m_outputSym;
@@ -171,6 +178,47 @@ const char* iochecker::repeatedChars(const char* in, bool mask)
     return symMask.c_str();
 }
 
+bool iochecker::isDigit(const char *c)
+{
+    while(*c)
+    {
+        if(*c < 48 || *c > 57)
+        {
+            return false;
+        }
+        ++c;
+    }
+
+    return true;
+}
+
+int iochecker::stoi(const char *str)
+{
+    int number=0;
+    int temp;
+    int sign=1;
+    //Проверка на отрицательность
+    if(*str=='-'){
+        str++;
+        sign=-1;
+    }
+    //Преобразование символов строки в разряды числа
+    while(*str){
+        temp=(int)*str++-48;
+        number+=temp;
+        number*=10;
+    }
+    number/=10;
+    //Проверка на вхождения числа в допустимый диапазон значений
+    if((number<-32768)||(number>32767)){
+        std::cout<<"Error 1. ";
+        std::cout<<"Number overload long int"<<std::endl;
+        exit(1);
+    }
+
+    return number*sign;
+}
+
 iochecker::iochecker(unsigned int lim,
                      std::vector<unsigned char> *buf,
                      const char *mas)
@@ -217,8 +265,8 @@ iochecker::~iochecker()
 }
 
 void iochecker::check(unsigned int ch)
-{		 
-    if(ch != ENTER && eqSym(m_mas, ch))
+{
+    if(eqSym(m_mas, ch))
     {
         checker(ch);
 
@@ -230,7 +278,7 @@ void iochecker::check(unsigned int ch)
 }
 
 std::istream &operator >>(std::istream &input, iochecker &o)
-{    
+{
     std::cout << o.m_inputSymLim;
     input >> o.m_lim;
     std::cout << o.m_inputCheckMass;
@@ -245,33 +293,51 @@ std::istream &operator >>(std::istream &input, iochecker &o)
     return input;
 }
 
+void iochecker::leadingZeros()
+{
+    while(m_buf->at(0) == '0' && m_buf->size() > 1 && m_buf->at(1) != '.')
+    {
+        m_buf->erase(m_buf->begin());
+    }
+}
+
+void iochecker::trailingZeros()
+{
+    bool dot = false;
+    unsigned int i = 0;
+    while(i < m_buf->size() && !dot)
+    {
+        if(m_buf->at(i++) == '.')
+        {
+            dot = true;
+        }
+    }
+    while(m_buf->at(m_buf->size() - 1) == '0' && dot && m_buf->size() > 1)
+    {
+        m_buf->erase(m_buf->end() - 1);
+    }
+}
+
 std::vector<unsigned char> iochecker::buffer(ZEROFLAGS zeros)
 {
-    if((zeros == LEADING || zeros == ALLZEROS) && m_buf->size() > 1)
+    if((zeros == LEADING) && m_buf->size() > 1)
     {
-        while(m_buf->at(0) == '0' && m_buf->at(1) != '.')
-        {
-            m_buf->erase(m_buf->begin());
-        }
+        leadingZeros();
 
         return *m_buf;
     }
 
-    if((zeros == TRAILING || zeros == ALLZEROS) && m_buf->size() > 1)
+    if((zeros == TRAILING) && m_buf->size() > 1)
     {
-        bool dot = false;
-        unsigned int i = 0;
-        while(i < m_buf->size() && !dot)
-        {
-            if(m_buf->at(i++) == '.')
-            {
-                dot = true;
-            }
-        }
-        while(m_buf->at(m_buf->size() - 1) == '0' && dot)
-        {
-            m_buf->erase(m_buf->end() - 1);
-        }
+        trailingZeros();
+
+        return *m_buf;
+    }
+
+    if((zeros == ALLZEROS) && m_buf->size() > 1)
+    {
+        leadingZeros();
+        trailingZeros();
 
         return *m_buf;
     }
@@ -286,20 +352,20 @@ std::string iochecker::stringBuffer(ZEROFLAGS zeros)
     buffer(zeros);
 
 
-        if(zeros == NOCHANGED)
+    if(zeros == NOCHANGED)
+    {
+        for(unsigned int index = 0; index < m_bufOrigin->size(); ++index)
         {
-            for(unsigned int index = 0; index < m_bufOrigin->size(); ++index)
-            {
-                s.push_back(m_bufOrigin->at(index));
-            }
+            s.push_back(m_bufOrigin->at(index));
         }
-        else
+    }
+    else
+    {
+        for(unsigned int index = 0; index < m_buf->size(); ++index)
         {
-            for(unsigned int index = 0; index < m_buf->size(); ++index)
-            {
-                s.push_back(m_buf->at(index));
-            }
+            s.push_back(m_buf->at(index));
         }
+    }
 
     return s;
 }
