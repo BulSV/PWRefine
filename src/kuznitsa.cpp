@@ -42,7 +42,9 @@ Kuznitsa::Kuznitsa(CATEGORY cat, std::string pro)
 }
 
 Kuznitsa::~Kuznitsa()
-{}
+{
+    //delete itsObject;
+}
 
 Object* Kuznitsa::object() const
 {

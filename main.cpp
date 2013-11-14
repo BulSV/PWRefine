@@ -49,113 +49,132 @@ void inputObjects(std::vector<Kuznitsa> &vk)
         switch(cat)
         {
         case 0: predmet = "оружия";
-                  break;
+            break;
         case 1: predmet = "шлема";
-                  break;
+            break;
         case 2: predmet = "накидки";
-                  break;
+            break;
         case 3: predmet = "бриджей";
-                  break;
+            break;
         case 4: predmet = "сапог";
-                  break;
+            break;
         case 5: predmet = "наручей";
-                  break;
+            break;
         case 6: predmet = "плаща";
-                  break;
+            break;
         case 7: predmet = "ожерелья";
-                  break;
+            break;
         case 8: predmet = "пояса";
-                  break;
+            break;
         case 9: predmet = "кольца";
-                  break;
+            break;
         default: exit(-7);
         }
 
-        std::cout << "\nВведите название " << predmet << ":\n";
+        std::cout << "\nВведите название " << predmet << " (или ENTER):\n";
         std::cin.ignore(); // Обязательно перед getline()
-        std::getline(std::cin, pro); // Считывает всю строку (даже с пробелами)
-        std::cout << std::endl;
+        /*std::getline(std::cin, pro); // Считывает всю строку (даже с пробелами)
+        std::cout << std::endl;*/
+        unsigned int t2 = _getch();
+        if(t2 != 13)
+        {
+            std::vector<unsigned char> vPro;
+            iochecker ioPro(29, &vPro, "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ");
+            ioPro.check(t2);
+            std::cout << std::endl;
+            pro = ioPro.stringBuffer(iochecker::ALLZEROS);
+        }
+        else
+        {
+            std::cin.putback(t2);
+        }
+        std::cin.ignore();
 
         switch(cat)
         {
         case 0:
-            {
-                Kuznitsa k(WEAPON, pro);
-                vk.push_back(k);
-                break;
-            }
+        {
+            Kuznitsa k(WEAPON, pro);
+            vk.push_back(k);
+            break;
+        }
         case 1:
-            {
-                Kuznitsa k(SHLEM, pro);
-                vk.push_back(k);
-                break;
-            }
+        {
+            Kuznitsa k(SHLEM, pro);
+            vk.push_back(k);
+            break;
+        }
         case 2:
-            {
-                Kuznitsa k(NAKIDKA, pro);
-                vk.push_back(k);
-                break;
-            }
+        {
+            Kuznitsa k(NAKIDKA, pro);
+            vk.push_back(k);
+            break;
+        }
         case 3:
-            {
-                Kuznitsa k(BRIDGY, pro);
-                vk.push_back(k);
-                break;
-            }
+        {
+            Kuznitsa k(BRIDGY, pro);
+            vk.push_back(k);
+            break;
+        }
         case 4:
-            {
-                Kuznitsa k(SAPOGI, pro);
-                vk.push_back(k);
-                break;
-            }
+        {
+            Kuznitsa k(SAPOGI, pro);
+            vk.push_back(k);
+            break;
+        }
         case 5:
-            {
-                Kuznitsa k(NARUCHI, pro);
-                vk.push_back(k);
-                break;
-            }
+        {
+            Kuznitsa k(NARUCHI, pro);
+            vk.push_back(k);
+            break;
+        }
         case 6:
-            {
-                Kuznitsa k(PLASCH, pro);
-                vk.push_back(k);
-                break;
-            }
+        {
+            Kuznitsa k(PLASCH, pro);
+            vk.push_back(k);
+            break;
+        }
         case 7:
-            {
-                Kuznitsa k(OZHERELYE, pro);
-                vk.push_back(k);
-                break;
-            }
+        {
+            Kuznitsa k(OZHERELYE, pro);
+            vk.push_back(k);
+            break;
+        }
         case 8:
-            {
-                Kuznitsa k(POYAS, pro);
-                vk.push_back(k);
-                break;
-            }
+        {
+            Kuznitsa k(POYAS, pro);
+            vk.push_back(k);
+            break;
+        }
         case 9:
-            {
-                Kuznitsa k(RING, pro);
-                vk.push_back(k);
-                break;
-            }
+        {
+            Kuznitsa k(RING, pro);
+            vk.push_back(k);
+            break;
+        }
         default: exit(-8);
         }
 
-        std::cout << "Введите уровень заточки:\n";
+        std::cout << "Введите уровень заточки (или ENTER):\n";
 
-        std::vector<unsigned char> vTochka;
-        iochecker ioTochka(2, &vTochka, "0123456789");
-
-        while(1)
+        unsigned int t = _getch();
+        unsigned int tochka = 0;
+        if(t != 13)
         {
-            ioTochka.check(_getch());
+            std::vector<unsigned char> vTochka;
+            iochecker ioTochka(2, &vTochka, "0123456789");
 
-            unsigned int tochka = iochecker::stoi(ioTochka.charBuffer(iochecker::ALLZEROS));
-
-            vk[vk.size() - 1].object()->setToch(tochka);
-            std::cin.get();
-            break;
+            ioTochka.check(t);
+            tochka = iochecker::stoi(ioTochka.charBuffer(iochecker::ALLZEROS));
         }
+        else
+        {
+            std::cin.putback(t);
+        }
+
+        vk[vk.size() - 1].object()->setToch(tochka);
+        std::cin.get();
+
         std::cout << std::endl;
         std::cout << "Предмет № " << i++ << " или выход (q):\n";
     }
@@ -166,25 +185,25 @@ std::string CATEGORYtoString(CATEGORY cat)
     switch(cat)
     {
     case WEAPON: return "Оружие";
-                 break;
+        break;
     case SHLEM: return "Шлем";
-                break;
+        break;
     case NAKIDKA: return "Накидка";
-                  break;
+        break;
     case BRIDGY: return "Бриджи";
-                 break;
+        break;
     case SAPOGI: return "Сапоги";
-                 break;
+        break;
     case NARUCHI: return "Наручи";
-                  break;
+        break;
     case PLASCH: return "Плащ";
-                 break;
+        break;
     case OZHERELYE: return "Ожерелье";
-                    break;
+        break;
     case POYAS: return "Пояс";
-                break;
+        break;
     case RING: return "Кольцо";
-               break;
+        break;
     default: exit(-9);
     }
 
@@ -196,13 +215,13 @@ void refineInfo(TOCHKA t)
     switch(t)
     {
     case UDACH: std::cout << "Улучшение прошло успешно!\n";
-                break;
+        break;
     case NEUDACH: std::cout << "Улучшение не прошло. Уровень заточки снизился на 1 уровень.\n";
-                  break;
+        break;
     case NEIZMEN: std::cout << "Улучшение не прошло. Уровень заточки не изменился.\n";
-                  break;
+        break;
     case RESET: std::cout << "Улучшение не прошло. Уровень заточки снизился до 0.\n";
-                break;
+        break;
     default: exit(-12);
     }
 }
@@ -217,13 +236,13 @@ void outputResults(const std::vector<Kuznitsa> &vk)
     std::cout.fill(' ');
 
     std::cout << std::left << std::setw(10) << "Предмет №"
-    << std::setw(10) << "Категория"
-    << std::setw(30) << "Описание"
-    << std::setw(8) << "Заточка"
-    << std::setw(8) << "Миражей"
-    << std::setw(8) << "Небесок"
-    << std::setw(9) << "Подземок"
-    << std::setw(10) << "Мирозданок\n";
+              << std::setw(10) << "Категория"
+              << std::setw(30) << "Описание"
+              << std::setw(8) << "Заточка"
+              << std::setw(8) << "Миражей"
+              << std::setw(8) << "Небесок"
+              << std::setw(9) << "Подземок"
+              << std::setw(10) << "Мирозданок\n";
 
     std::cout.fill('.');
 
@@ -246,11 +265,47 @@ void outputResults(const std::vector<Kuznitsa> &vk)
     }
 
     std::cout << std::setw(57) << "Всего:" << " "
-    << std::setw(7)<< mirazh << " "
-    << std::setw(7) << nebeska << " "
-    << std::setw(8) << podzemka << " "
-    << std::setw(10) << mirozdanka
-    << std::endl << std::endl;
+              << std::setw(7)<< mirazh << " "
+              << std::setw(7) << nebeska << " "
+              << std::setw(8) << podzemka << " "
+              << std::setw(10) << mirozdanka
+              << std::endl << std::endl;
+}
+
+void outputResults(const std::vector<Kuznitsa> &vk, unsigned int i)
+{
+    std::cout.fill(' ');
+
+    std::cout << std::left << std::setw(10) << "Предмет №"
+              << std::setw(10) << "Категория"
+              << std::setw(30) << "Описание"
+              << std::setw(8) << "Заточка"
+              << std::setw(8) << "Миражей"
+              << std::setw(8) << "Небесок"
+              << std::setw(9) << "Подземок"
+              << std::setw(10) << "Мирозданок\n";
+
+    std::cout.fill('.');
+
+    std::cout << std::left << std::setw(9) << i << " ";
+    std::cout << std::left << std::setw(9) << CATEGORYtoString(vk.at(i).object()->cat()) << " ";
+    std::cout << std::left << std::setw(29) << vk.at(i).object()->pro() << " ";
+    std::cout << std::left << std::setw(7) << vk.at(i).object()->toch() << " ";
+    std::cout << std::left << std::setw(7) << vk.at(i).object()->mirazh() << " ";
+    std::cout << std::left << std::setw(7) << vk.at(i).object()->nebeska() << " ";
+    std::cout << std::left << std::setw(8) << vk.at(i).object()->podzemka() << " ";
+    std::cout << std::left << std::setw(10) << vk.at(i).object()->mirozdanka();
+    std::cout << std::endl;
+
+    std::cout << std::endl;
+}
+
+void backspace(unsigned int count)
+{
+    while(count--)
+    {
+        std::cout << (char)8 << " " << (char)8;
+    }
 }
 
 void zatochka(std::vector<Kuznitsa> &vk)
@@ -260,93 +315,108 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
     while(1)
     {
-        std::cout << "Введите порядковый номер предмета для заточки или вывести список всех предметов (p):\n";
+        std::cout << "Введите порядковый номер предмета для заточки:\n";
 
         while(1)
         {
             std::vector<unsigned char> vRN;
-            iochecker ioRN(2, &vRN, "0123456789pp");
+            iochecker ioRN(2, &vRN, "0123456789");
 
             ioRN.check(_getch());
 
-            if(iochecker::isDigit(ioRN.charBuffer(iochecker::ALLZEROS)))
+            if(iochecker::isDigit(ioRN.charBuffer(iochecker::ALLZEROS))
+                    && iochecker::stoi(ioRN.charBuffer(iochecker::ALLZEROS)) < vk.size())
             {
                 i = iochecker::stoi(ioRN.charBuffer(iochecker::ALLZEROS));
 
                 std::cin.get();
                 break;
             }
-            else
-            {
-                std::cin.get();
-                std::cout << std::endl;
-                outputResults(vk);
-                std::cout << "Введите порядковый номер предмета для заточки или вывести список всех предметов (p):\n";
-            }
+
+            backspace(2);
         }
 
-        std::cout << std::endl;
+        std::cout << std::endl << std::endl;
+        outputResults(vk, i);
 
         if(i >= 0 && i < vk.size())
         {
             int stone = 0;
             Refine r;
 
-            std::cout << "Использовать камни?\n\t0 - Ничего, 1 - Небеску, 2 - Подземку, 3 - Мирозданку\n";
+            std::cout << "Использовать камни?\n\t0 (или ENTER) - Миражи, 1 - Небески, 2 - Подземки, 3 - Мирозданки\n";
 
-            while(1)
+            unsigned int t = _getch();
+            if(t != 13)
             {
                 std::vector<unsigned char> vStones;
                 iochecker ioStones(1, &vStones, "0123");
 
-                ioStones.check(_getch());
+                ioStones.check(t);
 
-                int ch = iochecker::stoi(ioStones.charBuffer(iochecker::ALLZEROS));
-
-                stone = ch;
-                std::cin.get();
-                break;
+                stone = iochecker::stoi(ioStones.charBuffer(iochecker::ALLZEROS));
             }
+            else
+            {
+                std::cin.putback(t);
+            }
+
+            std::cin.get();
             std::cout << std::endl;
 
             switch(stone)
             {
             case 0:
-                {
-                    r.goRefining(vk[i].object(), NOSTONE);
-                    break;
-                }
+            {
+                r.goRefining(vk[i].object(), NOSTONE);
+                break;
+            }
             case 1:
-                {
-                    r.goRefining(vk[i].object(), NEBESKA);
-                    break;
-                }
+            {
+                r.goRefining(vk[i].object(), NEBESKA);
+                break;
+            }
             case 2:
-                {
-                    r.goRefining(vk[i].object(), PODZEMKA);
-                    break;
-                }
+            {
+                r.goRefining(vk[i].object(), PODZEMKA);
+                break;
+            }
             case 3:
-                {
-                    r.goRefining(vk[i].object(), MIROZDANKA);
-                    break;
-                }
+            {
+                r.goRefining(vk[i].object(), MIROZDANKA);
+                break;
+            }
             default: exit(-11);
             }
 
             refineInfo(r.refineResult());
         }
 
-        std::cout << "Показать список всех предметов (p), продолжить заточку (r) или завершить программу (q)?\n";
+        std::cout << std::endl;
+        outputResults(vk, i);
+        std::cout << std::endl;
+        std::cout << "Показать список всех предметов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
+
+        unsigned int t2;
+        int ch;
 
         while(1)
         {
-            std::vector<unsigned char> vPRQ;
-            iochecker ioPRQ(1, &vPRQ, "prq");
+            t2 = _getch();
+            if(t2 != 13)
+            {
+                std::vector<unsigned char> vPRQ;
+                iochecker ioPRQ(1, &vPRQ, "prq");
 
-            ioPRQ.check(_getch());
+                ioPRQ.check(t2);
 
-            int ch = ioPRQ.buffer(iochecker::ALLZEROS).at(0);
+                ch = ioPRQ.buffer(iochecker::ALLZEROS).at(0);
+            }
+            else if(t2 == 13)
+            {
+                std::cin.putback(t2);
+                ch = 'r';
+            }
 
             if( ch == 'r' || ch == 'q')
             {
@@ -361,7 +431,7 @@ void zatochka(std::vector<Kuznitsa> &vk)
                 std::cin.get();
                 std::cout << std::endl;
                 outputResults(vk);
-                std::cout << "Показать список всех предметов (p), продолжить заточку (r) или завершить программу (q)?\n";
+                std::cout << "Показать список всех предметов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
             }
         }
 
@@ -374,9 +444,7 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
 int main()
 {
-    //SetConsoleCP(1251);
-    //SetConsoleOutputCP(1251);
-
+    //system("chcp 1251");
     std::vector<Kuznitsa> vk;
     char choice;
 
@@ -388,7 +456,7 @@ int main()
         while(1)
         {
             int ch = _getch(); // Считывает символ из потока, но не выводит его в поток.
-                              // Это своего рода защита ввода
+            // Это своего рода защита ввода
             if( ch == 'p' || ch == 'r')
             {
                 choice = ch;
@@ -402,9 +470,9 @@ int main()
         switch(choice)
         {
         case 'p': outputResults(vk);
-                  break;
+            break;
         case 'r': zatochka(vk);
-                  break;
+            break;
         default: exit(-10);
         }
     }

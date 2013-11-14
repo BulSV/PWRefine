@@ -2,13 +2,13 @@
 #include <stdlib.h>
 
 Object::Object()
-: itsMirazhey(0)
-, itsNebesok(0)
-, itsPodzemok(0)
-, itsMirozdanok(0)
-, itsCategory(NOCATEGORY)
-, itsProperty("NOPROPERTY")
-, itsTochka(0)
+    : itsMirazhey(0)
+    , itsNebesok(0)
+    , itsPodzemok(0)
+    , itsMirozdanok(0)
+    , itsCategory(NOCATEGORY)
+    , itsProperty("NOPROPERTY")
+    , itsTochka(0)
 {
     //ctor
 }
@@ -22,29 +22,29 @@ void Object::refine(TOCHKA toch, STONES st)
 {
     switch(toch)
     {
-        case RESET: itsTochka = 0;
-                    break;
-        case NEUDACH: if(itsTochka) itsTochka--;
-                      break;
-        case NEIZMEN: break;
-        case UDACH: if(itsTochka < 12) itsTochka++;
-                    break;
-        default: exit(-1);
+    case RESET: itsTochka = 0;
+        break;
+    case NEUDACH: if(itsTochka) itsTochka--;
+        break;
+    case NEIZMEN: break;
+    case UDACH: if(itsTochka < 12) itsTochka++;
+        break;
+    default: exit(-1);
     }
     switch(st)
     {
-        case NOSTONE: incMirazh();
-                      break;
-        case NEBESKA: incMirazh();
-                      incNebeska();
-                      break;
-        case PODZEMKA: incMirazh();
-                       incPodzemka();
-                       break;
-        case MIROZDANKA: incMirazh();
-                         incMirozdanka();
-                         break;
-        default: exit(-2);
+    case NOSTONE: incMirazh();
+        break;
+    case NEBESKA: incMirazh();
+        incNebeska();
+        break;
+    case PODZEMKA: incMirazh();
+        incPodzemka();
+        break;
+    case MIROZDANKA: incMirazh();
+        incMirozdanka();
+        break;
+    default: exit(-2);
     }
 }
 
@@ -60,7 +60,19 @@ std::string Object::pro() const
 
 void Object::setToch(int tochka)
 {
-    itsTochka = (tochka >=0 && tochka <= 12) ? tochka : 0;
+    //itsTochka = (tochka >=0 && tochka <= 12) ? tochka : 0;
+    if(tochka >=0 && tochka <= 12)
+    {
+        itsTochka = tochka;
+    }
+    if(tochka < 0)
+    {
+        itsTochka = 0;
+    }
+    if(tochka > 12)
+    {
+        itsTochka = 12;
+    }
 }
 
 int Object::toch() const
