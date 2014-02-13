@@ -2,6 +2,7 @@
 *.slo
 *.lo
 *.o
+object_script.*
 
 # Compiled Dynamic libraries
 *.so
