@@ -1,13 +1,13 @@
-#include "../include/ring.h"
+#include "../include/koltso.h"
 
-Ring::Ring(std::string pro)
+Koltso::Koltso(std::string pro)
 {
     itsCategory = RING;
     itsProperty = pro;
     itsTochka = 0;
 }
 
-Ring::~Ring()
+Koltso::Koltso()
 {
     //dtor
 }

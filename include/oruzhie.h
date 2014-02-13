@@ -4,11 +4,11 @@
 #include "dospeh.h"
 
 
-class Weapon: public Dospeh
+class Oruzhie: public Dospeh
 {
 public:
-    Weapon(std::string pro);
-    virtual ~Weapon();
+    Oruzhie(std::string pro);
+    virtual ~Oruzhie();
 private:
     virtual void incMirazh();
 };
