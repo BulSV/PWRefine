@@ -1,10 +1,10 @@
 #ifndef NARUCHI_H
 #define NARUCHI_H
 
-#include "object.h"
+#include "dospeh.h"
 
 
-class Naruchi : public Object
+class Naruchi : public Dospeh
 {
 public:
     Naruchi(std::string pro);

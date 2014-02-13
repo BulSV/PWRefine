@@ -1,10 +1,10 @@
 #ifndef BRIDGY_H
 #define BRIDGY_H
 
-#include "object.h"
+#include "dospeh.h"
 
 
-class Bridgy : public Object
+class Bridgy : public Dospeh
 {
 public:
     Bridgy(std::string pro);

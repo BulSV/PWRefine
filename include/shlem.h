@@ -1,9 +1,9 @@
 #ifndef SHLEM_H
 #define SHLEM_H
 
-#include "object.h"
+#include "dospeh.h"
 
-class Shlem : public Object
+class Shlem : public Dospeh
 {
 public:
     Shlem(std::string pro);

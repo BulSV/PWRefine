@@ -9,7 +9,7 @@
 #include "include/iochecker.h"
 #include <stdlib.h>
 
-void inputObjects(std::vector<Kuznitsa> &vk)
+void inputdospehs(std::vector<Kuznitsa> &vk)
 {
     int i = 0;
     char cat;
@@ -172,7 +172,7 @@ void inputObjects(std::vector<Kuznitsa> &vk)
             std::cin.putback(t);
         }
 
-        vk[vk.size() - 1].object()->setToch(tochka);
+        vk[vk.size() - 1].dospeh()->setToch(tochka);
         std::cin.get();
 
         std::cout << std::endl;
@@ -249,19 +249,19 @@ void outputResults(const std::vector<Kuznitsa> &vk)
     for(unsigned int i = 0; i < vk.size(); ++i)
     {
         std::cout << std::left << std::setw(9) << i << " ";
-        std::cout << std::left << std::setw(9) << CATEGORYtoString(vk.at(i).object()->cat()) << " ";
-        std::cout << std::left << std::setw(29) << vk.at(i).object()->pro() << " ";
-        std::cout << std::left << std::setw(7) << vk.at(i).object()->toch() << " ";
-        std::cout << std::left << std::setw(7) << vk.at(i).object()->mirazh() << " ";
-        std::cout << std::left << std::setw(7) << vk.at(i).object()->nebeska() << " ";
-        std::cout << std::left << std::setw(8) << vk.at(i).object()->podzemka() << " ";
-        std::cout << std::left << std::setw(10) << vk.at(i).object()->mirozdanka();
+        std::cout << std::left << std::setw(9) << CATEGORYtoString(vk.at(i).dospeh()->cat()) << " ";
+        std::cout << std::left << std::setw(29) << vk.at(i).dospeh()->pro() << " ";
+        std::cout << std::left << std::setw(7) << vk.at(i).dospeh()->toch() << " ";
+        std::cout << std::left << std::setw(7) << vk.at(i).dospeh()->mirazh() << " ";
+        std::cout << std::left << std::setw(7) << vk.at(i).dospeh()->nebeska() << " ";
+        std::cout << std::left << std::setw(8) << vk.at(i).dospeh()->podzemka() << " ";
+        std::cout << std::left << std::setw(10) << vk.at(i).dospeh()->mirozdanka();
         std::cout << std::endl;
 
-        mirazh += vk.at(i).object()->mirazh();
-        nebeska += vk.at(i).object()->nebeska();
-        podzemka += vk.at(i).object()->podzemka();
-        mirozdanka += vk.at(i).object()->mirozdanka();
+        mirazh += vk.at(i).dospeh()->mirazh();
+        nebeska += vk.at(i).dospeh()->nebeska();
+        podzemka += vk.at(i).dospeh()->podzemka();
+        mirozdanka += vk.at(i).dospeh()->mirozdanka();
     }
 
     std::cout << std::setw(57) << "Всего:" << " "
@@ -288,13 +288,13 @@ void outputResults(const std::vector<Kuznitsa> &vk, unsigned int i)
     std::cout.fill('.');
 
     std::cout << std::left << std::setw(9) << i << " ";
-    std::cout << std::left << std::setw(9) << CATEGORYtoString(vk.at(i).object()->cat()) << " ";
-    std::cout << std::left << std::setw(29) << vk.at(i).object()->pro() << " ";
-    std::cout << std::left << std::setw(7) << vk.at(i).object()->toch() << " ";
-    std::cout << std::left << std::setw(7) << vk.at(i).object()->mirazh() << " ";
-    std::cout << std::left << std::setw(7) << vk.at(i).object()->nebeska() << " ";
-    std::cout << std::left << std::setw(8) << vk.at(i).object()->podzemka() << " ";
-    std::cout << std::left << std::setw(10) << vk.at(i).object()->mirozdanka();
+    std::cout << std::left << std::setw(9) << CATEGORYtoString(vk.at(i).dospeh()->cat()) << " ";
+    std::cout << std::left << std::setw(29) << vk.at(i).dospeh()->pro() << " ";
+    std::cout << std::left << std::setw(7) << vk.at(i).dospeh()->toch() << " ";
+    std::cout << std::left << std::setw(7) << vk.at(i).dospeh()->mirazh() << " ";
+    std::cout << std::left << std::setw(7) << vk.at(i).dospeh()->nebeska() << " ";
+    std::cout << std::left << std::setw(8) << vk.at(i).dospeh()->podzemka() << " ";
+    std::cout << std::left << std::setw(10) << vk.at(i).dospeh()->mirozdanka();
     std::cout << std::endl;
 
     std::cout << std::endl;
@@ -368,22 +368,22 @@ void zatochka(std::vector<Kuznitsa> &vk)
             {
             case 0:
             {
-                r.goRefining(vk[i].object(), NOSTONE);
+                r.goRefining(vk[i].dospeh(), NOSTONE);
                 break;
             }
             case 1:
             {
-                r.goRefining(vk[i].object(), NEBESKA);
+                r.goRefining(vk[i].dospeh(), NEBESKA);
                 break;
             }
             case 2:
             {
-                r.goRefining(vk[i].object(), PODZEMKA);
+                r.goRefining(vk[i].dospeh(), PODZEMKA);
                 break;
             }
             case 3:
             {
-                r.goRefining(vk[i].object(), MIROZDANKA);
+                r.goRefining(vk[i].dospeh(), MIROZDANKA);
                 break;
             }
             default: exit(-11);
@@ -448,7 +448,7 @@ int main()
     std::vector<Kuznitsa> vk;
     char choice;
 
-    inputObjects(vk);
+    inputdospehs(vk);
 
     while(1)
     {

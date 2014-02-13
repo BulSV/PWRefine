@@ -1,10 +1,10 @@
 #ifndef NAKIDKA_H
 #define NAKIDKA_H
 
-#include "object.h"
+#include "dospeh.h"
 
 
-class Nakidka : public Object
+class Nakidka : public Dospeh
 {
 public:
     Nakidka(std::string pro);

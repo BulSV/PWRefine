@@ -15,27 +15,27 @@ Kuznitsa::Kuznitsa(CATEGORY cat, std::string pro)
 {
     switch(cat)
     {
-    /*case NOCATEGORY: itsObject = new Object;
+    /*case NOCATEGORY: itsdospeh = new dospeh;
                      break;*/
-    case WEAPON: itsObject = new Weapon(pro);
+    case WEAPON: itsdospeh = new Weapon(pro);
                  break;
-    case SHLEM: itsObject = new Shlem(pro);
+    case SHLEM: itsdospeh = new Shlem(pro);
                 break;
-    case NAKIDKA: itsObject = new Nakidka(pro);
+    case NAKIDKA: itsdospeh = new Nakidka(pro);
                   break;
-    case BRIDGY: itsObject = new Bridgy(pro);
+    case BRIDGY: itsdospeh = new Bridgy(pro);
                  break;
-    case SAPOGI: itsObject = new Sapogi(pro);
+    case SAPOGI: itsdospeh = new Sapogi(pro);
                  break;
-    case NARUCHI: itsObject = new Naruchi(pro);
+    case NARUCHI: itsdospeh = new Naruchi(pro);
                   break;
-    case PLASCH: itsObject = new Plasch(pro);
+    case PLASCH: itsdospeh = new Plasch(pro);
                  break;
-    case OZHERELYE: itsObject = new Ozherelye(pro);
+    case OZHERELYE: itsdospeh = new Ozherelye(pro);
                     break;
-    case POYAS: itsObject = new Poyas(pro);
+    case POYAS: itsdospeh = new Poyas(pro);
                 break;
-    case RING: itsObject = new Ring(pro);
+    case RING: itsdospeh = new Ring(pro);
                break;
     default: exit(-5);
     }
@@ -43,10 +43,10 @@ Kuznitsa::Kuznitsa(CATEGORY cat, std::string pro)
 
 Kuznitsa::~Kuznitsa()
 {
-    //delete itsObject;
+    //delete itsdospeh;
 }
 
-Object* Kuznitsa::object() const
+Dospeh* Kuznitsa::dospeh() const
 {
-    return itsObject;
+    return itsdospeh;
 }
