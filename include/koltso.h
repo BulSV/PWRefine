@@ -1,14 +1,14 @@
-#ifndef RING_H
-#define RING_H
+#ifndef KOLTSO_H
+#define KOLTSO_H
 
 #include "dospeh.h"
 
 
-class Ring : public Dospeh
+class Koltso : public Dospeh
 {
 public:
-    Ring(std::string pro);
-    virtual ~Ring();
+    Koltso(std::string pro);
+    virtual ~Koltso();
 };
 
-#endif // RING_H
+#endif // KOLTSO_H
