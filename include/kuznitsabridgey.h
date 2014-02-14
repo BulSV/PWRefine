@@ -8,7 +8,9 @@ class KuznitsaBridgey: public Kuznitsa
 {
 public:
     KuznitsaBridgey();
+
     virtual Dospeh *createDospeh(std::string pro) const;
+
     virtual ~KuznitsaBridgey();
 };
 
