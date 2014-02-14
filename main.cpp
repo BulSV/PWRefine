@@ -6,6 +6,8 @@
 #include <conio.h>
 #include <windows.h>
 #include <iomanip>
+#include "include/iochecker.h"
+#include <stdlib.h>
 
 void inputObjects(std::vector<Kuznitsa> &vk)
 {
@@ -14,118 +16,123 @@ void inputObjects(std::vector<Kuznitsa> &vk)
     std::string predmet;
     std::string pro;
 
-    std::cout << "Ââåäèòå ïðåäìåòû äëÿ çàòî÷êè.\n";
+    std::cout << "‚¢¥¤¨â¥ ¯à¥¤¬¥âë ¤«ï § â®çª¨.\n";
+    std::cout << "à¥¤¬¥â ü " << i++ << ":\n";
 
-    while(cat != 'q')
+    while(1)
     {
-        std::cout << "Ïðåäìåò ¹ " << i++ << " èëè âûõîä (q):\n";
-        std::cout << "0 - Îðóæèå, 1 - Øëåì, 2 - Íàêèäêà, 3 - Áðèäæè, 4 - Ñàïîãè,\n";
-        std::cout << "5 - Íàðó÷è, 6 - Ïëàù, 7 - Îæåðåëüå, 8 - Ïîÿñ, 9 - Êîëüöî\n";
 
-        while(1)
+        std::cout << "0 - Žàã¦¨¥, 1 - ˜«¥¬, 2 -  ª¨¤ª , 3 - à¨¤¦¨, 4 - ‘ ¯®£¨,\n";
+        std::cout << "5 -  àãç¨, 6 - « é, 7 - Ž¦¥à¥«ì¥, 8 - ®ïá, 9 - Š®«ìæ®\n";
+
+        std::vector<unsigned char> vInput;
+        iochecker ioInput(1, &vInput, "0123456789q");
+
+        ioInput.check(_getch());
+
+        if(iochecker::isDigit(ioInput.charBuffer(iochecker::ALLZEROS)))
         {
-            int ch = getch(); // Ñ÷èòûâàåò ñèìâîë èç ïîòîêà, íî íå âûâîäèò åãî â ïîòîê.
-                              // Ýòî ñâîåãî ðîäà çàùèòà ââîäà
-            if( (ch >= '0' && ch <= '9') || ch == 'q')
-            {
-                cat = ch;
-                std::cout << cat;
-                std::cin.get();
-                break;
-            }
+            cat = (char)iochecker::stoi(ioInput.charBuffer(iochecker::ALLZEROS));
         }
-        std::cout << std::endl;
+        else
+        {
+            cat = ioInput.buffer(iochecker::ALLZEROS).at(0);
+        }
 
-        if(cat == 'q') break;
+        if(cat == 'q')
+        {
+            std::cout << std::endl;
+            std::cin.get();
+            break;
+        }
 
         switch(cat)
         {
-        case '0': predmet = "îðóæèÿ";
+        case 0: predmet = "®àã¦¨ï";
                   break;
-        case '1': predmet = "øëåìà";
+        case 1: predmet = "è«¥¬ ";
                   break;
-        case '2': predmet = "íàêèäêè";
+        case 2: predmet = "­ ª¨¤ª¨";
                   break;
-        case '3': predmet = "áðèäæåé";
+        case 3: predmet = "¡à¨¤¦¥©";
                   break;
-        case '4': predmet = "ñàïîã";
+        case 4: predmet = "á ¯®£";
                   break;
-        case '5': predmet = "íàðó÷åé";
+        case 5: predmet = "­ àãç¥©";
                   break;
-        case '6': predmet = "ïëàùà";
+        case 6: predmet = "¯« é ";
                   break;
-        case '7': predmet = "îæåðåëüÿ";
+        case 7: predmet = "®¦¥à¥«ìï";
                   break;
-        case '8': predmet = "ïîÿñà";
+        case 8: predmet = "¯®ïá ";
                   break;
-        case '9': predmet = "êîëüöà";
+        case 9: predmet = "ª®«ìæ ";
                   break;
         default: exit(-7);
         }
 
-        std::cout << "Ââåäèòå íàçâàíèå " << predmet << ":\n";
-        //std::cin.ignore(); // Îáÿçàòåëüíî ïåðåä getline()
-        std::getline(std::cin, pro); // Ñ÷èòûâàåò âñþ ñòðîêó (äàæå ñ ïðîáåëàìè)
+        std::cout << "\n‚¢¥¤¨â¥ ­ §¢ ­¨¥ " << predmet << ":\n";
+        std::cin.ignore(); // Ž¡ï§ â¥«ì­® ¯¥à¥¤ getline()
+        std::getline(std::cin, pro); // ‘ç¨âë¢ ¥â ¢áî áâà®ªã (¤ ¦¥ á ¯à®¡¥« ¬¨)
         std::cout << std::endl;
 
         switch(cat)
         {
-        case 'q': break;
-        case '0':
+        case 0:
             {
                 Kuznitsa k(WEAPON, pro);
                 vk.push_back(k);
                 break;
             }
-        case '1':
+        case 1:
             {
                 Kuznitsa k(SHLEM, pro);
                 vk.push_back(k);
                 break;
             }
-        case '2':
+        case 2:
             {
                 Kuznitsa k(NAKIDKA, pro);
                 vk.push_back(k);
                 break;
             }
-        case '3':
+        case 3:
             {
                 Kuznitsa k(BRIDGY, pro);
                 vk.push_back(k);
                 break;
             }
-        case '4':
+        case 4:
             {
                 Kuznitsa k(SAPOGI, pro);
                 vk.push_back(k);
                 break;
             }
-        case '5':
+        case 5:
             {
                 Kuznitsa k(NARUCHI, pro);
                 vk.push_back(k);
                 break;
             }
-        case '6':
+        case 6:
             {
                 Kuznitsa k(PLASCH, pro);
                 vk.push_back(k);
                 break;
             }
-        case '7':
+        case 7:
             {
                 Kuznitsa k(OZHERELYE, pro);
                 vk.push_back(k);
                 break;
             }
-        case '8':
+        case 8:
             {
                 Kuznitsa k(POYAS, pro);
                 vk.push_back(k);
                 break;
             }
-        case '9':
+        case 9:
             {
                 Kuznitsa k(RING, pro);
                 vk.push_back(k);
@@ -133,6 +140,24 @@ void inputObjects(std::vector<Kuznitsa> &vk)
             }
         default: exit(-8);
         }
+
+        std::cout << "‚¢¥¤¨â¥ ãà®¢¥­ì § â®çª¨:\n";
+
+        std::vector<unsigned char> vTochka;
+        iochecker ioTochka(2, &vTochka, "0123456789");
+
+        while(1)
+        {
+			ioTochka.check(_getch());
+
+            unsigned int tochka = iochecker::stoi(ioTochka.charBuffer(iochecker::ALLZEROS));
+
+            vk[vk.size() - 1].object()->setToch(tochka);
+            std::cin.get();
+            break;
+        }
+        std::cout << std::endl;
+        std::cout << "à¥¤¬¥â ü " << i++ << " ¨«¨ ¢ëå®¤ (q):\n";
     }
 }
 
@@ -140,43 +165,43 @@ std::string CATEGORYtoString(CATEGORY cat)
 {
     switch(cat)
     {
-    case WEAPON: return "Îðóæèå";
+    case WEAPON: return "Žàã¦¨¥";
                  break;
-    case SHLEM: return "Øëåì";
+    case SHLEM: return "˜«¥¬";
                 break;
-    case NAKIDKA: return "Íàêèäêà";
+    case NAKIDKA: return " ª¨¤ª ";
                   break;
-    case BRIDGY: return "Áðèäæè";
+    case BRIDGY: return "à¨¤¦¨";
                  break;
-    case SAPOGI: return "Ñàïîãè";
+    case SAPOGI: return "‘ ¯®£¨";
                  break;
-    case NARUCHI: return "Íàðó÷è";
+    case NARUCHI: return " àãç¨";
                   break;
-    case PLASCH: return "Ïëàù";
+    case PLASCH: return "« é";
                  break;
-    case OZHERELYE: return "Îæåðåëüå";
+    case OZHERELYE: return "Ž¦¥à¥«ì¥";
                     break;
-    case POYAS: return "Ïîÿñ";
+    case POYAS: return "®ïá";
                 break;
-    case RING: return "Êîëüöî";
+    case RING: return "Š®«ìæ®";
                break;
     default: exit(-9);
     }
 
-    return "Íåò êàòåãîðèè";
+    return "¥â ª â¥£®à¨¨";
 }
 
 void refineInfo(TOCHKA t)
 {
     switch(t)
     {
-    case UDACH: std::cout << "Óëó÷øåíèå ïðîøëî óñïåøíî!\n";
+    case UDACH: std::cout << "“«ãçè¥­¨¥ ¯à®è«® ãá¯¥è­®!\n";
                 break;
-    case NEUDACH: std::cout << "Óëó÷øåíèå íå ïðîøëî. Óðîâåíü çàòî÷êè ñíèçèëñÿ íà 1 óðîâåíü.\n";
+    case NEUDACH: std::cout << "“«ãçè¥­¨¥ ­¥ ¯à®è«®. “à®¢¥­ì § â®çª¨ á­¨§¨«áï ­  1 ãà®¢¥­ì.\n";
                   break;
-    case NEIZMEN: std::cout << "Óëó÷øåíèå íå ïðîøëî. Óðîâåíü çàòî÷êè íå èçìåíèëñÿ.\n";
+    case NEIZMEN: std::cout << "“«ãçè¥­¨¥ ­¥ ¯à®è«®. “à®¢¥­ì § â®çª¨ ­¥ ¨§¬¥­¨«áï.\n";
                   break;
-    case RESET: std::cout << "Óëó÷øåíèå íå ïðîøëî. Óðîâåíü çàòî÷êè ñíèçèëñÿ äî 0.\n";
+    case RESET: std::cout << "“«ãçè¥­¨¥ ­¥ ¯à®è«®. “à®¢¥­ì § â®çª¨ á­¨§¨«áï ¤® 0.\n";
                 break;
     default: exit(-12);
     }
@@ -189,30 +214,21 @@ void outputResults(const std::vector<Kuznitsa> &vk)
     int podzemka = 0;
     int mirozdanka = 0;
 
-    //std::cout << "Ïðåäìåò ¹\tÊàòåãîðèÿ\tÎïèñàíèå\t\tÇàòî÷êà\tÌèðàæåé\tÍåáåñîê\tÏîäçåìîê Ìèðîçäàíîê\n";
     std::cout.fill(' ');
 
-    std::cout << std::left << std::setw(10) << "Ïðåäìåò ¹"
-    << std::setw(10) << "Êàòåãîðèÿ"
-    << std::setw(30) << "Îïèñàíèå"
-    << std::setw(8) << "Çàòî÷êà"
-    << std::setw(8) << "Ìèðàæåé"
-    << std::setw(8) << "Íåáåñîê"
-    << std::setw(9) << "Ïîäçåìîê"
-    << std::setw(10) << "Ìèðîçäàíîê\n";
+    std::cout << std::left << std::setw(10) << "à¥¤¬¥â ü"
+    << std::setw(10) << "Š â¥£®à¨ï"
+    << std::setw(30) << "Ž¯¨á ­¨¥"
+    << std::setw(8) << "‡ â®çª "
+    << std::setw(8) << "Œ¨à ¦¥©"
+    << std::setw(8) << "¥¡¥á®ª"
+    << std::setw(9) << "®¤§¥¬®ª"
+    << std::setw(10) << "Œ¨à®§¤ ­®ª\n";
 
     std::cout.fill('.');
 
     for(unsigned int i = 0; i < vk.size(); ++i)
     {
-        /*std::cout << i << "\t\t";
-        std::cout << CATEGORYtoString(vk.at(i).object()->cat()) << "\t\t";
-        std::cout << vk.at(i).object()->pro() << "\t";
-        std::cout << vk.at(i).object()->toch() << "\t";
-        std::cout << vk.at(i).object()->mirazh() << "\t";
-        std::cout << vk.at(i).object()->nebeska() << "\t";
-        std::cout << vk.at(i).object()->podzemka() << "\t ";
-        std::cout << vk.at(i).object()->mirozdanka() << "\n";*/
         std::cout << std::left << std::setw(9) << i << " ";
         std::cout << std::left << std::setw(9) << CATEGORYtoString(vk.at(i).object()->cat()) << " ";
         std::cout << std::left << std::setw(29) << vk.at(i).object()->pro() << " ";
@@ -229,39 +245,12 @@ void outputResults(const std::vector<Kuznitsa> &vk)
         mirozdanka += vk.at(i).object()->mirozdanka();
     }
 
-    std::cout << std::setw(57) << "Âñåãî:" << " "
+    std::cout << std::setw(57) << "‚á¥£®:" << " "
     << std::setw(7)<< mirazh << " "
     << std::setw(7) << nebeska << " "
     << std::setw(8) << podzemka << " "
     << std::setw(10) << mirozdanka
     << std::endl << std::endl;
-}
-
-void inputNumber(unsigned int &c)
-{
-    std::cout << c - '0' << '\r';
-    char *cNum = new char;
-    unsigned int num = 0;
-
-    cNum[0] = c;
-    num = c - '0';
-    c = getch();
-
-    if(c >= '0' && c <= '9')
-    {
-        cNum[1] = c;
-        num = cNum[0] - '0';
-        num *= 10;
-        num += cNum[1] - '0';
-    }
-    else
-    {
-        std::cin.putback(c);
-    }
-
-    c = num;
-    cNum = 0;
-    delete cNum;
 }
 
 void zatochka(std::vector<Kuznitsa> &vk)
@@ -271,26 +260,28 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
     while(1)
     {
-        std::cout << "Ââåäèòå ïîðÿäêîâûé íîìåð ïðåäìåòà äëÿ çàòî÷êè èëè âûâåñòè ñïèñîê âñåõ ïðåäìåòîâ (p):\n";
+        std::cout << "‚¢¥¤¨â¥ ¯®àï¤ª®¢ë© ­®¬¥à ¯à¥¤¬¥â  ¤«ï § â®çª¨ ¨«¨ ¢ë¢¥áâ¨ á¯¨á®ª ¢á¥å ¯à¥¤¬¥â®¢ (p):\n";
+
         while(1)
         {
-            unsigned int ch = getch(); // Ñ÷èòûâàåò ñèìâîë èç ïîòîêà, íî íå âûâîäèò åãî â ïîòîê.
-                                       // Ýòî ñâîåãî ðîäà çàùèòà ââîäà
-            if( ch >= '0' && ch <= '9' )
+            std::vector<unsigned char> vRN;
+            iochecker ioRN(2, &vRN, "0123456789pp");
+
+            ioRN.check(_getch());
+
+            if(iochecker::isDigit(ioRN.charBuffer(iochecker::ALLZEROS)))
             {
-                inputNumber(ch);
-                i = ch;
-                std::cout << i;
+                i = iochecker::stoi(ioRN.charBuffer(iochecker::ALLZEROS));
+
                 std::cin.get();
                 break;
             }
-            if(ch == 'p')
+            else
             {
-                choice = ch;
-                std::cout << choice;
                 std::cin.get();
+                std::cout << std::endl;
                 outputResults(vk);
-                std::cout << "Ââåäèòå ïîðÿäêîâûé íîìåð ïðåäìåòà äëÿ çàòî÷êè èëè âûâåñòè ñïèñîê âñåõ ïðåäìåòîâ (p):\n";
+                std::cout << "‚¢¥¤¨â¥ ¯®àï¤ª®¢ë© ­®¬¥à ¯à¥¤¬¥â  ¤«ï § â®çª¨ ¨«¨ ¢ë¢¥áâ¨ á¯¨á®ª ¢á¥å ¯à¥¤¬¥â®¢ (p):\n";
             }
         }
 
@@ -301,19 +292,20 @@ void zatochka(std::vector<Kuznitsa> &vk)
             int stone = 0;
             Refine r;
 
-            std::cout << "Èñïîëüçîâàòü êàìíè?\n\t0 - Íè÷åãî, 1 - Íåáåñêó, 2 - Ïîäçåìêó, 3 - Ìèðîçäàíêó\n";
+            std::cout << "ˆá¯®«ì§®¢ âì ª ¬­¨?\n\t0 - ¨ç¥£®, 1 - ¥¡¥áªã, 2 - ®¤§¥¬ªã, 3 - Œ¨à®§¤ ­ªã\n";
 
             while(1)
             {
-                int ch = getch(); // Ñ÷èòûâàåò ñèìâîë èç ïîòîêà, íî íå âûâîäèò åãî â ïîòîê.
-                                  // Ýòî ñâîåãî ðîäà çàùèòà ââîäà
-                if( ch >= '0' && ch <= '3')
-                {
-                    stone = ch - '0';
-                    std::cout << stone;
-                    std::cin.get();
-                    break;
-                }
+                std::vector<unsigned char> vStones;
+                iochecker ioStones(1, &vStones, "0123");
+
+                ioStones.check(_getch());
+
+                int ch = iochecker::stoi(ioStones.charBuffer(iochecker::ALLZEROS));
+
+                stone = ch;
+                std::cin.get();
+                break;
             }
             std::cout << std::endl;
 
@@ -345,26 +337,31 @@ void zatochka(std::vector<Kuznitsa> &vk)
             refineInfo(r.refineResult());
         }
 
-        std::cout << "Ïîêàçàòü ñïèñîê âñåõ ïðåäìåòîâ (p), ïðîäîëæèòü çàòî÷êó (r) èëè çàâåðøèòü ïðîãðàììó (q)?\n";
+        std::cout << "®ª § âì á¯¨á®ª ¢á¥å ¯à¥¤¬¥â®¢ (p), ¯à®¤®«¦¨âì § â®çªã (r) ¨«¨ § ¢¥àè¨âì ¯à®£à ¬¬ã (q)?\n";
 
         while(1)
         {
-            int ch = getch(); // Ñ÷èòûâàåò ñèìâîë èç ïîòîêà, íî íå âûâîäèò åãî â ïîòîê.
-                              // Ýòî ñâîåãî ðîäà çàùèòà ââîäà
+            std::vector<unsigned char> vPRQ;
+            iochecker ioPRQ(1, &vPRQ, "prq");
+
+            ioPRQ.check(_getch());
+
+            int ch = ioPRQ.buffer(iochecker::ALLZEROS).at(0);
+
             if( ch == 'r' || ch == 'q')
             {
                 choice = ch;
-                std::cout << choice;
                 std::cin.get();
+                std::cout << std::endl;
                 break;
             }
             if(ch == 'p')
             {
                 choice = ch;
-                std::cout << choice;
                 std::cin.get();
+                std::cout << std::endl;
                 outputResults(vk);
-                std::cout << "Ïîêàçàòü ñïèñîê âñåõ ïðåäìåòîâ (p), ïðîäîëæèòü çàòî÷êó (r) èëè çàâåðøèòü ïðîãðàììó (q)?\n";
+                std::cout << "®ª § âì á¯¨á®ª ¢á¥å ¯à¥¤¬¥â®¢ (p), ¯à®¤®«¦¨âì § â®çªã (r) ¨«¨ § ¢¥àè¨âì ¯à®£à ¬¬ã (q)?\n";
             }
         }
 
@@ -377,8 +374,8 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
 int main()
 {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    //SetConsoleCP(1251);
+    //SetConsoleOutputCP(1251);
 
     std::vector<Kuznitsa> vk;
     char choice;
@@ -387,11 +384,11 @@ int main()
 
     while(1)
     {
-        std::cout << "Âñå ïðåäìåòû ââåäåíû. Ïîêàçàòü ñïèñîê âñåõ ïðåäìåòîâ (p) èëè íà÷àòü çàòî÷êó (r)?\n";
+        std::cout << "‚á¥ ¯à¥¤¬¥âë ¢¢¥¤¥­ë. ®ª § âì á¯¨á®ª ¢á¥å ¯à¥¤¬¥â®¢ (p) ¨«¨ ­ ç âì § â®çªã (r)?\n";
         while(1)
         {
-            int ch = getch(); // Ñ÷èòûâàåò ñèìâîë èç ïîòîêà, íî íå âûâîäèò åãî â ïîòîê.
-                              // Ýòî ñâîåãî ðîäà çàùèòà ââîäà
+            int ch = _getch(); // ‘ç¨âë¢ ¥â á¨¬¢®« ¨§ ¯®â®ª , ­® ­¥ ¢ë¢®¤¨â ¥£® ¢ ¯®â®ª.
+                              // â® á¢®¥£® à®¤  § é¨â  ¢¢®¤ 
             if( ch == 'p' || ch == 'r')
             {
                 choice = ch;
@@ -415,67 +412,67 @@ int main()
     return 0;
 }
 
-/* Ââåäèòå ïðåäìåòû äëÿ çàòî÷êè.
-Ïðåäìåò ¹ 1 èëè âûõîä (q):
+/* ‚¢¥¤¨â¥ ¯à¥¤¬¥âë ¤«ï § â®çª¨.
+à¥¤¬¥â ü 1 ¨«¨ ¢ëå®¤ (q):
     //0 - WEAPON, 1 - SHLEM, 2 - NAKIDKA, 3 - BRIDGY, 4 - SAPOGI, 5 - PLASCH, 6 - OZHERELYE, 7 - POYAS, 8 - RING
-    0 - Îðóæèå, 1 - Øëåì, 2 - Íàêèäêà, 3 - Áðèäæè, 4 - Ñàïîãè, 5 - Ïëàù, 6 - Îæåðåëüå, 7 - Ïîÿñ, 8 - Êîëüöî
+    0 - Žàã¦¨¥, 1 - ˜«¥¬, 2 -  ª¨¤ª , 3 - à¨¤¦¨, 4 - ‘ ¯®£¨, 5 - « é, 6 - Ž¦¥à¥«ì¥, 7 - ®ïá, 8 - Š®«ìæ®
 0
-Ââåäèòå íàçâàíèå îðóæèÿ:
-Êàñòåòû ñ ëåçâèÿìè
+‚¢¥¤¨â¥ ­ §¢ ­¨¥ ®àã¦¨ï:
+Š áâ¥âë á «¥§¢¨ï¬¨
 
-Ïðåäìåò ¹ 2 èëè âûõîä (q):
+à¥¤¬¥â ü 2 ¨«¨ ¢ëå®¤ (q):
     //0 - WEAPON, 1 - SHLEM, 2 - NAKIDKA, 3 - BRIDGY, 4 - SAPOGI, 5 - PLASCH, 6 - OZHERELYE, 7 - POYAS, 8 - RING
-    0 - Îðóæèå, 1 - Øëåì, 2 - Íàêèäêà, 3 - Áðèäæè, 4 - Ñàïîãè, 5 - Ïëàù, 6 - Îæåðåëüå, 7 - Ïîÿñ, 8 - Êîëüöî
+    0 - Žàã¦¨¥, 1 - ˜«¥¬, 2 -  ª¨¤ª , 3 - à¨¤¦¨, 4 - ‘ ¯®£¨, 5 - « é, 6 - Ž¦¥à¥«ì¥, 7 - ®ïá, 8 - Š®«ìæ®
 0
-Ââåäèòå íàçâàíèå îðóæèÿ:
-Êàñòåòû ñ ëåçâèÿìè
+‚¢¥¤¨â¥ ­ §¢ ­¨¥ ®àã¦¨ï:
+Š áâ¥âë á «¥§¢¨ï¬¨
 
 ...
 
-Ïðåäìåò ¹ N èëè âûõîä (q):
+à¥¤¬¥â ü N ¨«¨ ¢ëå®¤ (q):
 q
 
-Âñå ïðåäìåòû ââåäåíû. Ïîêàçàòü ñïèñîê âñåõ ïðåäìåòîâ (p) èëè íà÷àòü çàòî÷êó (r).
+‚á¥ ¯à¥¤¬¥âë ¢¢¥¤¥­ë. ®ª § âì á¯¨á®ª ¢á¥å ¯à¥¤¬¥â®¢ (p) ¨«¨ ­ ç âì § â®çªã (r).
 p
-Ïðåäìåò ¹   Êàòåãîðèÿ   Îïèñàíèå            Çàòî÷êà     Ìèðàæåé     Íåáåñîê     Ïîäçåìîê    Ìèðîçäàíîê
-0           Îðóæèå      Êàñòåòû ñ ëåçâèåì   +0          0           0           0           0
-1           Îðóæèå      Êàñòåòû ñ ëåçâèåì   +0          0           0           0           0
+à¥¤¬¥â ü   Š â¥£®à¨ï   Ž¯¨á ­¨¥            ‡ â®çª      Œ¨à ¦¥©     ¥¡¥á®ª     ®¤§¥¬®ª    Œ¨à®§¤ ­®ª
+0           Žàã¦¨¥      Š áâ¥âë á «¥§¢¨¥¬   +0          0           0           0           0
+1           Žàã¦¨¥      Š áâ¥âë á «¥§¢¨¥¬   +0          0           0           0           0
 
-Âñå ïðåäìåòû ââåäåíû. Ïîêàçàòü ñïèñîê âñåõ ïðåäìåòîâ (p) èëè íà÷àòü çàòî÷êó (r).
+‚á¥ ¯à¥¤¬¥âë ¢¢¥¤¥­ë. ®ª § âì á¯¨á®ª ¢á¥å ¯à¥¤¬¥â®¢ (p) ¨«¨ ­ ç âì § â®çªã (r).
 r
 
-Ââåäèòå ïîðÿäêîâûé íîìåð ïðåäìåòà äëÿ çàòî÷êè èëè âûâåñòè ñïèñîê âñåõ ïðåäìåòîâ (p):
+‚¢¥¤¨â¥ ¯®àï¤ª®¢ë© ­®¬¥à ¯à¥¤¬¥â  ¤«ï § â®çª¨ ¨«¨ ¢ë¢¥áâ¨ á¯¨á®ª ¢á¥å ¯à¥¤¬¥â®¢ (p):
 0
 
-Èñïîëüçîâàòü:
-    0 - Íè÷åãî, 1 - Íåáåñêó, 2 - Ïîäçåìêó, 3 - Ìèðîçäàíêó
+ˆá¯®«ì§®¢ âì:
+    0 - ¨ç¥£®, 1 - ¥¡¥áªã, 2 - ®¤§¥¬ªã, 3 - Œ¨à®§¤ ­ªã
 0
 
-Óëó÷øåíèå ïðîøëî óñïåøíî!
-Ïðåäìåò ¹   Êàòåãîðèÿ   Îïèñàíèå            Çàòî÷êà     Ìèðàæåé     Íåáåñîê     Ïîäçåìîê    Ìèðîçäàíîê
-0           Îðóæèå      Êàñòåòû ñ ëåçâèåì   +1          2           0           0           0
+“«ãçè¥­¨¥ ¯à®è«® ãá¯¥è­®!
+à¥¤¬¥â ü   Š â¥£®à¨ï   Ž¯¨á ­¨¥            ‡ â®çª      Œ¨à ¦¥©     ¥¡¥á®ª     ®¤§¥¬®ª    Œ¨à®§¤ ­®ª
+0           Žàã¦¨¥      Š áâ¥âë á «¥§¢¨¥¬   +1          2           0           0           0
 
-Ïðîäîëæèòü çàòî÷êó (r) èëè âûõîä (q)?
+à®¤®«¦¨âì § â®çªã (r) ¨«¨ ¢ëå®¤ (q)?
 r
 
-Ââåäèòå ïîðÿäêîâûé íîìåð ïðåäìåòà äëÿ çàòî÷êè èëè âûâåñòè ñïèñîê âñåõ ïðåäìåòîâ (p):
+‚¢¥¤¨â¥ ¯®àï¤ª®¢ë© ­®¬¥à ¯à¥¤¬¥â  ¤«ï § â®çª¨ ¨«¨ ¢ë¢¥áâ¨ á¯¨á®ª ¢á¥å ¯à¥¤¬¥â®¢ (p):
 1
 
-Èñïîëüçîâàòü:
-    0 - Íè÷åãî, 1 - Íåáåñêó, 2 - Ïîäçåìêó, 3 - Ìèðîçäàíêó
+ˆá¯®«ì§®¢ âì:
+    0 - ¨ç¥£®, 1 - ¥¡¥áªã, 2 - ®¤§¥¬ªã, 3 - Œ¨à®§¤ ­ªã
 1
 
-Óëó÷øåíèå ïðîøëî óñïåøíî!
-Ïðåäìåò ¹   Êàòåãîðèÿ   Îïèñàíèå            Çàòî÷êà     Ìèðàæåé     Íåáåñîê     Ïîäçåìîê    Ìèðîçäàíîê
-1           Îðóæèå      Êàñòåòû ñ ëåçâèåì   +1          2           1           0           0
+“«ãçè¥­¨¥ ¯à®è«® ãá¯¥è­®!
+à¥¤¬¥â ü   Š â¥£®à¨ï   Ž¯¨á ­¨¥            ‡ â®çª      Œ¨à ¦¥©     ¥¡¥á®ª     ®¤§¥¬®ª    Œ¨à®§¤ ­®ª
+1           Žàã¦¨¥      Š áâ¥âë á «¥§¢¨¥¬   +1          2           1           0           0
 
-Ïðîäîëæèòü çàòî÷êó (r) èëè âûõîä (q)?
+à®¤®«¦¨âì § â®çªã (r) ¨«¨ ¢ëå®¤ (q)?
 q
 
-Ðåçóëüòàòû çîòî÷êè.
-Ïðåäìåò ¹   Êàòåãîðèÿ   Îïèñàíèå            Çàòî÷êà     Ìèðàæåé     Íåáåñîê     Ïîäçåìîê    Ìèðîçäàíîê
-0           Îðóæèå      Êàñòåòû ñ ëåçâèåì   +1          2           0           0           0
-1           Îðóæèå      Êàñòåòû ñ ëåçâèåì   +1          2           1           0           0
+¥§ã«ìâ âë §®â®çª¨.
+à¥¤¬¥â ü   Š â¥£®à¨ï   Ž¯¨á ­¨¥            ‡ â®çª      Œ¨à ¦¥©     ¥¡¥á®ª     ®¤§¥¬®ª    Œ¨à®§¤ ­®ª
+0           Žàã¦¨¥      Š áâ¥âë á «¥§¢¨¥¬   +1          2           0           0           0
+1           Žàã¦¨¥      Š áâ¥âë á «¥§¢¨¥¬   +1          2           1           0           0
 
-Âñåãî                                                   4           1           0           0
+‚á¥£®                                                   4           1           0           0
 */

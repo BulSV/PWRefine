@@ -27,7 +27,7 @@ void Object::refine(TOCHKA toch, STONES st)
         case NEUDACH: if(itsTochka) itsTochka--;
                       break;
         case NEIZMEN: break;
-        case UDACH: itsTochka++;
+        case UDACH: if(itsTochka < 12) itsTochka++;
                     break;
         default: exit(-1);
     }
