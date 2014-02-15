@@ -3,10 +3,8 @@ CONFIG += console
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    src/weapon.cpp \
     src/shlem.cpp \
     src/sapogi.cpp \
-    src/ring.cpp \
     src/refine.cpp \
     src/poyas.cpp \
     src/plasch.cpp \
@@ -17,13 +15,23 @@ SOURCES += main.cpp \
     src/kuznitsa.cpp \
     src/iochecker.cpp \
     src/bridgy.cpp \
-    src/dospeh.cpp
+    src/dospeh.cpp \
+    src/kuznitsabridgey.cpp \
+    src/kuznitsanakidok.cpp \
+    src/kuznitsanaruchey.cpp \
+    src/kuznitsaozherelyev.cpp \
+    src/kuznitsaplaschey.cpp \
+    src/kuznitsapoyasov.cpp \
+    src/kuznitsakolets.cpp \
+    src/kuznitsasapog.cpp \
+    src/kuznitsashlemov.cpp \
+    src/kuznitsaoruzhiya.cpp \
+    src/koltso.cpp \
+    src/oruzhie.cpp
 
 HEADERS += \ 
-    include/weapon.h \
     include/shlem.h \
     include/sapogi.h \
-    include/ring.h \
     include/refine.h \
     include/poyas.h \
     include/plasch.h \
@@ -34,7 +42,19 @@ HEADERS += \
     include/kuznitsa.h \
     include/iochecker.h \
     include/bridgy.h \
-    include/dospeh.h
+    include/dospeh.h \
+    include/kuznitsabridgey.h \
+    include/kuznitsanakidok.h \
+    include/kuznitsanaruchey.h \
+    include/kuznitsaozherelyev.h \
+    include/kuznitsaplaschey.h \
+    include/kuznitsapoyasov.h \
+    include/kuznitsakolets.h \
+    include/kuznitsasapog.h \
+    include/kuznitsashlemov.h \
+    include/kuznitsaoruzhiya.h \
+    include/koltso.h \
+    include/oruzhie.h
 
 OTHER_FILES += \
     TODO.txt \
