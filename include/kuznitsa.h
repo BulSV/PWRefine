@@ -1,16 +1,16 @@
 #ifndef KUZNITSA_H
 #define KUZNITSA_H
 
-#include "object.h"
+#include "dospeh.h"
 
 class Kuznitsa
 {
 public:
     Kuznitsa(CATEGORY cat, std::string pro);
-    Object *object() const;
+    Dospeh *dospeh() const;
     ~Kuznitsa();
 private:
-    Object *itsObject;
+    Dospeh *itsdospeh;
 };
 
 #endif // KUZNITSA_H

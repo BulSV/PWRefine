@@ -1,10 +1,10 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-#include "object.h"
+#include "dospeh.h"
 
 
-class Weapon: public Object
+class Weapon: public Dospeh
 {
 public:
     Weapon(std::string pro);

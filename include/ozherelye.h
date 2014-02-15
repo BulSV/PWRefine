@@ -1,10 +1,10 @@
 #ifndef OZHERELYE_H
 #define OZHERELYE_H
 
-#include "object.h"
+#include "dospeh.h"
 
 
-class Ozherelye : public Object
+class Ozherelye : public Dospeh
 {
 public:
     Ozherelye(std::string pro);

@@ -1,5 +1,5 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef DOSPEH_H
+#define DOSPEH_H
 
 #include <string>
 
@@ -34,11 +34,11 @@ enum STONES
     MIROZDANKA
 };
 
-class Object
+class Dospeh
 {
 public:
-    Object();
-    virtual ~Object();
+    Dospeh();
+    virtual ~Dospeh();
     void refine(TOCHKA toch, STONES st);
     CATEGORY cat() const;
     std::string pro() const;
@@ -63,4 +63,4 @@ protected:
     virtual void incMirozdanka();
 };
 
-#endif // OBJECT_H
+#endif // DOSPEH_H

@@ -1,10 +1,10 @@
 #ifndef SAPOGI_H
 #define SAPOGI_H
 
-#include "object.h"
+#include "dospeh.h"
 
 
-class Sapogi : public Object
+class Sapogi : public Dospeh
 {
 public:
     Sapogi(std::string pro);

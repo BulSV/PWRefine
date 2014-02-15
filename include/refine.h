@@ -1,17 +1,17 @@
 #ifndef REFINE_H
 #define REFINE_H
 
-#include "object.h"
+#include "dospeh.h"
 
 class Refine
 {
 public:
     Refine();
     ~Refine();
-    void goRefining(Object *o, STONES s);
+    void goRefining(Dospeh *o, STONES s);
     TOCHKA refineResult() const;
 private:
-    Object *itsObject;
+    Dospeh *itsdospeh;
     TOCHKA itsCurRefRes;
 
     int tochka();

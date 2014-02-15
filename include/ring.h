@@ -1,10 +1,10 @@
 #ifndef RING_H
 #define RING_H
 
-#include "object.h"
+#include "dospeh.h"
 
 
-class Ring : public Object
+class Ring : public Dospeh
 {
 public:
     Ring(std::string pro);

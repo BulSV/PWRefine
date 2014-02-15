@@ -1,4 +1,4 @@
-﻿TEMPLATE = app
+TEMPLATE = app
 CONFIG += console
 CONFIG -= qt
 
@@ -11,15 +11,15 @@ SOURCES += main.cpp \
     src/poyas.cpp \
     src/plasch.cpp \
     src/ozherelye.cpp \
-    src/object.cpp \
     src/naruchi.cpp \
     src/nakidka.cpp \
     src/matematika.cpp \
     src/kuznitsa.cpp \
     src/iochecker.cpp \
-    src/bridgy.cpp
+    src/bridgy.cpp \
+    src/dospeh.cpp
 
-HEADERS += \
+HEADERS += \ 
     include/weapon.h \
     include/shlem.h \
     include/sapogi.h \
@@ -28,19 +28,16 @@ HEADERS += \
     include/poyas.h \
     include/plasch.h \
     include/ozherelye.h \
-    include/object.h \
     include/naruchi.h \
     include/nakidka.h \
     include/matematika.h \
     include/kuznitsa.h \
     include/iochecker.h \
-    include/bridgy.h
+    include/bridgy.h \
+    include/dospeh.h
 
 OTHER_FILES += \
     TODO.txt \
     draftFile.cpp \
     newinputfunc.h \
-    draftIochecker.h \
-    enumes.cpp
-
-
+    draftIochecker.h

@@ -1,10 +1,10 @@
 #ifndef POYAS_H
 #define POYAS_H
 
-#include "object.h"
+#include "dospeh.h"
 
 
-class Poyas : public Object
+class Poyas : public Dospeh
 {
 public:
     Poyas(std::string pro);

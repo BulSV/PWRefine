@@ -1,7 +1,7 @@
-#include "../include/object.h"
+#include "../include/dospeh.h"
 #include <stdlib.h>
 
-Object::Object()
+Dospeh::Dospeh()
     : itsMirazhey(0)
     , itsNebesok(0)
     , itsPodzemok(0)
@@ -13,12 +13,12 @@ Object::Object()
     //ctor
 }
 
-Object::~Object() /*virtual*/
+Dospeh::~Dospeh() /*virtual*/
 {
     //dtor
 }
 
-void Object::refine(TOCHKA toch, STONES st)
+void Dospeh::refine(TOCHKA toch, STONES st)
 {
     switch(toch)
     {
@@ -48,17 +48,17 @@ void Object::refine(TOCHKA toch, STONES st)
     }
 }
 
-CATEGORY Object::cat() const
+CATEGORY Dospeh::cat() const
 {
     return itsCategory;
 }
 
-std::string Object::pro() const
+std::string Dospeh::pro() const
 {
     return itsProperty;
 }
 
-void Object::setToch(int tochka)
+void Dospeh::setToch(int tochka)
 {
     //itsTochka = (tochka >=0 && tochka <= 12) ? tochka : 0;
     if(tochka >=0 && tochka <= 12)
@@ -75,47 +75,47 @@ void Object::setToch(int tochka)
     }
 }
 
-int Object::toch() const
+int Dospeh::toch() const
 {
     return itsTochka;
 }
 
-int Object::mirazh() const
+int Dospeh::mirazh() const
 {
     return itsMirazhey;
 }
 
-int Object::nebeska() const
+int Dospeh::nebeska() const
 {
     return itsNebesok;
 }
 
-int Object::podzemka() const
+int Dospeh::podzemka() const
 {
     return itsPodzemok;
 }
 
-int Object::mirozdanka() const
+int Dospeh::mirozdanka() const
 {
     return itsMirozdanok;
 }
 
-void Object::incMirazh() /*virtual*/
+void Dospeh::incMirazh() /*virtual*/
 {
     itsMirazhey++;
 }
 
-void Object::incNebeska() /*virtual*/
+void Dospeh::incNebeska() /*virtual*/
 {
     itsNebesok++;
 }
 
-void Object::incPodzemka() /*virtual*/
+void Dospeh::incPodzemka() /*virtual*/
 {
     itsPodzemok++;
 }
 
-void Object::incMirozdanka() /*virtual*/
+void Dospeh::incMirozdanka() /*virtual*/
 {
     itsMirozdanok++;
 }

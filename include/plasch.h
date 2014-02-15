@@ -1,10 +1,10 @@
 #ifndef PLASCH_H
 #define PLASCH_H
 
-#include "object.h"
+#include "dospeh.h"
 
 
-class Plasch : public Object
+class Plasch : public Dospeh
 {
 public:
     Plasch(std::string pro);
