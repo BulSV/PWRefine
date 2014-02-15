@@ -444,7 +444,9 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
 int main()
 {
-    //system("chcp 1251");
+    system("chcp 866");
+    SetConsoleOutputCP(866);
+    SetConsoleCP(1251);
     std::vector<Kuznitsa> vk;
     char choice;
 

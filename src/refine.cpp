@@ -1,4 +1,4 @@
-#include "../include/refine.h"
+﻿#include "../include/refine.h"
 #include <time.h>
 #include <cstdlib>
 #include "../include/matematika.h"

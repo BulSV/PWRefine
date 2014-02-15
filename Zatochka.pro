@@ -1,4 +1,4 @@
-TEMPLATE = app
+﻿TEMPLATE = app
 CONFIG += console
 CONFIG -= qt
 
@@ -19,7 +19,7 @@ SOURCES += main.cpp \
     src/iochecker.cpp \
     src/bridgy.cpp
 
-HEADERS += \ 
+HEADERS += \
     include/weapon.h \
     include/shlem.h \
     include/sapogi.h \
@@ -40,5 +40,7 @@ OTHER_FILES += \
     TODO.txt \
     draftFile.cpp \
     newinputfunc.h \
-    draftIochecker.h
+    draftIochecker.h \
+    enumes.cpp
+
 
