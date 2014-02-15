@@ -1,18 +1,18 @@
-#include "../include/weapon.h"
+#include "../include/oruzhie.h"
 
-Weapon::Weapon(std::string pro)
+Oruzhie::Oruzhie(std::string pro)
 {
     itsCategory = WEAPON;
     itsProperty = pro;
     itsTochka = 0;
 }
 
-Weapon::~Weapon()
+Oruzhie::~Oruzhie()
 {
     //dtor
 }
 
-void Weapon::incMirazh() /*virtual*/
+void Oruzhie::incMirazh() /*virtual*/
 {
     itsMirazhey += 2;
 }

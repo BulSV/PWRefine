@@ -8,7 +8,9 @@ class Kuznitsa
 {
 public:
     Kuznitsa();
-    Dospeh *createDospeh(std::string pro) const = 0;
+
+    virtual Dospeh *createDospeh(std::string pro) const = 0;
+
     virtual ~Kuznitsa();
 };
 
