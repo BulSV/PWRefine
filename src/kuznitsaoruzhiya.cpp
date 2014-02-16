@@ -1,7 +1,7 @@
 #include "../include/kuznitsaoruzhiya.h"
 #include "../include/oruzhie.h"
 
-KuznitsaOruzhiya::KuznitsaNaruchey()
+KuznitsaOruzhiya::KuznitsaOruzhiya()
 {
 }
 
