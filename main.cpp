@@ -19,7 +19,7 @@
 #include "include/iochecker.h"
 #include <stdlib.h>
 
-void inputdospehs(std::vector<Dospeh*> &vd)
+void inputDospehs(std::vector<Dospeh*> &vd)
 {
     int i = 0;
     char cat;
@@ -454,7 +454,7 @@ int main()
     std::vector<Dospeh*> vd;
     char choice;
 
-    inputdospehs(vd);
+    inputDospehs(vd);
 
     while(1)
     {

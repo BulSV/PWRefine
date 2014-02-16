@@ -3,7 +3,7 @@
 
 #include "dospeh.h"
 
-class Shlem : public Dospeh
+class Shlem: public Dospeh
 {
 public:
     Shlem(std::string pro);

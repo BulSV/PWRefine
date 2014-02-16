@@ -8,7 +8,7 @@ class Refine
 public:
     Refine();
     ~Refine();
-    void goRefining(Dospeh *o, STONES s);
+    void goRefining(Dospeh *dospeh, STONES s);
     TOCHKA refineResult() const;
 private:
     Dospeh *itsdospeh;

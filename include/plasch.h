@@ -4,7 +4,7 @@
 #include "dospeh.h"
 
 
-class Plasch : public Dospeh
+class Plasch: public Dospeh
 {
 public:
     Plasch(std::string pro);
