@@ -11,7 +11,7 @@ public:
     void goRefining(Dospeh *dospeh, STONES s);
     TOCHKA refineResult() const;
 private:
-    Dospeh *itsdospeh;
+    Dospeh *itsDospeh;
     TOCHKA itsCurRefRes;
 
     int tochka();

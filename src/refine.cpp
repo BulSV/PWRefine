@@ -5,7 +5,7 @@
 #include <iostream>
 
 Refine::Refine()
-: itsdospeh(0)
+: itsDospeh(0)
 , itsCurRefRes(NEIZMEN)
 {}
 
@@ -14,7 +14,7 @@ Refine::~Refine()
 
 void Refine::goRefining(Dospeh *dospeh, STONES s)
 {
-    itsdospeh = dospeh;
+    itsDospeh = dospeh;
 
     switch(s)
     {
@@ -65,13 +65,13 @@ int Refine::verMirazh(int t)
 
 void Refine::tochkaMirazh()
 {
-    if(verMirazh(itsdospeh->toch()) > 50)
+    if(verMirazh(itsDospeh->toch()) > 50)
     {
         itsCurRefRes = UDACH;
     }
     else
     {
-        if(itsdospeh->toch())
+        if(itsDospeh->toch())
         {
             itsCurRefRes = RESET;
         }
@@ -81,7 +81,7 @@ void Refine::tochkaMirazh()
         }
     }
 
-    itsdospeh->refine(itsCurRefRes, NOSTONE);
+    itsDospeh->refine(itsCurRefRes, NOSTONE);
 }
 
 int Refine::verNebeska(int t)
@@ -91,13 +91,13 @@ int Refine::verNebeska(int t)
 
 void Refine::tochkaNebeska()
 {
-    if(verNebeska(itsdospeh->toch()) > 50)
+    if(verNebeska(itsDospeh->toch()) > 50)
     {
         itsCurRefRes = UDACH;
     }
     else
     {
-        if(itsdospeh->toch())
+        if(itsDospeh->toch())
         {
             itsCurRefRes = RESET;
         }
@@ -107,7 +107,7 @@ void Refine::tochkaNebeska()
         }
     }
 
-    itsdospeh->refine(itsCurRefRes, NEBESKA);
+    itsDospeh->refine(itsCurRefRes, NEBESKA);
 }
 
 float Refine::verPodzemka(int t)
@@ -117,13 +117,13 @@ float Refine::verPodzemka(int t)
 
 void Refine::tochkaPodzemka()
 {
-    if(MLib::round(verPodzemka(itsdospeh->toch()), 0.5) > 50)
+    if(MLib::round(verPodzemka(itsDospeh->toch()), 0.5) > 50)
     {
         itsCurRefRes = UDACH;
     }
     else
     {
-        if(itsdospeh->toch())
+        if(itsDospeh->toch())
         {
             itsCurRefRes = NEUDACH;
         }
@@ -133,7 +133,7 @@ void Refine::tochkaPodzemka()
         }
     }
 
-    itsdospeh->refine(itsCurRefRes, PODZEMKA);
+    itsDospeh->refine(itsCurRefRes, PODZEMKA);
 }
 
 float Refine::verMirozdanka(int t)
@@ -158,7 +158,7 @@ float Refine::verMirozdanka(int t)
 
 void Refine::tochkaMirozdanka()
 {
-    if( MLib::round( verMirozdanka( itsdospeh->toch() ), 0.01 ) > 50 )
+    if( MLib::round( verMirozdanka( itsDospeh->toch() ), 0.01 ) > 50 )
     {
         itsCurRefRes = UDACH;
     }
@@ -167,5 +167,5 @@ void Refine::tochkaMirozdanka()
         itsCurRefRes = NEIZMEN;
     }
 
-    itsdospeh->refine(itsCurRefRes, MIROZDANKA);
+    itsDospeh->refine(itsCurRefRes, MIROZDANKA);
 }
