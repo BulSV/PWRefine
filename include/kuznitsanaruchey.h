@@ -7,7 +7,7 @@
 class KuznitsaNaruchey: public Kuznitsa
 {
     static KuznitsaNaruchey *itsKuznitsaNaruchey;
-protected:
+//protected:
     KuznitsaNaruchey();
 public:
     virtual Dospeh *createDospeh(std::string pro) const;

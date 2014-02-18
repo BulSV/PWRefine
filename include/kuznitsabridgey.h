@@ -7,9 +7,9 @@
 class KuznitsaBridgey: public Kuznitsa
 {
     static KuznitsaBridgey *itsKuznitsaBridgey;
-protected:
+//protected:
     KuznitsaBridgey();
-public:    
+public:
     virtual Dospeh *createDospeh(std::string pro) const;
     static Kuznitsa *getInstance();
     static void delInstance();
