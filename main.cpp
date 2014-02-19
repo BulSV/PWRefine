@@ -174,7 +174,7 @@ void inputDospehs(std::vector<Dospeh*> &vd)
         else
         {
             std::cin.putback(t);
-        }        
+        }
 
         Dospeh *d = vk[vk.size() - 1]->createDospeh(pro);
         d->setToch(tochka);
@@ -232,7 +232,7 @@ void refineInfo(TOCHKA t)
     }
 }
 
-void outputResults(const std::vector<Dospeh*> &vk)
+void outputResults(const std::vector<Dospeh*> &vd)
 {
     int mirazh = 0;
     int nebeska = 0;
@@ -252,22 +252,22 @@ void outputResults(const std::vector<Dospeh*> &vk)
 
     std::cout.fill('.');
 
-    for(unsigned int i = 0; i < vk.size(); ++i)
+    for(unsigned int i = 0; i < vd.size(); ++i)
     {
         std::cout << std::left << std::setw(9) << i << " ";
-        std::cout << std::left << std::setw(9) << CATEGORYtoString(vk.at(i)->cat()) << " ";
-        std::cout << std::left << std::setw(29) << vk.at(i)->pro() << " ";
-        std::cout << std::left << std::setw(7) << vk.at(i)->toch() << " ";
-        std::cout << std::left << std::setw(7) << vk.at(i)->mirazh() << " ";
-        std::cout << std::left << std::setw(7) << vk.at(i)->nebeska() << " ";
-        std::cout << std::left << std::setw(8) << vk.at(i)->podzemka() << " ";
-        std::cout << std::left << std::setw(10) << vk.at(i)->mirozdanka();
+        std::cout << std::left << std::setw(9) << CATEGORYtoString(vd.at(i)->cat()) << " ";
+        std::cout << std::left << std::setw(29) << vd.at(i)->pro() << " ";
+        std::cout << std::left << std::setw(7) << vd.at(i)->toch() << " ";
+        std::cout << std::left << std::setw(7) << vd.at(i)->mirazh() << " ";
+        std::cout << std::left << std::setw(7) << vd.at(i)->nebeska() << " ";
+        std::cout << std::left << std::setw(8) << vd.at(i)->podzemka() << " ";
+        std::cout << std::left << std::setw(10) << vd.at(i)->mirozdanka();
         std::cout << std::endl;
 
-        mirazh += vk.at(i)->mirazh();
-        nebeska += vk.at(i)->nebeska();
-        podzemka += vk.at(i)->podzemka();
-        mirozdanka += vk.at(i)->mirozdanka();
+        mirazh += vd.at(i)->mirazh();
+        nebeska += vd.at(i)->nebeska();
+        podzemka += vd.at(i)->podzemka();
+        mirozdanka += vd.at(i)->mirozdanka();
     }
 
     std::cout << std::setw(57) << "Всего:" << " "
@@ -278,7 +278,7 @@ void outputResults(const std::vector<Dospeh*> &vk)
               << std::endl << std::endl;
 }
 
-void outputResults(const std::vector<Dospeh*> &vk, unsigned int i)
+void outputResults(const std::vector<Dospeh*> &vd, unsigned int i)
 {
     std::cout.fill(' ');
 
@@ -294,13 +294,13 @@ void outputResults(const std::vector<Dospeh*> &vk, unsigned int i)
     std::cout.fill('.');
 
     std::cout << std::left << std::setw(9) << i << " ";
-    std::cout << std::left << std::setw(9) << CATEGORYtoString(vk.at(i)->cat()) << " ";
-    std::cout << std::left << std::setw(29) << vk.at(i)->pro() << " ";
-    std::cout << std::left << std::setw(7) << vk.at(i)->toch() << " ";
-    std::cout << std::left << std::setw(7) << vk.at(i)->mirazh() << " ";
-    std::cout << std::left << std::setw(7) << vk.at(i)->nebeska() << " ";
-    std::cout << std::left << std::setw(8) << vk.at(i)->podzemka() << " ";
-    std::cout << std::left << std::setw(10) << vk.at(i)->mirozdanka();
+    std::cout << std::left << std::setw(9) << CATEGORYtoString(vd.at(i)->cat()) << " ";
+    std::cout << std::left << std::setw(29) << vd.at(i)->pro() << " ";
+    std::cout << std::left << std::setw(7) << vd.at(i)->toch() << " ";
+    std::cout << std::left << std::setw(7) << vd.at(i)->mirazh() << " ";
+    std::cout << std::left << std::setw(7) << vd.at(i)->nebeska() << " ";
+    std::cout << std::left << std::setw(8) << vd.at(i)->podzemka() << " ";
+    std::cout << std::left << std::setw(10) << vd.at(i)->mirozdanka();
     std::cout << std::endl;
 
     std::cout << std::endl;
@@ -450,7 +450,7 @@ void zatochka(std::vector<Dospeh*> &vd)
 
 int main()
 {
-    //system("chcp 1251");    
+    //system("chcp 1251");
     std::vector<Dospeh*> vd;
     char choice;
 

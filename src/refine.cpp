@@ -56,9 +56,9 @@ int Refine::verMirazh(int t)
     case 6: return (tochka() - 20);
     case 7: return (tochka() - 20);
     case 8: return (tochka() - 25);
-    case 9: return (tochka() - 20);
-    case 10: return (tochka() - 20);
-    case 11: return (tochka() - 20);
+    case 9: return (tochka() - 30);
+    case 10: return (tochka() - 38);
+    case 11: return (tochka() - 31);
     default: exit(-3);
     }
 }

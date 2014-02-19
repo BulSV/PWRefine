@@ -29,7 +29,7 @@ SOURCES += main.cpp \
     src/koltso.cpp \
     src/oruzhie.cpp
 
-HEADERS += \ 
+HEADERS += \
     include/shlem.h \
     include/sapogi.h \
     include/refine.h \
@@ -57,8 +57,6 @@ HEADERS += \
     include/oruzhie.h
 
 OTHER_FILES += \
-    TODO.txt \
-    draftFile.cpp \
-    newinputfunc.h \
-    draftIochecker.h
+    TODO.txt    \
+    refactor.cpp
 
