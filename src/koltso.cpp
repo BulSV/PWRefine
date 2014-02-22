@@ -7,7 +7,7 @@ Koltso::Koltso(std::string pro)
     itsTochka = 0;
 }
 
-Koltso::Koltso()
+Koltso::~Koltso() /*virtual*/
 {
     //dtor
 }
