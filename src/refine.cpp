@@ -5,16 +5,16 @@
 #include <iostream>
 
 Refine::Refine()
-: itsDospeh(0)
-, itsCurRefRes(NEIZMEN)
+: itsArmor(0)
+, itsCurRefRes(NOCHANGE)
 {}
 
 Refine::~Refine()
 {}
 
-void Refine::goRefining(Dospeh *dospeh, STONES s)
+void Refine::goRefining(Armor *armor, STONES s)
 {
-    itsDospeh = dospeh;
+    itsArmor = armor;
 
     switch(s)
     {
@@ -30,7 +30,7 @@ void Refine::goRefining(Dospeh *dospeh, STONES s)
     }
 }
 
-TOCHKA Refine::refineResult() const
+REFINE Refine::refineResult() const
 {
     return itsCurRefRes;
 }
@@ -65,23 +65,23 @@ int Refine::verMirazh(int t)
 
 void Refine::tochkaMirazh()
 {
-    if(verMirazh(itsDospeh->toch()) > 50)
+    if(verMirazh(itsArmor->toch()) > 50)
     {
-        itsCurRefRes = UDACH;
+        itsCurRefRes = SUCCESS;
     }
     else
     {
-        if(itsDospeh->toch())
+        if(itsArmor->toch())
         {
             itsCurRefRes = RESET;
         }
         else
         {
-            itsCurRefRes = NEIZMEN;
+            itsCurRefRes = NOCHANGE;
         }
     }
 
-    itsDospeh->refine(itsCurRefRes, NOSTONE);
+    itsArmor->refine(itsCurRefRes, NOSTONE);
 }
 
 int Refine::verNebeska(int t)
@@ -91,23 +91,23 @@ int Refine::verNebeska(int t)
 
 void Refine::tochkaNebeska()
 {
-    if(verNebeska(itsDospeh->toch()) > 50)
+    if(verNebeska(itsArmor->toch()) > 50)
     {
-        itsCurRefRes = UDACH;
+        itsCurRefRes = SUCCESS;
     }
     else
     {
-        if(itsDospeh->toch())
+        if(itsArmor->toch())
         {
             itsCurRefRes = RESET;
         }
         else
         {
-            itsCurRefRes = NEIZMEN;
+            itsCurRefRes = NOCHANGE;
         }
     }
 
-    itsDospeh->refine(itsCurRefRes, NEBESKA);
+    itsArmor->refine(itsCurRefRes, NEBESKA);
 }
 
 float Refine::verPodzemka(int t)
@@ -117,23 +117,23 @@ float Refine::verPodzemka(int t)
 
 void Refine::tochkaPodzemka()
 {
-    if(MLib::round(verPodzemka(itsDospeh->toch()), 0.5) > 50)
+    if(MLib::round(verPodzemka(itsArmor->toch()), 0.5) > 50)
     {
-        itsCurRefRes = UDACH;
+        itsCurRefRes = SUCCESS;
     }
     else
     {
-        if(itsDospeh->toch())
+        if(itsArmor->toch())
         {
-            itsCurRefRes = NEUDACH;
+            itsCurRefRes = FAIL;
         }
         else
         {
-            itsCurRefRes = NEIZMEN;
+            itsCurRefRes = NOCHANGE;
         }
     }
 
-    itsDospeh->refine(itsCurRefRes, PODZEMKA);
+    itsArmor->refine(itsCurRefRes, PODZEMKA);
 }
 
 float Refine::verMirozdanka(int t)
@@ -158,14 +158,14 @@ float Refine::verMirozdanka(int t)
 
 void Refine::tochkaMirozdanka()
 {
-    if( MLib::round( verMirozdanka( itsDospeh->toch() ), 0.01 ) > 50 )
+    if( MLib::round( verMirozdanka( itsArmor->toch() ), 0.01 ) > 50 )
     {
-        itsCurRefRes = UDACH;
+        itsCurRefRes = SUCCESS;
     }
     else
     {
-        itsCurRefRes = NEIZMEN;
+        itsCurRefRes = NOCHANGE;
     }
 
-    itsDospeh->refine(itsCurRefRes, MIROZDANKA);
+    itsArmor->refine(itsCurRefRes, MIROZDANKA);
 }

@@ -1,4 +1,4 @@
-void Dospeh::refine(Stone* stone)
+void Dospeh::refine(Stone* stone);
 
 float Mirazh::itsDopVer = 0;
 float Mirazh::dopVer() const
@@ -25,3 +25,5 @@ float Refine::verStone(int tochka, Stone* stone)
     case 10: return ((float)(tochka() - 38) + stone->dopVer());
     case 11: return ((float)(tochka() - 31) + stone->dopVer());
     default: exit(-3);
+    }
+}

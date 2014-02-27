@@ -1,18 +1,18 @@
 #ifndef REFINE_H
 #define REFINE_H
 
-#include "dospeh.h"
+#include "armor.h"
 
 class Refine
 {
 public:
     Refine();
     ~Refine();
-    void goRefining(Dospeh *dospeh, STONES s);
-    TOCHKA refineResult() const;
+    void goRefining(Armor *armor, STONES s);
+    REFINE refineResult() const;
 private:
-    Dospeh *itsDospeh;
-    TOCHKA itsCurRefRes;
+    Armor *itsArmor;
+    REFINE itsCurRefRes;
 
     int tochka();
     int verMirazh(int t);
