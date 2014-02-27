@@ -1,22 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
-#include "include/kuznitsa.h"
-#include "include/kuznitsabridgey.h"
-#include "include/kuznitsakolets.h"
-#include "include/kuznitsanakidok.h"
-#include "include/kuznitsanaruchey.h"
-#include "include/kuznitsaoruzhiya.h"
-#include "include/kuznitsaozherelyev.h"
-#include "include/kuznitsaplaschey.h"
-#include "include/kuznitsapoyasov.h"
-#include "include/kuznitsasapog.h"
-#include "include/kuznitsashlemov.h"
-#include "include/refine.h"
+#include "armorfactory.h"
+#include "consolearmorfactory.h"
+#include "refine.h"
 #include <conio.h>
 #include <windows.h>
 #include <iomanip>
-#include "include/iochecker.h"
+#include "iochecker.h"
 #include <stdlib.h>
 
 void inputDospehs(std::vector<Dospeh*> &vd)

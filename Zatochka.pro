@@ -3,23 +3,31 @@ CONFIG += console
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    src/refine.cpp \
-    src/matematika.cpp \
-    src/armorfactory.cpp \
-    src/iochecker.cpp \
-    src/armor.cpp \
-    src/consolearmor.cpp   \
-    src/consolearmorfactory.cpp
+    refine.cpp \
+    matematika.cpp \
+    armorfactory.cpp \
+    iochecker.cpp \
+    armor.cpp \
+    consolearmor.cpp   \
+    consolearmorfactory.cpp \
+    stone.cpp \
+    tienkangstone.cpp \
+    tishastone.cpp \
+    chienkunstone.cpp
 
 HEADERS += \
-    include/refine.h \
-    include/matematika.h \
-    include/armorfactory.h \
-    include/iochecker.h \
-    include/armor.h \
-    include/consolearmor.h \
-    include/consolearmorfactory.h \
-    include/globalenums.h
+    refine.h \
+    matematika.h \
+    armorfactory.h \
+    iochecker.h \
+    armor.h \
+    consolearmor.h \
+    consolearmorfactory.h \
+    globalenums.h \
+    stone.h \
+    tienkangstone.h \
+    tishastone.h \
+    chienkunstone.h
 
 OTHER_FILES += \
     TODO.txt    \
