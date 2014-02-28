@@ -18,7 +18,7 @@ float ChienkunStone::addChance(int armorLevel)
     case 9: return (100.0/1370.0 - 50.0);
     case 10: return (100.0/2525.0 - 50.0);
     case 11: return (100.0/4645.0 - 50.0);
-    default: std::cout << "ERROR! Refine level no in [0..12]";
+    default: std::cout << "ERROR! Refine level not in [0..12]";
         exit(-1);
     }
 }

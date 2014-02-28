@@ -11,5 +11,5 @@ Stone::~Stone() /*virtual*/
 
 float Stone::addChance(const Armor *armor) const
 {
-    return addChance(armor->refine());
+    return addChance(armor->refineLevel());
 }

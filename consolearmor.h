@@ -7,7 +7,8 @@
 class ConsoleArmor: public Armor
 {
 public:
-    ConsoleArmor(int requiredMiragecelestone = 1,
+    ConsoleArmor(int refineLevel = 0,
+                 int requiredMiragecelestone = 1,
                   std::string category = "NO CATEGORY",
                   std::string property = "NO PROPERTY");
     virtual ~ConsoleArmor();

@@ -1,18 +1,19 @@
 #include "armor.h"
 #include <stdlib.h>
 
-Armor::Armor(int requiredMirazh,
+Armor::Armor(int refineLevel,
+             int requiredMiragecelestone,
              std::string category,
              std::string property)
     : itsCategory(category)
     , itsProperty(property)
-    , itsRefine(0)
-    , itsRequiredMirazh(requiredMirazh)
-{   
+    , itsRefineLevel(refineLevel)
+    , itsRequiredMiragecelestone(requiredMiragecelestone)
+{
 }
 
 Armor::~Armor() /*virtual*/
-{   
+{
 }
 
 
@@ -26,37 +27,37 @@ std::string Armor::property() const
     return itsProperty;
 }
 
-void Armor::setRefine(REFINE resRefine)
+void Armor::setRefineLevel(REFINE resRefine)
 {
     switch (resRefine) {
     case RESET:
-        setRefine(0);
+        setRefineLevel(0);
         break;
     case SUCCESS:
-        setRefine(refine() + 1);
+        setRefineLevel(refineLevel() + 1);
         break;
     case FAIL:
-        setRefine(refine() - 1);
+        setRefineLevel(refineLevel() - 1);
         break;
     default:
         break;
     }
 }
 
-int Armor::refine() const
+int Armor::refineLevel() const
 {
-    return itsRefine;
+    return itsRefineLevel;
 }
 
 int Armor::requiredMirageCelestone() const
 {
-    return itsRequiredMirazh;
+    return itsRequiredMiragecelestone;
 }
 
-void Armor::setRefine(int refine)
+void Armor::setRefineLevel(int refineLevel)
 {
-    if(refine <= MAX_REFINE_LEVEL && refine >= MIN_REFINE_LEVEL)
+    if(refineLevel <= MAX_REFINE_LEVEL && refineLevel >= MIN_REFINE_LEVEL)
     {
-        itsRefine = refine;
+        itsRefineLevel = refineLevel;
     }
 }
