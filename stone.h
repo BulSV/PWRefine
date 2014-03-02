@@ -2,15 +2,15 @@
 #define STONE_H
 
 #include "armor.h"
+#include "globalenums.h"
 
 class Stone
 {
-protected:
-    virtual float addChance(int armorLevel) = 0;
 public:
     Stone();
     virtual ~Stone();
-    float addChance(const Armor *armor) const;
+    virtual float addChance(const Armor *armor) const = 0;
+    virtual REFINE refineRequest(float obtainedChance) const = 0;
 };
 
 #endif // STONE_H

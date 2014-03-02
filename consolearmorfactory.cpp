@@ -7,9 +7,15 @@ ConsoleArmorFactory::ConsoleArmorFactory()
 {
 }
 
-Armor *ConsoleArmorFactory::createArmor(std::string property) const /*virtual*/
+Armor *ConsoleArmorFactory::createArmor(int refineLevel,
+                                        int requiredMiragecelestone,
+                                        std::string category,
+                                        std::string property) const /*virtual*/
 {
-    return new ConsoleArmor(property);
+    return new ConsoleArmor(refineLevel,
+                            requiredMiragecelestone,
+                            category,
+                            property);
 }
 
 ArmorFactory *ConsoleArmorFactory::getInstance() /*static*/

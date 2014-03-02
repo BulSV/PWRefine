@@ -1,13 +1,16 @@
 #ifndef CHIENKUNSTONE_H
 #define CHIENKUNSTONE_H
 
-class ChienkunStone : public Stone
+#include "catalyzerstone.h"
+
+class ChienkunStone : public CatalyzerStone
 {
-protected:
-    virtual float addChance(int armorLevel);
+
 public:
     ChienkunStone();
     virtual ~ChienkunStone();
+    virtual float addChance(const Armor* armor) const;
+    virtual REFINE refineRequest(float obtainedChance) const;
 };
 
 #endif // CHIENKUNSTONE_H

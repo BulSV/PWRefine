@@ -7,17 +7,10 @@
 
 class Refine
 {
-public:
-    Refine();
-    ~Refine();
-    void goRefining(Armor *armor, Stone *stone);
-    REFINE refineResult() const;
+public:      
+    static void goRefining(Armor *armor, const Stone *stone);
 private:
-    Armor *itsArmor;
-    REFINE itsCurRefRes;
-
-    float baseChance();
-    float chance();
+    static float baseChance();
 };
 
 #endif // REFINE_H

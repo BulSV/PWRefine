@@ -1,15 +1,15 @@
 #ifndef TISHASTONE_H
 #define TISHASTONE_H
 
-class TishaStone : public Stone
-{
-    static const float ADD_CHANCE = 3.5;
-    float additionalChance;
-protected:
-    virtual float addChance(int armorLevel);
+#include "catalyzerstone.h"
+
+class TishaStone : public CatalyzerStone
+{        
 public:
     TishaStone();
     virtual ~TishaStone();
+    virtual float addChance(const Armor *armor) const;
+    virtual REFINE refineRequest(float obtainedChance) const;
 };
 
 #endif // TISHASTONE_H

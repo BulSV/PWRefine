@@ -1,10 +1,11 @@
 #include "chienkunstone.h"
 #include <iostream>
 #include <cstdlib>
+#include "matematika.h"
 
-float ChienkunStone::addChance(int armorLevel)
+float ChienkunStone::addChance(const Armor *armor)
 {
-    switch(armorLevel)
+    switch(armor->refineLevel())
     {
     case 0: return 50.0;
     case 1: return (100.0/4.0 - 50.0);
@@ -19,7 +20,7 @@ float ChienkunStone::addChance(int armorLevel)
     case 10: return (100.0/2525.0 - 50.0);
     case 11: return (100.0/4645.0 - 50.0);
     default: std::cout << "ERROR! Refine level not in [0..12]";
-        exit(-1);
+        exit(-5);
     }
 }
 
@@ -29,4 +30,16 @@ ChienkunStone::ChienkunStone()
 
 ChienkunStone::~ChienkunStone()
 {
+}
+
+REFINE ChienkunStone::refineRequest(float obtainedChance) const
+{
+    if(MLib::roundFloat(obtainedChance, 0.001) > 50.0)
+    {
+        return SUCCESS;
+    }
+    else
+    {
+        return NOCHANGE;
+    }
 }

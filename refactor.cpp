@@ -27,3 +27,4 @@ float Refine::verStone(int tochka, Stone* stone)
     default: exit(-3);
     }
 }
+/***************************************************************************/

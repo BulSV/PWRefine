@@ -13,7 +13,10 @@ SOURCES += main.cpp \
     stone.cpp \
     tienkangstone.cpp \
     tishastone.cpp \
-    chienkunstone.cpp
+    chienkunstone.cpp \
+    miragecelestone.cpp \
+    catalyzerstone.cpp \
+    enrichedmiragecelestone.cpp
 
 HEADERS += \
     refine.h \
@@ -27,7 +30,10 @@ HEADERS += \
     stone.h \
     tienkangstone.h \
     tishastone.h \
-    chienkunstone.h
+    chienkunstone.h \
+    miragecelestone.h \
+    catalyzerstone.h \
+    enrichedmiragecelestone.h
 
 OTHER_FILES += \
     TODO.txt    \
