@@ -12,8 +12,7 @@ SOURCES += main.cpp \
     tishastone.cpp \
     chienkunstone.cpp \
     miragecelestone.cpp \
-    catalyzerstone.cpp \
-    enrichedmiragecelestone.cpp
+    catalyzerstone.cpp
 
 HEADERS += \
     refine.h \
@@ -26,8 +25,7 @@ HEADERS += \
     tishastone.h \
     chienkunstone.h \
     miragecelestone.h \
-    catalyzerstone.h \
-    enrichedmiragecelestone.h
+    catalyzerstone.h
 
 OTHER_FILES += \
     TODO.txt    \

@@ -34,7 +34,7 @@ ChienkunStone::~ChienkunStone()
 
 std::string ChienkunStone::category() const
 {
-    return itsCategory''
+    return itsCategory;
 }
 
 REFINE ChienkunStone::refineRequest(float obtainedChance) const
