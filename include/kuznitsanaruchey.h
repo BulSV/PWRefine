@@ -6,9 +6,13 @@
 
 class KuznitsaNaruchey: public Kuznitsa
 {
-public:
+    static KuznitsaNaruchey *itsKuznitsaNaruchey;
+//protected:
     KuznitsaNaruchey();
+public:
     virtual Dospeh *createDospeh(std::string pro) const;
+    static Kuznitsa *getInstance();
+    static void delInstance();
     virtual ~KuznitsaNaruchey();
 };
 

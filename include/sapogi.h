@@ -4,7 +4,7 @@
 #include "dospeh.h"
 
 
-class Sapogi : public Dospeh
+class Sapogi: public Dospeh
 {
 public:
     Sapogi(std::string pro);

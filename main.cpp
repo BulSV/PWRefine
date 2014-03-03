@@ -19,7 +19,7 @@
 #include "include/iochecker.h"
 #include <stdlib.h>
 
-void inputdospehs(std::vector<Dospeh*> &vd)
+void inputDospehs(std::vector<Dospeh*> &vd)
 {
     int i = 0;
     char cat;
@@ -106,52 +106,52 @@ void inputdospehs(std::vector<Dospeh*> &vd)
         {
         case 0:
         {
-            k = new KuznitsaOruzhiya();
+            k = KuznitsaOruzhiya::getInstance();
             break;
         }
         case 1:
         {
-            k = new KuznitsaShlemov();
+            k = KuznitsaShlemov::getInstance();
             break;
         }
         case 2:
         {
-            k = new KuznitsaNakidok();
+            k = KuznitsaNakidok::getInstance();
             break;
         }
         case 3:
         {
-            k = new KuznitsaBridgey();
+            k = KuznitsaBridgey::getInstance();
             break;
         }
         case 4:
         {
-            k = new KuznitsaSapog();
+            k = KuznitsaSapog::getInstance();
             break;
         }
         case 5:
         {
-            k = new KuznitsaNaruchey();
+            k = KuznitsaNaruchey::getInstance();
             break;
         }
         case 6:
         {
-            k = new KuznitsaPlaschey();
+            k = KuznitsaPlaschey::getInstance();
             break;
         }
         case 7:
         {
-            k = new KuznitsaOzherelyev();
+            k = KuznitsaOzherelyev::getInstance();
             break;
         }
         case 8:
         {
-            k = new KuznitsaPoyasov();
+            k = KuznitsaPoyasov::getInstance();
             break;
         }
         case 9:
         {
-            k = new KuznitsaKolets();
+            k = KuznitsaKolets::getInstance();
             break;
         }
         default: exit(-8);
@@ -454,7 +454,7 @@ int main()
     std::vector<Dospeh*> vd;
     char choice;
 
-    inputdospehs(vd);
+    inputDospehs(vd);
 
     while(1)
     {

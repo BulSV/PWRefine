@@ -4,7 +4,7 @@
 #include "dospeh.h"
 
 
-class Poyas : public Dospeh
+class Poyas: public Dospeh
 {
 public:
     Poyas(std::string pro);

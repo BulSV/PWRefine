@@ -12,9 +12,9 @@ Refine::Refine()
 Refine::~Refine()
 {}
 
-void Refine::goRefining(Dospeh *o, STONES s)
+void Refine::goRefining(Dospeh *dospeh, STONES s)
 {
-    itsdospeh = o;
+    itsdospeh = dospeh;
 
     switch(s)
     {

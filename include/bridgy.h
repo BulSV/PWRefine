@@ -4,7 +4,7 @@
 #include "dospeh.h"
 
 
-class Bridgy : public Dospeh
+class Bridgy: public Dospeh
 {
 public:
     Bridgy(std::string pro);
