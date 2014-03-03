@@ -6,10 +6,8 @@
 
 class Armor
 {
-    static const int MAX_REFINE_LEVEL = 12;
-    static const int MIN_REFINE_LEVEL = 0;
 public:
-    Armor(int refineLevel = 0,
+    Armor(REFINE_LEVEL refineLevel = 0,
           int requiredMiragecelestone = 1,
           std::string category = "NO CATEGORY",
           std::string property = "NO PROPERTY");
@@ -17,16 +15,16 @@ public:
     std::string category() const;
     std::string property() const;
     void setRefineLevel(REFINE resRefine);
-    int refineLevel() const;
+    REFINE_LEVEL refineLevel() const;
     int requiredMirageCelestone() const;
     virtual void drawDospeh() = 0;
 private:
     std::string itsCategory;
     std::string itsProperty;
-    int itsRefineLevel;
+    REFINE_LEVEL itsRefineLevel;
     int itsRequiredMiragecelestone;
 
-    void setRefineLevel(int refineLevel);
+    void setRefineLevel(REFINE_LEVEL refineLevel);
 };
 
 #endif // ARMOR_H

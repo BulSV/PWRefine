@@ -10,10 +10,10 @@ class ConsoleArmorFactory: public ArmorFactory
 protected:
     ConsoleArmorFactory();
 public:
-    virtual Armor *createArmor(int refineLevel = 0,
+    virtual Armor *createArmor(REFINE_LEVEL refineLevel = 0,
                                int requiredMiragecelestone = 1,
-                                std::string category = "NO CATEGORY",
-                                std::string property = "NO PROPERTY") const;
+                               std::string category = "NO CATEGORY",
+                               std::string property = "NO PROPERTY") const;
     static ArmorFactory *getInstance();
     static void delInstance();
     virtual ~ConsoleArmorFactory();

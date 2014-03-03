@@ -1,33 +1,40 @@
 #include "tishastone.h"
 #include "matematika.h"
 
+static std::string TishaStone::CATEGORY = "TISHA STONE";
+
 float TishaStone::addChance(const Armor *armor) const
 {
     switch(armor->refineLevel())
     {
-    case 0: return 3.5;
-    case 1: return -16.5;
-    case 2: return -16.5;
-    case 3: return -16.5;
-    case 4: return -16.5;
-    case 5: return -16.5;;
-    case 6: return -16.5;
-    case 7: return -16.5;
-    case 8: return -21.5;
-    case 9: return -26.5;
-    case 10: return -34.5;
-    case 11: return -41.5;
-    default: std::cout << "ERROR! Refine level not in [0..12]";
-        exit(-4);
+    case T0: return 3.5;
+    case T1: return -16.5;
+    case T2: return -16.5;
+    case T3: return -16.5;
+    case T4: return -16.5;
+    case T5: return -16.5;;
+    case T6: return -16.5;
+    case T7: return -16.5;
+    case T8: return -21.5;
+    case T9: return -26.5;
+    case T10: return -34.5;
+    case T11: return -41.5;
+    default: std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
     }
 }
 
-TishaStone::TishaStone()    
+TishaStone::TishaStone()
+    : itsCategory(CATEGORY)
 {
 }
 
 TishaStone::~TishaStone() /*virtual*/
 {
+}
+
+std::string TishaStone::category() const
+{
+    return itsCategory;
 }
 
 REFINE TishaStone::refineRequest(float obtainedChance) const

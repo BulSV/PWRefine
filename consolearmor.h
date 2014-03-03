@@ -7,7 +7,7 @@
 class ConsoleArmor: public Armor
 {
 public:
-    ConsoleArmor(int refineLevel = 0,
+    ConsoleArmor(REFINE_LEVEL refineLevel = 0,
                  int requiredMiragecelestone = 1,
                   std::string category = "NO CATEGORY",
                   std::string property = "NO PROPERTY");

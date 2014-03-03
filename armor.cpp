@@ -1,7 +1,7 @@
 #include "armor.h"
 #include <stdlib.h>
 
-Armor::Armor(int refineLevel,
+Armor::Armor(REFINE_LEVEL refineLevel,
              int requiredMiragecelestone,
              std::string category,
              std::string property)
@@ -44,7 +44,7 @@ void Armor::setRefineLevel(REFINE resRefine)
     }
 }
 
-int Armor::refineLevel() const
+REFINE_LEVEL Armor::refineLevel() const
 {
     return itsRefineLevel;
 }
@@ -54,10 +54,7 @@ int Armor::requiredMirageCelestone() const
     return itsRequiredMiragecelestone;
 }
 
-void Armor::setRefineLevel(int refineLevel)
+void Armor::setRefineLevel(REFINE_LEVEL refineLevel)
 {
-    if(refineLevel <= MAX_REFINE_LEVEL && refineLevel >= MIN_REFINE_LEVEL)
-    {
-        itsRefineLevel = refineLevel;
-    }
+    itsRefineLevel = refineLevel;
 }

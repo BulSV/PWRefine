@@ -5,10 +5,13 @@
 #include "stone.h"
 
 class MirageCelestone: public Stone
-{    
+{
+    static std::string CATEGORY;
+    std::string itsCategory;
 public:
-    MirageCelestone();    
+    MirageCelestone();
     virtual ~MirageCelestone();
+    virtual std::string category() const;
     virtual float addChance(const Armor *armor) const;
     REFINE refineRequest(float obtainedChance) const;
 };

@@ -1,6 +1,6 @@
 #include "consolearmor.h"
 
-ConsoleArmor::ConsoleArmor(int refineLevel,
+ConsoleArmor::ConsoleArmor(REFINE_LEVEL refineLevel,
                            int requiredMirazh,
                            std::string category,
                            std::string property)

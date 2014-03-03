@@ -1,33 +1,40 @@
 #include "miragecelestone.h"
 #include "matematika.h"
 
+static std::string MirageCelestone::CATEGORY = "MIRAGE CELESTONE";
+
 float MirageCelestone::addChance(const Armor *armor) const
 {
-    switch(armor)
+    switch(armor->refineLevel())
     {
-    case 0: return 0.0;
-    case 1: return -20.0;
-    case 2: return -20.0;
-    case 3: return -20.0;
-    case 4: return -20.0;
-    case 5: return -20.0;
-    case 6: return -20.0;
-    case 7: return -20.0;
-    case 8: return -25.0;
-    case 9: return -30.0;
-    case 10: return -38.0;
-    case 11: return -45.0;
-    default: std::cout << "ERROR! Refine level not in [0..12]";
-        exit(-2);
+    case T0: return 0.0;
+    case T1: return -20.0;
+    case T2: return -20.0;
+    case T3: return -20.0;
+    case T4: return -20.0;
+    case T5: return -20.0;
+    case T6: return -20.0;
+    case T7: return -20.0;
+    case T8: return -25.0;
+    case T9: return -30.0;
+    case T10: return -38.0;
+    case T11: return -45.0;
+    default: std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
     }
 }
 
 MirageCelestone::MirageCelestone()
+    : itsCategory(CATEGORY)
 {
 }
 
 MirageCelestone::~MirageCelestone()
 {
+}
+
+std::string MirageCelestone::category() const
+{
+    return itsCategory;
 }
 
 REFINE MirageCelestone::refineRequest(float obtainedChance) const

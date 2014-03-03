@@ -7,7 +7,10 @@
 class ArmorFactory
 {
 public:
-    virtual Armor *createArmor(std::string property) const = 0;
+    virtual Armor *createArmor(REFINE_LEVEL refineLevel = 0,
+                               int requiredMiragecelestone = 1,
+                               std::string category = "NO CATEGORY",
+                               std::string property = "NO PROPERTY") const = 0;
 
     virtual ~ArmorFactory();
 };

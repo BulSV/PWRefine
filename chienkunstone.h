@@ -5,10 +5,12 @@
 
 class ChienkunStone : public CatalyzerStone
 {
-
+    static std::string CATEGORY;
+    std::string itsCategory;
 public:
     ChienkunStone();
     virtual ~ChienkunStone();
+    virtual std::string category() const;
     virtual float addChance(const Armor* armor) const;
     virtual REFINE refineRequest(float obtainedChance) const;
 };

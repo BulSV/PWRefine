@@ -7,7 +7,7 @@ ConsoleArmorFactory::ConsoleArmorFactory()
 {
 }
 
-Armor *ConsoleArmorFactory::createArmor(int refineLevel,
+Armor *ConsoleArmorFactory::createArmor(REFINE_LEVEL refineLevel,
                                         int requiredMiragecelestone,
                                         std::string category,
                                         std::string property) const /*virtual*/

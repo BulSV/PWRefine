@@ -1,33 +1,40 @@
 #include "tienkangstone.h"
 #include "matematika.h"
 
+static std::string TienkangStone::CATEGORY = "TIENKANG STONE";
+
 float TienkangStone::addChance(const Armor *armor) const /*virtual*/
 {
     switch(armor->refineLevel())
     {
-    case 0: return 15.0;
-    case 1: return -5.0;
-    case 2: return -5.0;
-    case 3: return -5.0;
-    case 4: return -5.0;
-    case 5: return -5.0;
-    case 6: return -5.0;
-    case 7: return -5.0;
-    case 8: return -10.0;
-    case 9: return -15.0;
-    case 10: return -23.0;
-    case 11: return -30.0;
-    default: std::cout << "ERROR! Refine level not in [0..12]";
-        exit(-3);
+    case T0: return 15.0;
+    case T1: return -5.0;
+    case T2: return -5.0;
+    case T3: return -5.0;
+    case T4: return -5.0;
+    case T5: return -5.0;
+    case T6: return -5.0;
+    case T7: return -5.0;
+    case T8: return -10.0;
+    case T9: return -15.0;
+    case T10: return -23.0;
+    case T11: return -30.0;
+    default: std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
     }
 }
 
-TienkangStone::TienkangStone()    
+TienkangStone::TienkangStone()
+    : itsCategory(CATEGORY)
 {
 }
 
 TienkangStone::~TienkangStone() /*virtual*/
 {
+}
+
+std::string TienkangStone::category() const
+{
+    return itsCategory;
 }
 
 REFINE TienkangStone::refineRequest(float obtainedChance) const
