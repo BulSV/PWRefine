@@ -31,13 +31,13 @@ void Armor::setRefineLevel(REFINE resRefine)
 {
     switch (resRefine) {
     case RESET:
-        setRefineLevel(0);
+        setRefineLevel(T0);
         break;
     case SUCCESS:
-        setRefineLevel(refineLevel() + 1);
+        setRefineLevel(reinterpret_cast<REFINE_LEVEL>(reinterpret_cast<int>(refineLevel()) + 1));
         break;
     case FAIL:
-        setRefineLevel(refineLevel() - 1);
+        setRefineLevel(reinterpret_cast<REFINE_LEVEL>(reinterpret_cast<int>(refineLevel()) - 1));
         break;
     default:
         break;

@@ -7,7 +7,7 @@
 class Armor
 {
 public:
-    Armor(REFINE_LEVEL refineLevel = 0,
+    Armor(REFINE_LEVEL refineLevel = T0,
           int requiredMiragecelestone = 1,
           std::string category = "NO CATEGORY",
           std::string property = "NO PROPERTY");
@@ -17,7 +17,6 @@ public:
     void setRefineLevel(REFINE resRefine);
     REFINE_LEVEL refineLevel() const;
     int requiredMirageCelestone() const;
-    virtual void drawDospeh() = 0;
 private:
     std::string itsCategory;
     std::string itsProperty;
