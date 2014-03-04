@@ -1,9 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
-#include "armorfactory.h"
-#include "consolearmorfactory.h"
-#include "refine.h"
+#include "refinedriver.h"
+#include "consolerefinedriver.h"
 #include <conio.h>
 #include <windows.h>
 #include <iomanip>

@@ -13,7 +13,9 @@ SOURCES += main.cpp \
     chienkunstone.cpp \
     miragecelestone.cpp \
     catalyzerstone.cpp \
-    counthandler.cpp
+    counthandler.cpp \
+    refinedriver.cpp    \
+    consolerefinedriver.cpp
 
 HEADERS += \
     refine.h \
@@ -27,7 +29,9 @@ HEADERS += \
     chienkunstone.h \
     miragecelestone.h \
     catalyzerstone.h \
-    counthandler.h
+    counthandler.h \
+    refinedriver.h  \
+    consolerefinedriver.h
 
 OTHER_FILES += \
     TODO.txt    \
