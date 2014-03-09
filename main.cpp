@@ -190,7 +190,7 @@ void inputDospehs(std::vector<Dospeh*> &vd)
         if(t2 != 13)
         {
             std::vector<char> vPro;
-            messages = "אבגדהו¸זחטיךכלםמןנסעףפץצקרשתûü‎‏ÿÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞ‗ ";
+            messages = "אבגדהוזחטיךכלםמןנסעףפץצקרשתûü‎‏ÿÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞ‗ -";
             const char *c = cp1251to866(const_cast<char*>(messages.c_str()));
 
             iochecker ioPro(29, &vPro, c);
