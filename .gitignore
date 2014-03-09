@@ -2,7 +2,6 @@
 *.slo
 *.lo
 *.o
-object_script.*
 
 # Compiled Dynamic libraries
 *.so
@@ -23,7 +22,10 @@ bin
 obj
 patches
 debug
+Debug
 release
+Release
+.*
 
 # Don't needed CodeBlocks files
 *.depend
@@ -37,3 +39,12 @@ moc_*.cpp
 qrc_*.cpp
 Makefile*
 *-build-*
+object_script*
+
+# Don't needed Java files
+*.class
+.idea
+out
+
+# Needed files
+!.gitignore

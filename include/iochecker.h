@@ -1,4 +1,4 @@
-#ifndef IOCHECKER_H
+﻿#ifndef IOCHECKER_H
 #define IOCHECKER_H
 
 #include <iostream>

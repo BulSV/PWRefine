@@ -1,4 +1,4 @@
-#include "../include/iochecker.h"
+﻿#include "../include/iochecker.h"
 #include <stdlib.h>
 
 #define BACKSPACE 8
@@ -6,9 +6,11 @@
 
 void iochecker::fillUnMaskSmbs()
 {
+//    std::cout << "mas = " << m_mas << std::endl;
     UnMaksSymStruct smb;
     m_vUnMaskSmbs.clear();
     std::string s = repeatedChars(m_mas, false);
+//    std::cout << "s = " << s << std::endl;
     for(unsigned int i = 0; i < s.size(); ++i)
     {
         smb.name = s.at(i);
@@ -266,6 +268,7 @@ iochecker::~iochecker()
 
 void iochecker::check(unsigned int ch)
 {
+    std::cout << "ch = " << ch << std::endl;
     if(eqSym(m_mas, ch))
     {
         checker(ch);
@@ -285,7 +288,7 @@ std::istream &operator >>(std::istream &input, iochecker &o)
     std::cin.ignore();
     std::string s;
     getline(input, s);
-    o.m_mas = s.c_str();
+    o.m_mas = const_cast<char*>(s.c_str());
     o.fillUnMaskSmbs();
     std::cout << o.m_inputSym;
     o.check(_getch());
