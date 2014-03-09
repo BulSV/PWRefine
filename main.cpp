@@ -82,7 +82,7 @@ void inputdospehs(std::vector<Kuznitsa> &vk)
     	messages = "5 - Ќаручи, 6 - ѕлащ, 7 - ќжерелье, 8 - ѕо€с, 9 -  ольцо";
         std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
 
-        std::vector<unsigned char> vInput;
+        std::vector<char> vInput;
         iochecker ioInput(1, &vInput, "0123456789q");
 
         ioInput.check(_getch());
@@ -175,11 +175,11 @@ void inputdospehs(std::vector<Kuznitsa> &vk)
         std::cin.ignore(); // ќб€зательно перед getline()
         /*std::getline(std::cin, pro); // —читывает всю строку (даже с пробелами)
         std::cout << std::endl;*/
-        unsigned int t2 = _getch();
+        int t2 = _getch();
         if(t2 != 13)
         {
-            std::vector<unsigned char> vPro;
-            messages = "абвгдеЄжзийклмнопрстуфхцчшщъыьэю€јЅ¬√ƒ≈®∆«»… ЋћЌќѕ–—“”‘’÷„ЎўЏџ№Ёёя0";
+            std::vector<char> vPro;
+            messages = "абвгдеЄжзийклмнопрстуфхцчшщъыьэю€јЅ¬√ƒ≈®∆«»… ЋћЌќѕ–—“”‘’÷„ЎўЏџ№Ёёя ";
             const char *c = cp1251to866(const_cast<char*>(messages.c_str()));
 
             iochecker ioPro(29, &vPro, c);
@@ -261,11 +261,11 @@ void inputdospehs(std::vector<Kuznitsa> &vk)
         messages = "¬ведите уровень заточки (или ENTER):\n";
         std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
-        unsigned int t = _getch();
-        unsigned int tochka = 0;
+        int t = _getch();
+        int tochka = 0;
         if(t != 13)
         {
-            std::vector<unsigned char> vTochka;
+            std::vector<char> vTochka;
             iochecker ioTochka(2, &vTochka, "0123456789");
 
             ioTochka.check(t);
@@ -451,7 +451,7 @@ void outputResults(const std::vector<Kuznitsa> &vk)
 			<< std::endl << std::endl;
 }
 
-void outputResults(const std::vector<Kuznitsa> &vk, unsigned int i)
+void outputResults(const std::vector<Kuznitsa> &vk, /*unsigned */int i)
 {
 	std::cout.fill(' ');
 
@@ -489,7 +489,7 @@ void outputResults(const std::vector<Kuznitsa> &vk, unsigned int i)
 	std::cout << std::endl;
 }
 
-void backspace(unsigned int count)
+void backspace(int count)
 {
     while(count--)
     {
@@ -510,13 +510,13 @@ void zatochka(std::vector<Kuznitsa> &vk)
 
         while(1)
         {
-            std::vector<unsigned char> vRN;
+            std::vector<char> vRN;
             iochecker ioRN(2, &vRN, "0123456789");
 
             ioRN.check(_getch());
 
             if(iochecker::isDigit(ioRN.charBuffer(iochecker::ALLZEROS))
-                    && (unsigned int)iochecker::stoi(ioRN.charBuffer(iochecker::ALLZEROS)) < vk.size())
+                    && (int)iochecker::stoi(ioRN.charBuffer(iochecker::ALLZEROS)) < vk.size())
             {
                 i = iochecker::stoi(ioRN.charBuffer(iochecker::ALLZEROS));
 
@@ -541,7 +541,7 @@ void zatochka(std::vector<Kuznitsa> &vk)
             unsigned int t = _getch();
             if(t != 13)
             {
-                std::vector<unsigned char> vStones;
+                std::vector<char> vStones;
                 iochecker ioStones(1, &vStones, "0123");
 
                 ioStones.check(t);
@@ -590,7 +590,7 @@ void zatochka(std::vector<Kuznitsa> &vk)
         messages = "ѕоказать список всех предметов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
         std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
-        unsigned int t2;
+        int t2;
         int ch;
 
         while(1)
@@ -598,7 +598,7 @@ void zatochka(std::vector<Kuznitsa> &vk)
             t2 = _getch();
             if(t2 != 13)
             {
-                std::vector<unsigned char> vPRQ;
+                std::vector<char> vPRQ;
                 iochecker ioPRQ(1, &vPRQ, "prq");
 
                 ioPRQ.check(t2);

@@ -9,13 +9,13 @@
 class iochecker
 {
     unsigned int m_lim;
-    std::vector<unsigned char> *m_buf;
-    std::vector<unsigned char> *m_bufOrigin;
+    std::vector<char> *m_buf;
+    std::vector<char> *m_bufOrigin;
     const char *m_mas;
     void fillUnMaskSmbs();
-    bool emergUnMaskSym(unsigned char ch);
-    void unEmergUnMaskSym(unsigned char ch);
-    void checker(unsigned int ch);
+    bool emergUnMaskSym(char ch);
+    void unEmergUnMaskSym(char ch);
+    void checker(int ch);
     void fillBufOrigin();
     void leadingZeros();
     void trailingZeros();
@@ -32,11 +32,11 @@ class iochecker
     const char* m_outputSym;
     std::vector<UnMaksSymStruct> m_vUnMaskSmbs;
 public:
-    iochecker(unsigned int lim,
-              std::vector<unsigned char> *buf,
+    iochecker(int lim,
+              std::vector<char> *buf,
               const char *mas);
-    iochecker(unsigned int lim,
-              std::vector<unsigned char> *buf,
+    iochecker(int lim,
+              std::vector<char> *buf,
               const char *mas,
               const char* inputSymLim,
               const char* inputCheckMass,
@@ -52,7 +52,7 @@ public:
         ALLZEROS = LEADING | TRAILING,
         NOCHANGED = -1
     };
-    void check(unsigned int ch);
+    void check(int ch);
     friend std::ostream &operator <<(std::ostream &output, const iochecker &o);
     friend std::istream &operator >>(std::istream &input, iochecker &o);
     void setInputMessages(const char* inputSymLim,
@@ -61,16 +61,16 @@ public:
     void setOutputMessages(const char* outputSymLim,
                           const char* outputCheckMass,
                           const char* outputSym);
-    void setBuffer(std::vector<unsigned char> v);
+    void setBuffer(std::vector<char> v);
     void setStringBuffer(std::string s);
     void setCharBuffer(const char* c);
-    std::vector<unsigned char> buffer(ZEROFLAGS zeros = NOCHANGED);
+    std::vector<char> buffer(ZEROFLAGS zeros = NOCHANGED);
     std::string stringBuffer(ZEROFLAGS zeros = NOCHANGED);
     const char *charBuffer(ZEROFLAGS zeros = NOCHANGED);
-    static bool eqSym(const char *mas, const unsigned char &ch);
+    static bool eqSym(const char *mas, const char &ch);
     static int eqSymIndex(const char* mas,
-               const unsigned char &ch,
-               unsigned int beginIndex = 0);
+               const char &ch,
+               int beginIndex = 0);
     static const char* repeatedChars(const char* in, bool mask = true);
     static bool isDigit(const char* c);
     static int stoi(const char* str);

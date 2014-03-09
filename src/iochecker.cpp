@@ -6,11 +6,10 @@
 
 void iochecker::fillUnMaskSmbs()
 {
-//    std::cout << "mas = " << m_mas << std::endl;
     UnMaksSymStruct smb;
     m_vUnMaskSmbs.clear();
     std::string s = repeatedChars(m_mas, false);
-//    std::cout << "s = " << s << std::endl;
+
     for(unsigned int i = 0; i < s.size(); ++i)
     {
         smb.name = s.at(i);
@@ -19,7 +18,7 @@ void iochecker::fillUnMaskSmbs()
     }
 }
 
-bool iochecker::emergUnMaskSym(unsigned char ch)
+bool iochecker::emergUnMaskSym(char ch)
 {
     for(unsigned int i = 0; i < m_vUnMaskSmbs.size(); ++i)
     {
@@ -42,7 +41,7 @@ bool iochecker::emergUnMaskSym(unsigned char ch)
     return false;
 }
 
-void iochecker::unEmergUnMaskSym(unsigned char ch)
+void iochecker::unEmergUnMaskSym(char ch)
 {
     for(unsigned int i = 0; i < m_vUnMaskSmbs.size(); ++i)
     {
@@ -62,7 +61,7 @@ void iochecker::fillBufOrigin()
     }
 }
 
-void iochecker::checker(unsigned int ch)
+void iochecker::checker(int ch)
 {
     if(eqSym(repeatedChars(m_mas), ch) &&
             (!eqSym(repeatedChars(m_mas, false), ch) || !emergUnMaskSym(ch)) &&
@@ -121,7 +120,7 @@ std::ostream &operator <<(std::ostream &output, const iochecker &o)
     return output;
 }
 
-bool iochecker::eqSym(const char *mas, const unsigned char &ch)
+bool iochecker::eqSym(const char *mas, const char &ch)
 {
     while(*mas)
     {
@@ -135,11 +134,11 @@ bool iochecker::eqSym(const char *mas, const unsigned char &ch)
 }
 
 int iochecker::eqSymIndex(const char* mas,
-                          const unsigned char &ch,
-                          unsigned int beginIndex)
+                          const char &ch,
+                          int beginIndex)
 {
-    unsigned int symIndex = beginIndex;
-    if(beginIndex < 0) return -1;
+    int symIndex = beginIndex;
+    if(beginIndex < 0) return -1; /// protect from dummy input
     while(beginIndex-- && mas++)
     {}
     while(*mas)
@@ -221,12 +220,12 @@ int iochecker::stoi(const char *str)
     return number*sign;
 }
 
-iochecker::iochecker(unsigned int lim,
-                     std::vector<unsigned char> *buf,
+iochecker::iochecker(int lim,
+                     std::vector<char> *buf,
                      const char *mas)
     : m_lim(lim)
     , m_buf(buf)
-    , m_bufOrigin(new std::vector<unsigned char>)
+    , m_bufOrigin(new std::vector<char>)
     , m_mas(mas)
     , m_inputSymLim("Input symbols limit: ")
     , m_inputCheckMass("Input check massive: ")
@@ -238,8 +237,8 @@ iochecker::iochecker(unsigned int lim,
     fillUnMaskSmbs();
 }
 
-iochecker::iochecker(unsigned int lim,
-                     std::vector<unsigned char> *buf,
+iochecker::iochecker(int lim,
+                     std::vector<char> *buf,
                      const char *mas,
                      const char *inputSymLim,
                      const char *inputCheckMass,
@@ -249,7 +248,7 @@ iochecker::iochecker(unsigned int lim,
                      const char *outputSym)
     : m_lim(lim)
     , m_buf(buf)
-    , m_bufOrigin(new std::vector<unsigned char>)
+    , m_bufOrigin(new std::vector<char>)
     , m_mas(mas)
     , m_inputSymLim(inputSymLim)
     , m_inputCheckMass(inputCheckMass)
@@ -266,9 +265,8 @@ iochecker::~iochecker()
     delete m_bufOrigin;
 }
 
-void iochecker::check(unsigned int ch)
+void iochecker::check(int ch)
 {
-    std::cout << "ch = " << ch << std::endl;
     if(eqSym(m_mas, ch))
     {
         checker(ch);
@@ -321,7 +319,7 @@ void iochecker::trailingZeros()
     }
 }
 
-std::vector<unsigned char> iochecker::buffer(ZEROFLAGS zeros)
+std::vector<char> iochecker::buffer(ZEROFLAGS zeros)
 {
     if((zeros == LEADING) && m_buf->size() > 1)
     {
@@ -396,7 +394,7 @@ void iochecker::setOutputMessages(const char *outputSymLim,
     m_outputSym = outputSym;
 }
 
-void iochecker::setBuffer(std::vector<unsigned char> v)
+void iochecker::setBuffer(std::vector<char> v)
 {
     if(v.empty())
     {
