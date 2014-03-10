@@ -1,4 +1,4 @@
-#ifndef MATEMATIKA_H
+﻿#ifndef MATEMATIKA_H
 #define MATEMATIKA_H
 
 

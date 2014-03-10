@@ -9,6 +9,59 @@
 #include "iochecker.h"
 #include <stdlib.h>
 
+//==============================================================================
+char* cp1251to866(char *c)
+{
+	int i = 0;
+
+	while(*c)
+	{
+		if(*c >= -16 && *c <= -1)
+		{
+			*c -= 16;
+		}
+		else if(*c <= -17 && *c >= -64)
+		{
+			*c -= 64;
+		}
+		c++;
+		i++;
+	}
+
+	while(i--)
+	{
+		c--;
+	}
+
+	return c;
+}
+//==============================================================================
+char* cp866to1251(char *c)
+{
+    int i = 0;
+    while(*c)
+    {
+        if(*c > -33 && *c < -16)
+        {
+            *c += 16;
+        }
+        else if(*c < -80 && *c > -129)
+        {
+            *c += 64;
+        }
+        c++;
+        i++;
+    }
+
+    while(i--)
+    {
+        c--;
+    }
+
+    return c;
+}
+//==============================================================================
+
 void inputDospehs(std::vector<Dospeh*> &vd)
 {
     int i = 0;
@@ -17,16 +70,20 @@ void inputDospehs(std::vector<Dospeh*> &vd)
     std::string pro;
     std::vector<Kuznitsa*> vk;
 
-    std::cout << "Введите предметы для заточки.\n";
-    std::cout << "Предмет № " << i++ << ":\n";
+    std::string messages = "┬тхфшЄх яЁхфьхЄ√ фы  чрЄюўъш.";
+    std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
+    messages = "╧ЁхфьхЄ ╣ ";
+    std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << i++ << ":\n";
 
     while(1)
     {
 
-        std::cout << "0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги,\n";
-        std::cout << "5 - Наручи, 6 - Плащ, 7 - Ожерелье, 8 - Пояс, 9 - Кольцо\n";
+        messages = "0 - ╬Ёєцшх, 1 - ╪ыхь, 2 - ═ръшфър, 3 - ┴Ёшфцш, 4 - ╤ряюуш,";
+    	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
+    	messages = "5 - ═рЁєўш, 6 - ╧ыр∙, 7 - ╬цхЁхы№х, 8 - ╧ю ё, 9 - ╩юы№Ўю";
+        std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
 
-        std::vector<unsigned char> vInput;
+        std::vector<char> vInput;
         iochecker ioInput(1, &vInput, "0123456789q");
 
         ioInput.check(_getch());
@@ -49,38 +106,84 @@ void inputDospehs(std::vector<Dospeh*> &vd)
 
         switch(cat)
         {
-        case 0: predmet = "оружия";
-            break;
-        case 1: predmet = "шлема";
-            break;
-        case 2: predmet = "накидки";
-            break;
-        case 3: predmet = "бриджей";
-            break;
-        case 4: predmet = "сапог";
-            break;
-        case 5: predmet = "наручей";
-            break;
-        case 6: predmet = "плаща";
-            break;
-        case 7: predmet = "ожерелья";
-            break;
-        case 8: predmet = "пояса";
-            break;
-        case 9: predmet = "кольца";
-            break;
+        case 0:
+        {
+        	messages = "юЁєцш ";
+        	predmet = cp1251to866(const_cast<char*>(messages.c_str()));
+        	break;
+        }
+        case 1:
+        {
+        	messages = "°ыхьр";
+        	predmet = cp1251to866(const_cast<char*>(messages.c_str()));
+        	break;
+        }
+        case 2:
+        {
+        	messages = "эръшфъш";
+        	predmet = cp1251to866(const_cast<char*>(messages.c_str()));
+        	break;
+        }
+        case 3:
+        {
+        	messages = "сЁшфцхщ";
+        	predmet = cp1251to866(const_cast<char*>(messages.c_str()));
+        	break;
+        }
+        case 4:
+        {
+        	messages = "ёряюу";
+        	predmet = cp1251to866(const_cast<char*>(messages.c_str()));
+        	break;
+        }
+        case 5:
+        {
+        	messages = "эрЁєўхщ";
+        	predmet = cp1251to866(const_cast<char*>(messages.c_str()));
+        	break;
+        }
+        case 6:
+        {
+        	messages = "яыр∙р";
+        	predmet = cp1251to866(const_cast<char*>(messages.c_str()));
+        	break;
+        }
+        case 7:
+        {
+        	messages = "юцхЁхы№ ";
+        	predmet = cp1251to866(const_cast<char*>(messages.c_str()));
+        	break;
+        }
+        case 8:
+        {
+        	messages = "яю ёр";
+        	predmet = cp1251to866(const_cast<char*>(messages.c_str()));
+        	break;
+        }
+        case 9:
+        {
+        	messages = "ъюы№Ўр";
+        	predmet = cp1251to866(const_cast<char*>(messages.c_str()));
+        	break;
+        }
         default: exit(-7);
         }
 
-        std::cout << "\nВведите название " << predmet << " (или ENTER):\n";
-        std::cin.ignore(); // Обязательно перед getline()
-        /*std::getline(std::cin, pro); // Считывает всю строку (даже с пробелами)
+        messages = "┬тхфшЄх эрчтрэшх ";
+        std::cout << "\n" << cp1251to866(const_cast<char*>(messages.c_str())) << predmet;
+        messages = " (шыш ENTER):\n";
+        std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+        std::cin.ignore(); // ╬с чрЄхы№эю яхЁхф getline()
+        /*std::getline(std::cin, pro); // ╤ўшЄ√трхЄ тё■ ёЄЁюъє (фрцх ё яЁюсхырьш)
         std::cout << std::endl;*/
-        unsigned int t2 = _getch();
+        int t2 = _getch();
         if(t2 != 13)
         {
-            std::vector<unsigned char> vPro;
-            iochecker ioPro(29, &vPro, "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ");
+            std::vector<char> vPro;
+            messages = "рстуфхцчшщъыьэюяЁёЄєЇїЎў°∙·√№¤■ └┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌█▄▌▐▀ -";
+            const char *c = cp1251to866(const_cast<char*>(messages.c_str()));
+
+            iochecker ioPro(29, &vPro, c);
             ioPro.check(t2);
             std::cout << std::endl;
             pro = ioPro.stringBuffer(iochecker::ALLZEROS);
@@ -149,13 +252,14 @@ void inputDospehs(std::vector<Dospeh*> &vd)
 
         vk.push_back(k);
 
-        std::cout << "Введите уровень заточки (или ENTER):\n";
+        messages = "┬тхфшЄх єЁютхэ№ чрЄюўъш (шыш ENTER):\n";
+        std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
-        unsigned int t = _getch();
-        unsigned int tochka = 0;
+        int t = _getch();
+        int tochka = 0;
         if(t != 13)
         {
-            std::vector<unsigned char> vTochka;
+            std::vector<char> vTochka;
             iochecker ioTochka(2, &vTochka, "0123456789");
 
             ioTochka.check(t);
@@ -172,54 +276,118 @@ void inputDospehs(std::vector<Dospeh*> &vd)
         std::cin.get();
 
         std::cout << std::endl;
-        std::cout << "Предмет № " << i++ << " или выход (q):\n";
+        messages = "╧ЁхфьхЄ ╣ ";
+        std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << i++;
+        messages = " шыш т√їюф (q):\n";
+        std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
     }
 }
 
 std::string CATEGORYtoString(CATEGORY cat)
 {
-    switch(cat)
-    {
-    case WEAPON: return "Оружие";
-        break;
-    case SHLEM: return "Шлем";
-        break;
-    case NAKIDKA: return "Накидка";
-        break;
-    case BRIDGY: return "Бриджи";
-        break;
-    case SAPOGI: return "Сапоги";
-        break;
-    case NARUCHI: return "Наручи";
-        break;
-    case PLASCH: return "Плащ";
-        break;
-    case OZHERELYE: return "Ожерелье";
-        break;
-    case POYAS: return "Пояс";
-        break;
-    case RING: return "Кольцо";
-        break;
-    default: exit(-9);
-    }
+	std::string messages;
 
-    return "Нет категории";
+	switch(cat)
+	{
+	case WEAPON:
+	{
+		messages = "╬Ёєцшх";
+		return cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case SHLEM:
+	{
+		messages = "╪ыхь";
+		return cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case NAKIDKA:
+	{
+		messages = "═ръшфър";
+		return cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case BRIDGY:
+	{
+		messages = "┴Ёшфцш";
+		return cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case SAPOGI:
+	{
+		messages = "╤ряюуш";
+		return cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case NARUCHI:
+	{
+		messages = "═рЁєўш";
+		return cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case PLASCH:
+	{
+		messages = "╧ыр∙";
+		return cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case OZHERELYE:
+	{
+		messages = "╬цхЁхы№х";
+		return cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case POYAS:
+	{
+		messages = "╧ю ё";
+		return cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case RING:
+	{
+		messages = "╩юы№Ўю";
+		return cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	default: exit(-9);
+	}
+
+	messages = "═хЄ ърЄхуюЁшш";
+	return cp1251to866(const_cast<char*>(messages.c_str()));
 }
 
 void refineInfo(TOCHKA t)
 {
-    switch(t)
-    {
-    case UDACH: std::cout << "Улучшение прошло успешно!\n";
-        break;
-    case NEUDACH: std::cout << "Улучшение не прошло. Уровень заточки снизился на 1 уровень.\n";
-        break;
-    case NEIZMEN: std::cout << "Улучшение не прошло. Уровень заточки не изменился.\n";
-        break;
-    case RESET: std::cout << "Улучшение не прошло. Уровень заточки снизился до 0.\n";
-        break;
-    default: exit(-12);
-    }
+	std::string messages;
+
+	switch(t)
+	{
+	case UDACH:
+	{
+		messages = "╙ыєў°хэшх яЁю°ыю єёях°эю!\n";
+		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case NEUDACH:
+	{
+		messages = "╙ыєў°хэшх эх яЁю°ыю. ╙Ёютхэ№ чрЄюўъш ёэшчшыё  эр 1 єЁютхэ№.\n";
+		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case NEIZMEN:
+	{
+		messages = "╙ыєў°хэшх эх яЁю°ыю. ╙Ёютхэ№ чрЄюўъш эх шчьхэшыё .\n";
+		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	case RESET:
+	{
+		messages = "╙ыєў°хэшх эх яЁю°ыю. ╙Ёютхэ№ чрЄюўъш ёэшчшыё  фю 0.\n";
+		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+		break;
+	}
+	default: exit(-12);
+	}
 }
 
 void outputResults(const std::vector<Dospeh*> &vd)
@@ -229,16 +397,26 @@ void outputResults(const std::vector<Dospeh*> &vd)
     int podzemka = 0;
     int mirozdanka = 0;
 
+    std::string messages;
+
     std::cout.fill(' ');
 
-    std::cout << std::left << std::setw(10) << "Предмет №"
-              << std::setw(10) << "Категория"
-              << std::setw(30) << "Описание"
-              << std::setw(8) << "Заточка"
-              << std::setw(8) << "Миражей"
-              << std::setw(8) << "Небесок"
-              << std::setw(9) << "Подземок"
-              << std::setw(10) << "Мирозданок\n";
+    messages = "╧ЁхфьхЄ ╣";
+    std::cout << std::left << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╩рЄхуюЁш ";
+    std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╬яшёрэшх";
+    std::cout << std::setw(30) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╟рЄюўър";
+    std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╠шЁрцхщ";
+    std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "═хсхёюъ";
+    std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╧юфчхьюъ";
+    std::cout << std::setw(9) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╠шЁючфрэюъ\n";
+    std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
 
     std::cout.fill('.');
 
@@ -260,7 +438,8 @@ void outputResults(const std::vector<Dospeh*> &vd)
         mirozdanka += vd.at(i)->mirozdanka();
     }
 
-    std::cout << std::setw(57) << "Всего:" << " "
+    messages = "┬ёхую:";
+    std::cout << std::setw(57) << cp1251to866(const_cast<char*>(messages.c_str())) << " "
               << std::setw(7)<< mirazh << " "
               << std::setw(7) << nebeska << " "
               << std::setw(8) << podzemka << " "
@@ -268,18 +447,28 @@ void outputResults(const std::vector<Dospeh*> &vd)
               << std::endl << std::endl;
 }
 
-void outputResults(const std::vector<Dospeh*> &vd, unsigned int i)
+void outputResults(const std::vector<Dospeh*> &vd, int i)
 {
     std::cout.fill(' ');
 
-    std::cout << std::left << std::setw(10) << "Предмет №"
-              << std::setw(10) << "Категория"
-              << std::setw(30) << "Описание"
-              << std::setw(8) << "Заточка"
-              << std::setw(8) << "Миражей"
-              << std::setw(8) << "Небесок"
-              << std::setw(9) << "Подземок"
-              << std::setw(10) << "Мирозданок\n";
+    std::string messages;
+
+    messages = "╧ЁхфьхЄ ╣";
+    std::cout << std::left << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╩рЄхуюЁш ";
+    std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╬яшёрэшх";
+    std::cout << std::setw(30) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╟рЄюўър";
+    std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╠шЁрцхщ";
+    std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "═хсхёюъ";
+    std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╧юфчхьюъ";
+    std::cout << std::setw(9) << cp1251to866(const_cast<char*>(messages.c_str()));
+    messages = "╠шЁючфрэюъ\n";
+    std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
 
     std::cout.fill('.');
 
@@ -296,7 +485,7 @@ void outputResults(const std::vector<Dospeh*> &vd, unsigned int i)
     std::cout << std::endl;
 }
 
-void backspace(unsigned int count)
+void backspace(int count)
 {
     while(count--)
     {
@@ -308,14 +497,16 @@ void zatochka(std::vector<Dospeh*> &vd)
 {
     unsigned int i = 0;
     char choice;
+    std::string messages;
 
     while(1)
     {
-        std::cout << "Введите порядковый номер предмета для заточки:\n";
+        messages = "┬тхфшЄх яюЁ фъют√щ эюьхЁ яЁхфьхЄр фы  чрЄюўъш:\n";
+    	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
         while(1)
         {
-            std::vector<unsigned char> vRN;
+            std::vector<char> vRN;
             iochecker ioRN(2, &vRN, "0123456789");
 
             ioRN.check(_getch());
@@ -340,12 +531,13 @@ void zatochka(std::vector<Dospeh*> &vd)
             int stone = 0;
             Refine r;
 
-            std::cout << "Использовать камни?\n\t0 (или ENTER) - Миражи, 1 - Небески, 2 - Подземки, 3 - Мирозданки\n";
+            messages = "╚ёяюы№чютрЄ№ ърьэш?\n\t0 (шыш ENTER) - ╠шЁрцш, 1 - ═хсхёъш, 2 - ╧юфчхьъш, 3 - ╠шЁючфрэъш\n";
+            std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
             unsigned int t = _getch();
             if(t != 13)
             {
-                std::vector<unsigned char> vStones;
+                std::vector<char> vStones;
                 iochecker ioStones(1, &vStones, "0123");
 
                 ioStones.check(t);
@@ -391,9 +583,10 @@ void zatochka(std::vector<Dospeh*> &vd)
         std::cout << std::endl;
         outputResults(vd, i);
         std::cout << std::endl;
-        std::cout << "Показать список всех предметов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
+        messages = "╧юърчрЄ№ ёяшёюъ тёхї яЁхфьхЄют (p), яЁюфюыцшЄ№ чрЄюўъє (r шыш ENTER) шыш чртхЁ°шЄ№ яЁюуЁрььє (q)?\n";
+        std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
-        unsigned int t2;
+        int t2;
         int ch;
 
         while(1)
@@ -401,7 +594,7 @@ void zatochka(std::vector<Dospeh*> &vd)
             t2 = _getch();
             if(t2 != 13)
             {
-                std::vector<unsigned char> vPRQ;
+                std::vector<char> vPRQ;
                 iochecker ioPRQ(1, &vPRQ, "prq");
 
                 ioPRQ.check(t2);
@@ -426,8 +619,10 @@ void zatochka(std::vector<Dospeh*> &vd)
                 choice = ch;
                 std::cin.get();
                 std::cout << std::endl;
+
                 outputResults(vd);
-                std::cout << "Показать список всех предметов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
+                messages = "╧юърчрЄ№ ёяшёюъ тёхї яЁхфьхЄют (p), яЁюфюыцшЄ№ чрЄюўъє (r шыш ENTER) шыш чртхЁ°шЄ№ яЁюуЁрььє (q)?\n";
+                std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
             }
         }
 
@@ -440,19 +635,20 @@ void zatochka(std::vector<Dospeh*> &vd)
 
 int main()
 {
-    //system("chcp 1251");
     std::vector<Dospeh*> vd;
     char choice;
+    std::string messages;
 
     inputDospehs(vd);
 
     while(1)
     {
-        std::cout << "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?\n";
+    	messages = "┬ёх яЁхфьхЄ√ ттхфхэ√. ╧юърчрЄ№ ёяшёюъ тёхї яЁхфьхЄют (p) шыш эрўрЄ№ чрЄюўъє (r)?\n";
+        std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
         while(1)
         {
-            int ch = _getch(); // Считывает символ из потока, но не выводит его в поток.
-            // Это своего рода защита ввода
+            int ch = _getch(); // ╤ўшЄ√трхЄ ёшьтюы шч яюЄюър, эю эх т√тюфшЄ хую т яюЄюъ.
+            // ▌Єю ётюхую Ёюфр чр∙шЄр ттюфр
             if( ch == 'p' || ch == 'r')
             {
                 choice = ch;
@@ -476,67 +672,67 @@ int main()
     return 0;
 }
 
-/* Введите предметы для заточки.
-Предмет № 1 или выход (q):
+/* ┬тхфшЄх яЁхфьхЄ√ фы  чрЄюўъш.
+╧ЁхфьхЄ ╣ 1 шыш т√їюф (q):
     //0 - WEAPON, 1 - SHLEM, 2 - NAKIDKA, 3 - BRIDGY, 4 - SAPOGI, 5 - PLASCH, 6 - OZHERELYE, 7 - POYAS, 8 - RING
-    0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги, 5 - Плащ, 6 - Ожерелье, 7 - Пояс, 8 - Кольцо
+    0 - ╬Ёєцшх, 1 - ╪ыхь, 2 - ═ръшфър, 3 - ┴Ёшфцш, 4 - ╤ряюуш, 5 - ╧ыр∙, 6 - ╬цхЁхы№х, 7 - ╧ю ё, 8 - ╩юы№Ўю
 0
-Введите название оружия:
-Кастеты с лезвиями
+┬тхфшЄх эрчтрэшх юЁєцш :
+╩рёЄхЄ√ ё ыхчтш ьш
 
-Предмет № 2 или выход (q):
+╧ЁхфьхЄ ╣ 2 шыш т√їюф (q):
     //0 - WEAPON, 1 - SHLEM, 2 - NAKIDKA, 3 - BRIDGY, 4 - SAPOGI, 5 - PLASCH, 6 - OZHERELYE, 7 - POYAS, 8 - RING
-    0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги, 5 - Плащ, 6 - Ожерелье, 7 - Пояс, 8 - Кольцо
+    0 - ╬Ёєцшх, 1 - ╪ыхь, 2 - ═ръшфър, 3 - ┴Ёшфцш, 4 - ╤ряюуш, 5 - ╧ыр∙, 6 - ╬цхЁхы№х, 7 - ╧ю ё, 8 - ╩юы№Ўю
 0
-Введите название оружия:
-Кастеты с лезвиями
+┬тхфшЄх эрчтрэшх юЁєцш :
+╩рёЄхЄ√ ё ыхчтш ьш
 
 ...
 
-Предмет № N или выход (q):
+╧ЁхфьхЄ ╣ N шыш т√їюф (q):
 q
 
-Все предметы введены. Показать список всех предметов (p) или начать заточку (r).
+┬ёх яЁхфьхЄ√ ттхфхэ√. ╧юърчрЄ№ ёяшёюъ тёхї яЁхфьхЄют (p) шыш эрўрЄ№ чрЄюўъє (r).
 p
-Предмет №   Категория   Описание            Заточка     Миражей     Небесок     Подземок    Мирозданок
-0           Оружие      Кастеты с лезвием   +0          0           0           0           0
-1           Оружие      Кастеты с лезвием   +0          0           0           0           0
+╧ЁхфьхЄ ╣   ╩рЄхуюЁш    ╬яшёрэшх            ╟рЄюўър     ╠шЁрцхщ     ═хсхёюъ     ╧юфчхьюъ    ╠шЁючфрэюъ
+0           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +0          0           0           0           0
+1           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +0          0           0           0           0
 
-Все предметы введены. Показать список всех предметов (p) или начать заточку (r).
+┬ёх яЁхфьхЄ√ ттхфхэ√. ╧юърчрЄ№ ёяшёюъ тёхї яЁхфьхЄют (p) шыш эрўрЄ№ чрЄюўъє (r).
 r
 
-Введите порядковый номер предмета для заточки или вывести список всех предметов (p):
+┬тхфшЄх яюЁ фъют√щ эюьхЁ яЁхфьхЄр фы  чрЄюўъш шыш т√тхёЄш ёяшёюъ тёхї яЁхфьхЄют (p):
 0
 
-Использовать:
-    0 - Ничего, 1 - Небеску, 2 - Подземку, 3 - Мирозданку
+╚ёяюы№чютрЄ№:
+    0 - ═шўхую, 1 - ═хсхёъє, 2 - ╧юфчхьъє, 3 - ╠шЁючфрэъє
 0
 
-Улучшение прошло успешно!
-Предмет №   Категория   Описание            Заточка     Миражей     Небесок     Подземок    Мирозданок
-0           Оружие      Кастеты с лезвием   +1          2           0           0           0
+╙ыєў°хэшх яЁю°ыю єёях°эю!
+╧ЁхфьхЄ ╣   ╩рЄхуюЁш    ╬яшёрэшх            ╟рЄюўър     ╠шЁрцхщ     ═хсхёюъ     ╧юфчхьюъ    ╠шЁючфрэюъ
+0           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +1          2           0           0           0
 
-Продолжить заточку (r) или выход (q)?
+╧ЁюфюыцшЄ№ чрЄюўъє (r) шыш т√їюф (q)?
 r
 
-Введите порядковый номер предмета для заточки или вывести список всех предметов (p):
+┬тхфшЄх яюЁ фъют√щ эюьхЁ яЁхфьхЄр фы  чрЄюўъш шыш т√тхёЄш ёяшёюъ тёхї яЁхфьхЄют (p):
 1
 
-Использовать:
-    0 - Ничего, 1 - Небеску, 2 - Подземку, 3 - Мирозданку
+╚ёяюы№чютрЄ№:
+    0 - ═шўхую, 1 - ═хсхёъє, 2 - ╧юфчхьъє, 3 - ╠шЁючфрэъє
 1
 
-Улучшение прошло успешно!
-Предмет №   Категория   Описание            Заточка     Миражей     Небесок     Подземок    Мирозданок
-1           Оружие      Кастеты с лезвием   +1          2           1           0           0
+╙ыєў°хэшх яЁю°ыю єёях°эю!
+╧ЁхфьхЄ ╣   ╩рЄхуюЁш    ╬яшёрэшх            ╟рЄюўър     ╠шЁрцхщ     ═хсхёюъ     ╧юфчхьюъ    ╠шЁючфрэюъ
+1           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +1          2           1           0           0
 
-Продолжить заточку (r) или выход (q)?
+╧ЁюфюыцшЄ№ чрЄюўъє (r) шыш т√їюф (q)?
 q
 
-Результаты зоточки.
-Предмет №   Категория   Описание            Заточка     Миражей     Небесок     Подземок    Мирозданок
-0           Оружие      Кастеты с лезвием   +1          2           0           0           0
-1           Оружие      Кастеты с лезвием   +1          2           1           0           0
+╨хчєы№ЄрЄ√ чюЄюўъш.
+╧ЁхфьхЄ ╣   ╩рЄхуюЁш    ╬яшёрэшх            ╟рЄюўър     ╠шЁрцхщ     ═хсхёюъ     ╧юфчхьюъ    ╠шЁючфрэюъ
+0           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +1          2           0           0           0
+1           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +1          2           1           0           0
 
-Всего                                                   4           1           0           0
+┬ёхую                                                   4           1           0           0
 */
