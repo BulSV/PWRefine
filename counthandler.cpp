@@ -1,6 +1,6 @@
 #include "counthandler.h"
 
-CountHandler::CountHandler(const Armor *armor)
+CountHandler::CountHandler(Armor *armor)
     : itsArmor(armor)
     , itsMirageCelestone(0)
     , itsTienkangStone(0)
@@ -11,6 +11,8 @@ CountHandler::CountHandler(const Armor *armor)
 
 CountHandler::~CountHandler()
 {
+	delete itsArmor;
+	itsArmor = 0;
 }
 
 Armor *CountHandler::armor() const

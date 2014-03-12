@@ -9,11 +9,11 @@
 class Refine
 {
 public:
-    static void goRefining(Armor *armor,
-                           const MirageCelestone *mirageCelestone);
-    static void goRefining(Armor *armor,
-                           const MirageCelestone *mirageCelestone,
-                           const CatalyzerStone *catalyzerStone);
+    static REFINE goRefining(Armor *armor,
+                           MirageCelestone *mirageCelestone);
+    static REFINE goRefining(Armor *armor,
+                           MirageCelestone *mirageCelestone,
+                           CatalyzerStone *catalyzerStone);
 private:
     static float baseChance();
 };

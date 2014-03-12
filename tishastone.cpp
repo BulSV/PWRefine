@@ -1,7 +1,7 @@
 #include "tishastone.h"
 #include "matematika.h"
 
-static std::string TishaStone::CATEGORY = "TISHA STONE";
+std::string TishaStone::CATEGORY = "TISHA STONE";
 
 float TishaStone::addChance(const Armor *armor) const
 {
@@ -12,14 +12,18 @@ float TishaStone::addChance(const Armor *armor) const
     case T2: return -16.5;
     case T3: return -16.5;
     case T4: return -16.5;
-    case T5: return -16.5;;
+    case T5: return -16.5;
     case T6: return -16.5;
     case T7: return -16.5;
     case T8: return -21.5;
     case T9: return -26.5;
     case T10: return -34.5;
     case T11: return -41.5;
-    default: std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
+    default:
+    	{
+    		std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
+    		exit(-1);
+    	}
     }
 }
 

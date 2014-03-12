@@ -1,7 +1,7 @@
 #include "tienkangstone.h"
 #include "matematika.h"
 
-static std::string TienkangStone::CATEGORY = "TIENKANG STONE";
+std::string TienkangStone::CATEGORY = "TIENKANG STONE";
 
 float TienkangStone::addChance(const Armor *armor) const /*virtual*/
 {
@@ -19,7 +19,11 @@ float TienkangStone::addChance(const Armor *armor) const /*virtual*/
     case T9: return -15.0;
     case T10: return -23.0;
     case T11: return -30.0;
-    default: std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
+    default:
+    	{
+    		std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
+    		exit(-1);
+    	}
     }
 }
 

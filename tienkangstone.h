@@ -2,6 +2,7 @@
 #define TIENKANGSTONE_H
 
 #include "catalyzerstone.h"
+#include <iostream>
 
 class TienkangStone : public CatalyzerStone
 {

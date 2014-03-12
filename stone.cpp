@@ -1,6 +1,6 @@
 #include "stone.h"
 
-static std::string Stone::CATEGORY = "NO CATEGORY";
+std::string Stone::CATEGORY = "NO CATEGORY";
 
 Stone::Stone()
     : itsCategory(CATEGORY)

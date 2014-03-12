@@ -1,6 +1,7 @@
 #ifndef TISHASTONE_H
 #define TISHASTONE_H
 
+#include <iostream>
 #include "catalyzerstone.h"
 
 class TishaStone : public CatalyzerStone

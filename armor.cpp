@@ -34,10 +34,10 @@ void Armor::setRefineLevel(REFINE resRefine)
         setRefineLevel(T0);
         break;
     case SUCCESS:
-        setRefineLevel(reinterpret_cast<REFINE_LEVEL>(reinterpret_cast<int>(refineLevel()) + 1));
+        setRefineLevel((REFINE_LEVEL)((int)(refineLevel()) + 1));
         break;
     case FAIL:
-        setRefineLevel(reinterpret_cast<REFINE_LEVEL>(reinterpret_cast<int>(refineLevel()) - 1));
+        setRefineLevel((REFINE_LEVEL)((int)(refineLevel()) - 1));
         break;
     default:
         break;

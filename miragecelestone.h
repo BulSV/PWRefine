@@ -1,6 +1,7 @@
 #ifndef MIRAGECELESTONE_H
 #define MIRAGECELESTONE_H
 
+#include <iostream>
 #include "globalenums.h"
 #include "stone.h"
 

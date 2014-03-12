@@ -3,7 +3,9 @@
 #include <cstdlib>
 #include "matematika.h"
 
-float ChienkunStone::addChance(const Armor *armor)
+std::string ChienkunStone::CATEGORY = "CHIENKUNSTONE";
+
+float ChienkunStone::addChance(const Armor *armor) const
 {
     switch(armor->refineLevel())
     {
@@ -19,7 +21,11 @@ float ChienkunStone::addChance(const Armor *armor)
     case T9: return (100.0/1370.0 - 50.0);
     case T10: return (100.0/2525.0 - 50.0);
     case T11: return (100.0/4645.0 - 50.0);
-    default: std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
+    default:
+        {
+            std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
+            exit(-1);
+        }
     }
 }
 

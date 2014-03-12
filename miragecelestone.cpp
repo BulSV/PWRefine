@@ -1,7 +1,7 @@
 #include "miragecelestone.h"
 #include "matematika.h"
 
-static std::string MirageCelestone::CATEGORY = "MIRAGE CELESTONE";
+std::string MirageCelestone::CATEGORY = "MIRAGE CELESTONE";
 
 float MirageCelestone::addChance(const Armor *armor) const
 {
@@ -19,7 +19,11 @@ float MirageCelestone::addChance(const Armor *armor) const
     case T9: return -30.0;
     case T10: return -38.0;
     case T11: return -45.0;
-    default: std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
+    default:
+    	{
+    		std::cout << "\nERROR! Failed to refine armor, because the maximum level of refinement has\n";
+    		exit(-1);
+    	}
     }
 }
 

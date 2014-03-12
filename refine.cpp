@@ -4,22 +4,35 @@
 #include "matematika.h"
 #include <iostream>
 
-void Refine::goRefining(Armor *armor,
-                        const MirageCelestone *mirageCelestone)
+REFINE Refine::goRefining(Armor *armor,
+        MirageCelestone *mirageCelestone)
 {
-    armor->setRefineLevel(mirageCelestone->refineRequest(mirageCelestone->addChance(armor) + baseChance()));
+    REFINE refine = mirageCelestone->refineRequest(mirageCelestone->addChance(armor) + baseChance());
+    delete mirageCelestone;
+    mirageCelestone = 0;
+    armor->setRefineLevel(refine);
+
+    return refine;
 }
 
-void Refine::goRefining(Armor *armor,
-                        const MirageCelestone *mirageCelestone,
-                        const CatalyzerStone *catalyzerStone)
+REFINE Refine::goRefining(Armor *armor,
+        MirageCelestone *mirageCelestone,
+        CatalyzerStone *catalyzerStone)
 {
-    armor->setRefineLevel(catalyzerStone->refineRequest(catalyzerStone->addChance(armor) + baseChance()));
+    REFINE refine = catalyzerStone->refineRequest(catalyzerStone->addChance(armor) + baseChance());
+    delete mirageCelestone;
+    mirageCelestone = 0;
+    delete catalyzerStone;
+    catalyzerStone = 0;
+    armor->setRefineLevel(refine);
+
+    return refine;
 }
 
 float Refine::baseChance()
 {
     srand(time(0));
 
-    return reinterpret_cast<float>(rand()%100 + 1);
+    return (float)(rand()%100 + 1);
 }
+

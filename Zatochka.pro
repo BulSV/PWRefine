@@ -14,6 +14,7 @@ SOURCES += main.cpp \
     miragecelestone.cpp \
     catalyzerstone.cpp \
     counthandler.cpp \
+	countmanager.cpp	\
     refinedriver.cpp    \
     consolerefinedriver.cpp
 
@@ -30,9 +31,9 @@ HEADERS += \
     miragecelestone.h \
     catalyzerstone.h \
     counthandler.h \
+	countmanager.h	\
     refinedriver.h  \
     consolerefinedriver.h
 
 OTHER_FILES += \
-    TODO.txt    \
-    refactor.cpp
+    TODO.txt

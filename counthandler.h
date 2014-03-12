@@ -11,7 +11,7 @@ class CountHandler
     int itsTishaStone;
     int itsChienkunStone;
 public:
-    CountHandler(const Armor *armor);
+    CountHandler(Armor *armor);
     ~CountHandler();
     Armor *armor() const;
     void incMirageCelestone();
