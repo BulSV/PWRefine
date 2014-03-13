@@ -16,18 +16,20 @@ void ConsoleRefineDriver::distributor()
 	if(!itsCountManager->size()) return;
     while (true)
     {
-    	std::string messages = "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?\n";
+    	std::string messages = "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?";
         std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
         char choice;
         while (1)
         {
             int ch = _getch(); // Считывает символ из потока, но не выводит его в поток.
             // Это своего рода защита ввода
+            std::vector<char> vGoRefine;
+            iochecker ioGoRefine(1, &vGoRefine, "pr");
+            ioGoRefine.check(ch);
+            ch = ioGoRefine.buffer().at(0);
             if (ch == 'p' || ch == 'r')
             {
                 choice = ch;
-                std::cout << choice;
-                std::cin.get();
                 break;
             }
         }
