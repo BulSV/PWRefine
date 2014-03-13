@@ -6,9 +6,12 @@ int main(int argc, char **argv)
 {
     RefineDriver *refineDriver = 0;
 
-    if(argv[1] == const_cast<char*>("-g"))
+    if(argc == 2 && *argv[1] == '-' && *(++argv[1]) == 'g')
     {
         // TODO Gui
+    	std::cout << "GUI not yet\n";
+
+    	return 0;
     }
     else
     {

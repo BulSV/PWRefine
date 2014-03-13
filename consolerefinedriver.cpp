@@ -13,9 +13,10 @@ ConsoleRefineDriver::~ConsoleRefineDriver()
 
 void ConsoleRefineDriver::distributor()
 {
+	if(!itsCountManager->size()) return;
     while (true)
     {
-        std::string messages = "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?\n";
+    	std::string messages = "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?\n";
         std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
         char choice;
         while (1)
