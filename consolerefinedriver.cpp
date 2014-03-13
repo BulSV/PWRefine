@@ -297,6 +297,8 @@ void ConsoleRefineDriver::inputArmors()
         default: exit(-7);
         }
 
+        property.clear();
+
         itsCountManager->addArmorToCount(armor);
 
         std::cin.get();
