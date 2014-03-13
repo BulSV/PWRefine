@@ -16,7 +16,7 @@ void ConsoleRefineDriver::distributor()
 	if(!itsCountManager->size()) return;
     while (true)
     {
-    	std::string messages = "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?";
+    	std::string messages = "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?\n";
         std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
         char choice;
         while (1)
@@ -47,7 +47,7 @@ void ConsoleRefineDriver::distributor()
             break;
         }
         default:
-            exit(-10);
+            exit(-10); // TODO exit(-10)
         }
     }
 }
@@ -297,7 +297,7 @@ void ConsoleRefineDriver::inputArmors()
             armor = new Armor(intToRefineLevel(refineLevel), 1, category, property);
             break;
         }
-        default: exit(-7);
+        default: exit(-7); // TODO exit(-7)
         }
 
         property.clear();
@@ -414,7 +414,7 @@ void ConsoleRefineDriver::refineInfo(REFINE refine)
         std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
         break;
     }
-    default: exit(-12);
+    default: exit(-12); // TODO exit(-12)
     }
 }
 
@@ -515,7 +515,7 @@ void ConsoleRefineDriver::refining()
                 refineResult = Refine::goRefining(itsCountManager->at(i)->armor(), new MirageCelestone(), new ChienkunStone());
                 break;
             }
-            default: exit(-11);
+            default: exit(-11); // TODO exit(-11)
             }
 
             refineInfo(refineResult);
@@ -569,7 +569,7 @@ void ConsoleRefineDriver::refining()
 
         if(choice == 'q')
         {
-            exit(0);
+            exit(0); // TODO exit(0)
         }
     }
 }

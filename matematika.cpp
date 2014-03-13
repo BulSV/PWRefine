@@ -105,7 +105,7 @@ int Math_Lib::stoi(const char* str){
     if((number<-32768)||(number>32767)){
         std::cout<<"Error 1. ";
         std::cout<<"Number overload long int"<<std::endl;
-        exit(1);
+        exit(1); // TODO exit(1)
     }
     return number*sign;
 }

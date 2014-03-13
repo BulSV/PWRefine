@@ -2,13 +2,13 @@
 #include <stdlib.h>
 
 Armor::Armor(REFINE_LEVEL refineLevel,
-             int requiredMiragecelestone,
-             std::string category,
-             std::string property)
-    : itsCategory(category)
-    , itsProperty(property)
-    , itsRefineLevel(refineLevel)
-    , itsRequiredMiragecelestone(requiredMiragecelestone)
+		int requiredMiragecelestone,
+		std::string category,
+		std::string property)
+: itsCategory(category)
+, itsProperty(property)
+, itsRefineLevel(refineLevel)
+, itsRequiredMiragecelestone(requiredMiragecelestone)
 {
 }
 
@@ -19,42 +19,45 @@ Armor::~Armor() /*virtual*/
 
 std::string Armor::category() const
 {
-    return itsCategory;
+	return itsCategory;
 }
 
 std::string Armor::property() const
 {
-    return itsProperty;
+	return itsProperty;
 }
 
 void Armor::setRefineLevel(REFINE resRefine)
 {
-    switch (resRefine) {
-    case RESET:
-        setRefineLevel(T0);
-        break;
-    case SUCCESS:
-        setRefineLevel((REFINE_LEVEL)((int)(refineLevel()) + 1));
-        break;
-    case FAIL:
-        setRefineLevel((REFINE_LEVEL)((int)(refineLevel()) - 1));
-        break;
-    default:
-        break;
-    }
+	switch (resRefine) {
+	case RESET:
+		setRefineLevel(T0);
+		break;
+	case SUCCESS:
+		setRefineLevel((REFINE_LEVEL)((int)(refineLevel()) + 1));
+		break;
+	case FAIL:
+		setRefineLevel((REFINE_LEVEL)((int)(refineLevel()) - 1));
+		break;
+	default:
+		break;
+	}
 }
 
 REFINE_LEVEL Armor::refineLevel() const
 {
-    return itsRefineLevel;
+	return itsRefineLevel;
 }
 
 int Armor::requiredMirageCelestone() const
 {
-    return itsRequiredMiragecelestone;
+	return itsRequiredMiragecelestone;
 }
 
 void Armor::setRefineLevel(REFINE_LEVEL refineLevel)
 {
-    itsRefineLevel = refineLevel;
+	if(refineLevel >= T0 && refineLevel <= T12)
+	{
+		itsRefineLevel = refineLevel;
+	}
 }
