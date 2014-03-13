@@ -180,7 +180,7 @@ void ConsoleRefineDriver::inputArmors()
         if(t2 != 13)
         {
             std::vector<char> vPro;
-            messages = "אבגדהוזחטיךכלםמןנסעףפץצקרשתûü‎‏ÿÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞ‗ -";
+            messages = "אבגדהו¸זחטיךכלםמןנסעףפץצקרשתûü‎‏ÿÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞ‗ -";
             iochecker ioPro(29, &vPro, cp1251to866(const_cast<char*>(messages.c_str())));
             ioPro.check(t2);
             std::cout << std::endl;
@@ -583,6 +583,18 @@ char* ConsoleRefineDriver::cp1251to866(char *c) const
         else if(*c <= -17 && *c >= -64)
         {
             *c -= 64;
+        }
+        else if(*c == -71)
+        {
+        	*c +=67;
+        }
+        else if(*c == -72)
+        {
+        	*c +=57;
+        }
+        else if(*c == -88)
+        {
+        	*c +=72;
         }
         c++;
         i++;
