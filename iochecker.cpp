@@ -80,12 +80,6 @@ void iochecker::checker(int ch)
 			}
 			else
 			{
-				if(chTemp == 72 || chTemp == 75 || chTemp == 77 || chTemp == 80) // up left right down
-				{
-					std::cout << (char)BACKSPACE << ' ' << (char)BACKSPACE;
-					std::cout << (char)BACKSPACE << ' ' << (char)BACKSPACE;
-					checker(_getch());
-				}
 				m_buf->push_back(ch);
 				if(chTemp != ENTER)
 				{
