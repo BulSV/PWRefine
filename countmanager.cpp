@@ -77,11 +77,11 @@ int CountManager::totalTishaStone() const
 
 int CountManager::totalChienkunStone() const
 {
-	int mirageCelestone = 0;
+	int chienkunStone = 0;
 	for(int i = 0; i < size(); ++i)
 	{
-		mirageCelestone += at(i)->mirageCelestone();
+		chienkunStone += at(i)->chienkunStone();
 	}
 
-	return mirageCelestone;
+	return chienkunStone;
 }

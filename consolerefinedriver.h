@@ -33,7 +33,6 @@ class ConsoleRefineDriver : public RefineDriver
     void headOutputResults();
     void detaleArmorOutputResults(int index);
     void tailOutputResults();
-    void incMirageCelestone(int index);
     void distributor();
 
 public:

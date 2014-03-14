@@ -429,19 +429,12 @@ void ConsoleRefineDriver::refineInfo(REFINE refine)
 	}
 }
 
-void ConsoleRefineDriver::incMirageCelestone(int index)
-{
-	for (int mirageCelestone = 0; mirageCelestone < itsCountManager->at(index)->armor()->requiredMirageCelestone(); ++mirageCelestone)
-	{
-		itsCountManager->at(index)->incMirageCelestone();
-	}
-}
-
 void ConsoleRefineDriver::refining()
 {
 	int i = 0;
 	char choice;
 	std::string messages;
+	REFINE refineResult = NOCHANGE;
 
 	while(true)
 	{
@@ -495,38 +488,39 @@ void ConsoleRefineDriver::refining()
 			std::cin.get();
 			std::cout << std::endl;
 
-			REFINE refineResult = NOCHANGE;
-
 			switch(stone)
 			{
 			case 0:
 			{
-				incMirageCelestone(i);
 				refineResult = Refine::goRefining(itsCountManager->at(i)->armor(), new MirageCelestone());
 				break;
 			}
 			case 1:
 			{
-				incMirageCelestone(i);
 				itsCountManager->at(i)->incTienkangStone();
 				refineResult = Refine::goRefining(itsCountManager->at(i)->armor(), new MirageCelestone(), new TienkangStone());
 				break;
 			}
 			case 2:
 			{
-				incMirageCelestone(i);
 				itsCountManager->at(i)->incTishaStone();
 				refineResult = Refine::goRefining(itsCountManager->at(i)->armor(), new MirageCelestone(), new TishaStone());
 				break;
 			}
 			case 3:
 			{
-				incMirageCelestone(i);
 				itsCountManager->at(i)->incChienkunStone();
 				refineResult = Refine::goRefining(itsCountManager->at(i)->armor(), new MirageCelestone(), new ChienkunStone());
 				break;
 			}
 			default: exit(-11); // TODO exit(-11)
+			}
+			itsCountManager->at(i)->incMirageCelestone();
+
+			if((itsCountManager->at(i)->armor()->wasRefineLevel() == T0 || itsCountManager->at(i)->armor()->wasRefineLevel() == T12)
+					&& (refineResult == FAIL || refineResult == RESET))
+			{
+				refineResult = NOCHANGE;
 			}
 
 			refineInfo(refineResult);
@@ -541,7 +535,7 @@ void ConsoleRefineDriver::refining()
 		int t2;
 		int ch;
 
-		while(1)
+		while(true)
 		{
 			t2 = _getch();
 			if(t2 != 13)
@@ -592,23 +586,23 @@ char* ConsoleRefineDriver::cp1251to866(char *c) const
 
 	while(*c)
 	{
-		if(*c >= -16 && *c <= -1)
+		if(*c >= -16 && *c <= -1) // ð...ÿ
 		{
 			*c -= 16;
 		}
-		else if(*c <= -17 && *c >= -64)
+		else if(*c <= -17 && *c >= -64) // À...ß, à...ï
 		{
 			*c -= 64;
 		}
-		else if(*c == -71)
+		else if(*c == -71) // ¹
 		{
 			*c +=67;
 		}
-		else if(*c == -72)
+		else if(*c == -72) // ¸
 		{
 			*c +=57;
 		}
-		else if(*c == -88)
+		else if(*c == -88) // ¨
 		{
 			*c +=72;
 		}

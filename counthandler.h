@@ -10,6 +10,7 @@ class CountHandler
     int itsTienkangStone;
     int itsTishaStone;
     int itsChienkunStone;
+
 public:
     CountHandler(Armor *armor);
     ~CountHandler();

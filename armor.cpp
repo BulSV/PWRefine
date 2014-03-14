@@ -9,13 +9,13 @@ Armor::Armor(REFINE_LEVEL refineLevel,
 , itsProperty(property)
 , itsRefineLevel(refineLevel)
 , itsRequiredMiragecelestone(requiredMiragecelestone)
+, itsWasRefineLevel(itsRefineLevel)
 {
 }
 
 Armor::~Armor() /*virtual*/
 {
 }
-
 
 std::string Armor::category() const
 {
@@ -56,8 +56,14 @@ int Armor::requiredMirageCelestone() const
 
 void Armor::setRefineLevel(REFINE_LEVEL refineLevel)
 {
+	itsWasRefineLevel = itsRefineLevel;
 	if(refineLevel >= T0 && refineLevel <= T12)
 	{
 		itsRefineLevel = refineLevel;
 	}
+}
+
+REFINE_LEVEL Armor::wasRefineLevel() const
+{
+	return itsWasRefineLevel;
 }

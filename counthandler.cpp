@@ -22,7 +22,7 @@ Armor *CountHandler::armor() const
 
 void CountHandler::incMirageCelestone()
 {
-    ++itsMirageCelestone;
+    itsMirageCelestone += itsArmor->requiredMirageCelestone();
 }
 
 void CountHandler::incTienkangStone()

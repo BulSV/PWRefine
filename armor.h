@@ -17,13 +17,18 @@ public:
     void setRefineLevel(REFINE resRefine);
     REFINE_LEVEL refineLevel() const;
     int requiredMirageCelestone() const;
+
+	REFINE_LEVEL wasRefineLevel() const;
+
 private:
     std::string itsCategory;
     std::string itsProperty;
     REFINE_LEVEL itsRefineLevel;
     int itsRequiredMiragecelestone;
+    REFINE_LEVEL itsWasRefineLevel;
 
     void setRefineLevel(REFINE_LEVEL refineLevel);
+
 };
 
 #endif // ARMOR_H
