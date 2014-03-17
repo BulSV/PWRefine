@@ -15,16 +15,17 @@ ConsoleRefineDriver::~ConsoleRefineDriver()
 void ConsoleRefineDriver::distributor()
 {
 	if(!itsCountManager->size()) return;
+
 	while (true)
 	{
-		std::string messages = "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?\n";
-		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 		std::string choice;
 		while (true)
 		{
+			std::string messages = "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?\n";
+			std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 			try {
-				std::cin >> choice;
-				InputChecker::isContaineErrorString(choice, "pr", 1);;
+				std::getline(std::cin, choice);
+				InputChecker::isContaineErrorString(choice, "pr", 1);
 				break;
 			} catch (InputLimitException &e) {
 				std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
@@ -35,6 +36,8 @@ void ConsoleRefineDriver::distributor()
 			}
 		}
 		std::cout << std::endl;
+		// FIXME add exception on this
+		if(!choice.size()) continue;
 		switch (choice.at(0))
 		{
 		case 'p':
@@ -184,7 +187,7 @@ void ConsoleRefineDriver::inputArmors()
 			std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
 
 			try {
-				std::cin >> cCategory;
+				std::getline(std::cin, cCategory);
 				InputChecker::isContaineErrorString(cCategory, "0123456789qp", 1);
 				break;
 			} catch (InputLimitException &e) {
@@ -205,7 +208,6 @@ void ConsoleRefineDriver::inputArmors()
 		if(cCategory == "q")
 		{
 			std::cout << std::endl;
-			std::cin.get();
 			break;
 		}
 
@@ -218,8 +220,7 @@ void ConsoleRefineDriver::inputArmors()
 			messages = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ -";
 
 			try {
-				std::cin >> property;
-				std::cin.get();
+				std::getline(std::cin, property);
 				InputChecker::isContaineErrorString(property, cp1251to866(const_cast<char*>(messages.c_str())), 29);
 				break;
 			} catch (InputLimitException &e) {
@@ -231,17 +232,15 @@ void ConsoleRefineDriver::inputArmors()
 			}
 		}
 
-		int refineLevel = 0;
+		std::string refineLevel;
 		while(true)
 		{
 			messages = "Введите уровень заточки (или ENTER):\n";
 			std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 			char* c = new char[2];
 			try {
-				std::cin >> refineLevel;
-				InputChecker::isContaineErrorString(std::string(itoa(refineLevel, c, 10)), "0123456789", 2);
-				delete [] c;
-				c = 0;
+				std::getline(std::cin, refineLevel);
+				InputChecker::isContaineErrorString(refineLevel, "0123456789", 2);
 				break;
 			} catch (InputLimitException &e) {
 				delete [] c;
@@ -264,7 +263,7 @@ void ConsoleRefineDriver::inputArmors()
 		{
 			category = "ОРУЖИЕ";
 			category = cp1251to866(const_cast<char*>(category.c_str()));
-			armor = new Armor(intToRefineLevel(refineLevel), 2, category, property);
+			armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 2, category, property);
 			break;
 		}
 		case 1:
@@ -272,7 +271,7 @@ void ConsoleRefineDriver::inputArmors()
 
 			category = "ШЛЕМ";
 			category = cp1251to866(const_cast<char*>(category.c_str()));
-			armor = new Armor(intToRefineLevel(refineLevel), 1, category, property);
+			armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
 			break;
 		}
 		case 2:
@@ -280,7 +279,7 @@ void ConsoleRefineDriver::inputArmors()
 
 			category = "НАКИДКА";
 			category = cp1251to866(const_cast<char*>(category.c_str()));
-			armor = new Armor(intToRefineLevel(refineLevel), 1, category, property);
+			armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
 			break;
 		}
 		case 3:
@@ -288,7 +287,7 @@ void ConsoleRefineDriver::inputArmors()
 
 			category = "БРИДЖИ";
 			category = cp1251to866(const_cast<char*>(category.c_str()));
-			armor = new Armor(intToRefineLevel(refineLevel), 1, category, property);
+			armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
 			break;
 		}
 		case 4:
@@ -296,7 +295,7 @@ void ConsoleRefineDriver::inputArmors()
 
 			category = "САПОГИ";
 			category = cp1251to866(const_cast<char*>(category.c_str()));
-			armor = new Armor(intToRefineLevel(refineLevel), 1, category, property);
+			armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
 			break;
 		}
 		case 5:
@@ -304,7 +303,7 @@ void ConsoleRefineDriver::inputArmors()
 
 			category = "НАРУЧИ";
 			category = cp1251to866(const_cast<char*>(category.c_str()));
-			armor = new Armor(intToRefineLevel(refineLevel), 1, category, property);
+			armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
 			break;
 		}
 		case 6:
@@ -312,7 +311,7 @@ void ConsoleRefineDriver::inputArmors()
 
 			category = "ПЛАЩ";
 			category = cp1251to866(const_cast<char*>(category.c_str()));
-			armor = new Armor(intToRefineLevel(refineLevel), 1, category, property);
+			armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
 			break;
 		}
 		case 7:
@@ -320,7 +319,7 @@ void ConsoleRefineDriver::inputArmors()
 
 			category = "ОЖЕРЕЛЬЕ";
 			category = cp1251to866(const_cast<char*>(category.c_str()));
-			armor = new Armor(intToRefineLevel(refineLevel), 1, category, property);
+			armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
 			break;
 		}
 		case 8:
@@ -328,7 +327,7 @@ void ConsoleRefineDriver::inputArmors()
 
 			category = "ПОЯС";
 			category = cp1251to866(const_cast<char*>(category.c_str()));
-			armor = new Armor(intToRefineLevel(refineLevel), 1, category, property);
+			armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
 			break;
 		}
 		case 9:
@@ -336,7 +335,7 @@ void ConsoleRefineDriver::inputArmors()
 
 			category = "КОЛЬЦО";
 			category = cp1251to866(const_cast<char*>(category.c_str()));
-			armor = new Armor(intToRefineLevel(refineLevel), 1, category, property);
+			armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
 			break;
 		}
 		default: exit(-7); // TODO exit(-7)
@@ -347,8 +346,6 @@ void ConsoleRefineDriver::inputArmors()
 		category.clear();
 
 		itsCountManager->addArmorToCount(armor);
-
-		std::cin.get();
 
 		std::cout << std::endl;
 	}
@@ -460,7 +457,7 @@ void ConsoleRefineDriver::refineInfo(REFINE refine)
 
 void ConsoleRefineDriver::refining()
 {
-	int i = 0;
+	std::string armorNumer;
 	std::string choice;
 	std::string messages;
 	REFINE refineResult = NOCHANGE;
@@ -471,54 +468,42 @@ void ConsoleRefineDriver::refining()
 		{
 			messages = "Введите порядковый номер предмета для заточки:\n";
 			std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
-			char *c = new char[2];
 			try {
-				std::cin >> i;
-				InputChecker::isContaineErrorString(std::string(itoa(i, c, 10)), "0123456789", 2);
+				std::getline(std::cin, armorNumer);
+				InputChecker::isContaineErrorString(armorNumer, "0123456789", itsCountManager->size());
 				break;
-				delete [] c;
-				c = 0;
 			} catch (InputLimitException &e) {
-				break;
-				delete [] c;
-				c = 0;
 				std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
-			} catch (InputException &e) {
 				break;
-				delete [] c;
-				c = 0;
-				std::cout << "Input exception. String " << i
+			} catch (InputException &e) {
+				std::cout << "Input exception. String " << armorNumer
 						<< " contains non legal characters: " << e.errorString() << std::endl;
 				std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
+				break;
 			}
 		}
 
 		std::cout << std::endl << std::endl;
-		outputResults(i);
 
-		if(i >= 0 && i < itsCountManager->size())
+		std::cout << "Don't work?\n";
+		if(stoi(armorNumer.c_str()) >= 0 && stoi(armorNumer.c_str()) < itsCountManager->size())
 		{
-			int stone = 0;
+			std::cout << "Work!\n";
+			outputResults(stoi(armorNumer.c_str()));
+			std::string stone;
 
 			while(true)
 			{
 				messages = "Использовать камни?\n\t0 (или ENTER) - Миражи, 1 - Небески, 2 - Подземки, 3 - Мирозданки\n";
 				std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
-				char *c = new char;
 
 				try {
-					std::cin >> stone;
-					InputChecker::isContaineErrorString(std::string(itoa(stone, c, 10)), "0123", 1);
-					delete c;
-					c = 0;
+					std::getline(std::cin, stone);
+					InputChecker::isContaineErrorString(stone, "0123", 1);
 					break;
 				} catch (InputLimitException &e) {
-					delete c;
-					c = 0;
 					std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
 				} catch (InputException &e) {
-					delete c;
-					c = 0;
 					std::cout << "Input exception. String " << stone
 							<< " contains non legal characters: " << e.errorString() << std::endl;
 					std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
@@ -528,46 +513,45 @@ void ConsoleRefineDriver::refining()
 			std::cin.get();
 			std::cout << std::endl;
 
-			switch(stone)
+			switch(stoi(stone.c_str()))
 			{
 			case 0:
 			{
-				refineResult = Refine::goRefining(itsCountManager->at(i)->armor(), new MirageCelestone());
+				refineResult = Refine::goRefining(itsCountManager->at(stoi(armorNumer.c_str()))->armor(), new MirageCelestone());
 				break;
 			}
 			case 1:
 			{
-				itsCountManager->at(i)->incTienkangStone();
-				refineResult = Refine::goRefining(itsCountManager->at(i)->armor(), new MirageCelestone(), new TienkangStone());
+				itsCountManager->at(stoi(armorNumer.c_str()))->incTienkangStone();
+				refineResult = Refine::goRefining(itsCountManager->at(stoi(armorNumer.c_str()))->armor(), new MirageCelestone(), new TienkangStone());
 				break;
 			}
 			case 2:
 			{
-				itsCountManager->at(i)->incTishaStone();
-				refineResult = Refine::goRefining(itsCountManager->at(i)->armor(), new MirageCelestone(), new TishaStone());
+				itsCountManager->at(stoi(armorNumer.c_str()))->incTishaStone();
+				refineResult = Refine::goRefining(itsCountManager->at(stoi(armorNumer.c_str()))->armor(), new MirageCelestone(), new TishaStone());
 				break;
 			}
 			case 3:
 			{
-				itsCountManager->at(i)->incChienkunStone();
-				refineResult = Refine::goRefining(itsCountManager->at(i)->armor(), new MirageCelestone(), new ChienkunStone());
+				itsCountManager->at(stoi(armorNumer.c_str()))->incChienkunStone();
+				refineResult = Refine::goRefining(itsCountManager->at(stoi(armorNumer.c_str()))->armor(), new MirageCelestone(), new ChienkunStone());
 				break;
 			}
 			default: exit(-11); // TODO exit(-11)
 			}
-			itsCountManager->at(i)->incMirageCelestone();
+			itsCountManager->at(stoi(armorNumer.c_str()))->incMirageCelestone();
 
-			if((itsCountManager->at(i)->armor()->wasRefineLevel() == T0 || itsCountManager->at(i)->armor()->wasRefineLevel() == T12)
+			if((itsCountManager->at(stoi(armorNumer.c_str()))->armor()->wasRefineLevel() == T0 || itsCountManager->at(stoi(armorNumer.c_str()))->armor()->wasRefineLevel() == T12)
 					&& (refineResult == FAIL || refineResult == RESET))
 			{
 				refineResult = NOCHANGE;
 			}
 
 			refineInfo(refineResult);
+			std::cout << std::endl;
+			outputResults(stoi(armorNumer.c_str()));
 		}
-
-		std::cout << std::endl;
-		outputResults(i);
 
 		while(true)
 		{
