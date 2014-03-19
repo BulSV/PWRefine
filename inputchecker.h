@@ -7,9 +7,15 @@
 
 class InputChecker
 {
+	std::string itsString;
+	std::string itsMask;
+	unsigned int itsLimit;
+
+	bool isContaineErrorString()
+	throw (InputException, InputLimitException);
 public:
-    static bool isContaineErrorString(std::string str, std::string mask, unsigned int limit)
-    throw (InputException, InputLimitException);
+	bool check(std::string str, std::string mask, unsigned int limit);
+	std::string str() const;
 };
 
 #endif // IOCHECKER_H

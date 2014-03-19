@@ -1,42 +1,56 @@
 #include "inputchecker.h"
 
-bool InputChecker::isContaineErrorString(std::string str, std::string mask, unsigned int limit)
+bool InputChecker::isContaineErrorString()
 throw (InputException, InputLimitException)
 {
-	if(str.size() > limit)
-	{
-		throw InputLimitException(limit);
-	}
-	unsigned int currentCount = 0;
-	unsigned int count = 0;
-	std::string errorString;
-	for(unsigned int i = 0; i < str.size(); ++i)
-	{
-		for(unsigned int j = 0; j < mask.size(); ++j)
+	if(itsString.size() > itsLimit)
 		{
-			if(str[i] == mask[j])
+			throw InputLimitException(itsLimit);
+		}
+		unsigned int currentCount = 0;
+		unsigned int count = 0;
+		std::string errorString;
+		for(unsigned int i = 0; i < itsString.size(); ++i)
+		{
+			for(unsigned int j = 0; j < itsMask.size(); ++j)
 			{
-				++currentCount;
+				if(itsString[i] == itsMask[j])
+				{
+					++currentCount;
+				}
+			}
+			if(currentCount != count)
+			{
+				++count;
+			}
+			else if(itsLimit > 1)
+			{
+				errorString.push_back(itsString[i]);
+			}
+			else
+			{
+				throw InputException(itsString, itsMask);
 			}
 		}
-		if(currentCount != count)
-		{
-			++count;
-		}
-		else if(limit > 1)
-		{
-			errorString.push_back(str[i]);
-		}
-		else
-		{
-			throw InputException(str, mask);
-		}
-	}
 
-	if(currentCount != str.size())
-	{
-		throw InputException(errorString, mask);
-	}
+		if(currentCount != itsString.size())
+		{
+			throw InputException(errorString, itsMask);
+		}
 
-	return true;
+		return true;
+}
+
+bool InputChecker::check(std::string str, std::string mask, unsigned int limit)
+{
+	itsString = str;
+	itsMask = mask;
+	itsLimit = limit;
+
+	return isContaineErrorString();
+}
+
+std::string InputChecker::str() const
+{
+	return itsString;
 }
