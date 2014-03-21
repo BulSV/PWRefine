@@ -71,21 +71,15 @@ void iochecker::checker(int ch)
 		{
 			std::cout << (char)ch;
 			int chTemp = _getch();
-			std::cout << (char)chTemp;
 			if(chTemp == 72 || chTemp == 75 || chTemp == 77 || chTemp == 80) // up left right down
 			{
-				std::cout << (char)BACKSPACE << ' ' << (char)BACKSPACE;
 				std::cout << (char)BACKSPACE << ' ' << (char)BACKSPACE;
 				checker(_getch());
 			}
 			else
 			{
 				m_buf->push_back(ch);
-				if(chTemp != ENTER)
-				{
-					m_buf->push_back(chTemp);
-				}
-				checker(_getch());
+				checker(chTemp);
 			}
 		}
 		else
