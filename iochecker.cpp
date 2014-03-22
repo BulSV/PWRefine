@@ -1,8 +1,20 @@
 #include "iochecker.h"
 #include <stdlib.h>
 
-#define BACKSPACE 8
-#define ENTER 13
+enum Keys {
+	BACKSPACE = 8,
+	ENTER = 13,
+	INSERT = 82,
+	DELETE = 83,
+	HOME = 71,
+	END = 79,
+	PAGE_UP = 73,
+	PAGE_DOWN = 81,
+	UP_ARROW = 72,
+	LEFT_ARROW = 75,
+	DOWN_ARROW = 80,
+	RIGHT_ARROW = 77
+};
 
 void iochecker::fillUnMaskSmbs()
 {
@@ -67,11 +79,13 @@ void iochecker::checker(int ch)
 			(!eqSym(repeatedChars(m_mas, false), ch) || !emergUnMaskSym(ch)) &&
 			m_buf->size() < m_lim)
 	{
-		if(ch == 224)
+		if(ch == 224 || ch == 0)
 		{
 			std::cout << (char)ch;
 			int chTemp = _getch();
-			if(chTemp == 72 || chTemp == 75 || chTemp == 77 || chTemp == 80) // up left right down
+			if(chTemp == UP_ARROW || chTemp == LEFT_ARROW || chTemp == RIGHT_ARROW || chTemp == DOWN_ARROW
+					|| chTemp == INSERT || chTemp == DELETE || chTemp == HOME || chTemp == END
+					|| chTemp == PAGE_UP || chTemp == PAGE_DOWN)
 			{
 				std::cout << (char)BACKSPACE << ' ' << (char)BACKSPACE;
 				checker(_getch());
