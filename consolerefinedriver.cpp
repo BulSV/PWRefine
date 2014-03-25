@@ -289,7 +289,7 @@ bool ConsoleRefineDriver::inputArmorRefineLevel(InputChecker &inputChecker)
 	return inputChecker.check(refineLevel, "0123456789", 2);
 }
 
-void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string property, std::string refineLevel, Armor *armor)
+void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string property, std::string refineLevel, Armor *&armor)
 {
 	std::string category;
 	switch(stoi(choiceCategory.c_str()))

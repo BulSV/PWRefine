@@ -23,7 +23,7 @@ class ConsoleRefineDriver : public RefineDriver
     bool inputArmorCategory(InputChecker &inputChecker);
     bool inputArmorProperty(InputChecker &inputChecker);
     bool inputArmorRefineLevel(InputChecker &inputChecker);
-    void armorCreator(std::string choiceCategory, std::string property, std::string refineLevel, Armor *armor);
+    void armorCreator(std::string choiceCategory, std::string property, std::string refineLevel, Armor *&armor);
     void inputArmors();
     REFINE_LEVEL intToRefineLevel(int refineLevel);
     void outputResults();
