@@ -14,7 +14,7 @@ ConsoleRefineDriver::~ConsoleRefineDriver()
 
 void ConsoleRefineDriver::distributor()
 {
-	if(!itsCountManager->size()) return;
+	if(!itsCountManager->size()) return; // FIXME add exception on this
 
 	InputChecker inputChecker;
 
@@ -37,7 +37,6 @@ void ConsoleRefineDriver::distributor()
 		}
 		choice = inputChecker.str();
 
-		std::cout << std::endl;
 		// FIXME add exception on this
 		if(!choice.size()) continue;
 
@@ -142,7 +141,7 @@ bool ConsoleRefineDriver::refineContinue(InputChecker& inputChecker)
 	std::string messages;
 	std::string choice;
 	std::cout << std::endl;
-	messages = "Показать список всех предметов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
+	messages = "Показать список всех доспехов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, choice);
 
@@ -152,7 +151,7 @@ bool ConsoleRefineDriver::refineContinue(InputChecker& inputChecker)
 bool ConsoleRefineDriver::distributorInput(InputChecker& inputChecker)
 {
 	std::string choice;
-	std::string messages = "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?\n";
+	std::string messages = "Все доспехи введены. Показать список всех доспехов (p) или начать заточку (r)?\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, choice);
 
@@ -386,14 +385,14 @@ void ConsoleRefineDriver::inputArmors()
 	InputChecker inputChecker;
 	Armor *armor = 0;
 
-	std::string messages = "Введите предметы для заточки.";
+	std::string messages = "Введите доспехи для заточки.";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
 
 	while(true)
 	{
-		messages = "Предмет № ";
+		messages = "Доспех № ";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << armorNumber++;
-		messages = ", вывести список всех предметов (p) или выход (q):\n";
+		messages = ", вывести список всех доспехов (p) или выход (q):\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
 		while(true)
@@ -472,7 +471,7 @@ void ConsoleRefineDriver::headOutputResults()
 {
 	std::string messages;
 	std::cout.fill(' ');
-	messages = "Предмет №";
+	messages = "Доспех №";
 	std::cout << std::left << std::setw(10)	<< cp1251to866(const_cast<char*>(messages.c_str()));
 	messages = "Категория";
 	std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
@@ -575,12 +574,12 @@ void ConsoleRefineDriver::refineInfo(REFINE refine)
 void ConsoleRefineDriver::refining()
 {
 	std::string armorNumber;
-	std::string choice;
+	std::string choice = " ";
 	std::string messages;
 	std::string stone;
 	InputChecker inputChecker;
 
-	while(true)
+	while(choice != "q")
 	{
 		while(true)
 		{
@@ -620,7 +619,6 @@ void ConsoleRefineDriver::refining()
 			}
 			stone = inputChecker.str();
 
-			std::cin.get();
 			std::cout << std::endl;
 
 			refineInfo(refineArmor(stone, armorNumber));
@@ -628,37 +626,28 @@ void ConsoleRefineDriver::refining()
 			outputResults(stoi(armorNumber.c_str()));
 		}
 
-		while(true)
-		{
-			try {
-				if(refineContinue(inputChecker))
-				{
-					break;
+		do {
+			std::cout << std::endl;
+			if(choice == "p")
+				outputResults();
+
+			while(true)
+			{
+				try {
+					if(refineContinue(inputChecker))
+					{
+						break;
+					}
+				} catch (InputLimitException &e) {
+					std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
+				} catch (InputException &e) {
+					std::cout << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
+					std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
 				}
-			} catch (InputLimitException &e) {
-				std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
-			} catch (InputException &e) {
-				std::cout << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
-				std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
 			}
-		}
-		choice = inputChecker.str();
-
-		if( choice == "r" || choice == "q")
-		{
-			std::cout << std::endl;
-			break;
-		}
-		if(choice == "p")
-		{
-			std::cout << std::endl;
-
-			outputResults();
-			messages = "Показать список всех предметов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
-			std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
-		}
+			choice = inputChecker.str();
+		} while(choice == "p");
 	}
-
 	if(choice == "q")
 	{
 		exit(0); // TODO exit(0)
