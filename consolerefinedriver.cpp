@@ -17,8 +17,9 @@ void ConsoleRefineDriver::distributor()
 	if(!itsCountManager->size()) return; // FIXME add exception on this
 
 	InputChecker inputChecker;
+	bool isWasQuit = false;
 
-	while (true)
+	while (!isWasQuit)
 	{
 		std::string choice;
 		while (true)
@@ -50,6 +51,7 @@ void ConsoleRefineDriver::distributor()
 		case 'r':
 		{
 			refining();
+			isWasQuit = true;
 			break;
 		}
 		default:
@@ -165,6 +167,7 @@ bool ConsoleRefineDriver::distributorInput(InputChecker& inputChecker)
 
 void ConsoleRefineDriver::output()
 {
+	outputResults();
 }
 
 REFINE_LEVEL ConsoleRefineDriver::intToRefineLevel(int refineLevel)
@@ -652,10 +655,6 @@ void ConsoleRefineDriver::refining()
 			}
 			choice = inputChecker.str();
 		} while(choice == "p");
-	}
-	if(choice == "q")
-	{
-		exit(0); // TODO exit(0)
 	}
 }
 

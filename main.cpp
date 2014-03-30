@@ -21,6 +21,7 @@ int main(int argc, char **argv)
     refineDriver->info();
     refineDriver->input();
     refineDriver->driver();
+    refineDriver->output();
 
     return 0;
 }
