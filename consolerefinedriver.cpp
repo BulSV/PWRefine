@@ -54,6 +54,11 @@ void ConsoleRefineDriver::distributor()
 
 void ConsoleRefineDriver::info() const
 {
+	std::string message1 = "**********************************************************************\n";
+	std::string message2 = "** Это программа-эмулятор улучшения доспехов для игры Perfect World **\n";
+	std::string message3 = "** ========================== Версия 1.1 ========================== **\n";
+	std::string message = "\n" + message1 + message2 + message3 + message1 + "\n";
+	std::cout << cp1251to866(const_cast<char*>(message.c_str()));
 }
 
 void ConsoleRefineDriver::input()
