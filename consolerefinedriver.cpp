@@ -399,7 +399,7 @@ void ConsoleRefineDriver::inputArmors()
 	while(true)
 	{
 		messages = "Доспех № ";
-		std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << armorNumber++;
+		std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << armorNumber;
 		messages = ", вывести список всех доспехов (p) или выход (q):\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
@@ -430,6 +430,8 @@ void ConsoleRefineDriver::inputArmors()
 			std::cout << std::endl;
 			break;
 		}
+
+		armorNumber++;
 
 		while(true)
 		{
