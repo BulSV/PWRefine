@@ -168,6 +168,11 @@ bool ConsoleRefineDriver::distributorInput(InputChecker& inputChecker)
 void ConsoleRefineDriver::output()
 {
 	outputResults();
+
+	std::string message1 = "**********************************************************************\n";
+	std::string message2 = "** ====================== Программа завершена ===================== **\n";
+	std::string message = message1 + message2 + message1 + "\n";
+	std::cout << cp1251to866(const_cast<char*>(message.c_str()));
 }
 
 REFINE_LEVEL ConsoleRefineDriver::intToRefineLevel(int refineLevel)
