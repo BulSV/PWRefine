@@ -18,22 +18,36 @@ object_script.*
 Zatochka!/
 Zatochkad
 
+# Don't needed CodeBlocks files
+*.depend
+*.layout
+
+# Don't needed Dia files
+*.dia~
+
 # Don't needed dirs
 bin
 obj
 patches
 debug
+Debug
 release
-
-# Don't needed CodeBlocks files
-*.depend
-*.layout
+Release
+.*
 
 # Don't needed Qt files
-
 *.pro.user
 *.pro.user.*
 moc_*.cpp
 qrc_*.cpp
 Makefile*
 *-build-*
+object_script*
+
+# Don't needed Java files
+*.class
+.idea
+out
+
+# Needed files
+!.gitignore

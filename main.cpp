@@ -1,478 +1,91 @@
 #include <iostream>
-#include <vector>
-#include <stdlib.h>
-#include "include/kuznitsa.h"
-#include "include/refine.h"
-#include <conio.h>
-#include <windows.h>
-#include <iomanip>
-#include "include/iochecker.h"
-#include <stdlib.h>
+#include "refinedriver.h"
+#include "consolerefinedriver.h"
 
-void inputObjects(std::vector<Kuznitsa> &vk)
+int main(int argc, char **argv)
 {
-    int i = 0;
-    char cat;
-    std::string predmet;
-    std::string pro;
+    RefineDriver *refineDriver = 0;
 
-    std::cout << "Введите предметы для заточки.\n";
-    std::cout << "Предмет № " << i++ << ":\n";
-
-    while(1)
+    if(argc == 2 && *argv[1] == '-' && *(++argv[1]) == 'g')
     {
+        // TODO Gui
+    	std::cout << "GUI not yet\n";
 
-        std::cout << "0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги,\n";
-        std::cout << "5 - Наручи, 6 - Плащ, 7 - Ожерелье, 8 - Пояс, 9 - Кольцо\n";
-
-        std::vector<unsigned char> vInput;
-        iochecker ioInput(1, &vInput, "0123456789q");
-
-        ioInput.check(_getch());
-
-        if(iochecker::isDigit(ioInput.charBuffer(iochecker::ALLZEROS)))
-        {
-            cat = (char)iochecker::stoi(ioInput.charBuffer(iochecker::ALLZEROS));
-        }
-        else
-        {
-            cat = ioInput.buffer(iochecker::ALLZEROS).at(0);
-        }
-
-        if(cat == 'q')
-        {
-            std::cout << std::endl;
-            std::cin.get();
-            break;
-        }
-
-        switch(cat)
-        {
-        case 0: predmet = "оружия";
-                  break;
-        case 1: predmet = "шлема";
-                  break;
-        case 2: predmet = "накидки";
-                  break;
-        case 3: predmet = "бриджей";
-                  break;
-        case 4: predmet = "сапог";
-                  break;
-        case 5: predmet = "наручей";
-                  break;
-        case 6: predmet = "плаща";
-                  break;
-        case 7: predmet = "ожерелья";
-                  break;
-        case 8: predmet = "пояса";
-                  break;
-        case 9: predmet = "кольца";
-                  break;
-        default: exit(-7);
-        }
-
-        std::cout << "\nВведите название " << predmet << ":\n";
-        std::cin.ignore(); // Обязательно перед getline()
-        std::getline(std::cin, pro); // Считывает всю строку (даже с пробелами)
-        std::cout << std::endl;
-
-        switch(cat)
-        {
-        case 0:
-            {
-                Kuznitsa k(WEAPON, pro);
-                vk.push_back(k);
-                break;
-            }
-        case 1:
-            {
-                Kuznitsa k(SHLEM, pro);
-                vk.push_back(k);
-                break;
-            }
-        case 2:
-            {
-                Kuznitsa k(NAKIDKA, pro);
-                vk.push_back(k);
-                break;
-            }
-        case 3:
-            {
-                Kuznitsa k(BRIDGY, pro);
-                vk.push_back(k);
-                break;
-            }
-        case 4:
-            {
-                Kuznitsa k(SAPOGI, pro);
-                vk.push_back(k);
-                break;
-            }
-        case 5:
-            {
-                Kuznitsa k(NARUCHI, pro);
-                vk.push_back(k);
-                break;
-            }
-        case 6:
-            {
-                Kuznitsa k(PLASCH, pro);
-                vk.push_back(k);
-                break;
-            }
-        case 7:
-            {
-                Kuznitsa k(OZHERELYE, pro);
-                vk.push_back(k);
-                break;
-            }
-        case 8:
-            {
-                Kuznitsa k(POYAS, pro);
-                vk.push_back(k);
-                break;
-            }
-        case 9:
-            {
-                Kuznitsa k(RING, pro);
-                vk.push_back(k);
-                break;
-            }
-        default: exit(-8);
-        }
-
-        std::cout << "Введите уровень заточки:\n";
-
-        std::vector<unsigned char> vTochka;
-        iochecker ioTochka(2, &vTochka, "0123456789");
-
-        while(1)
-        {
-			ioTochka.check(_getch());
-
-            unsigned int tochka = iochecker::stoi(ioTochka.charBuffer(iochecker::ALLZEROS));
-
-            vk[vk.size() - 1].object()->setToch(tochka);
-            std::cin.get();
-            break;
-        }
-        std::cout << std::endl;
-        std::cout << "Предмет № " << i++ << " или выход (q):\n";
+    	return 0;
     }
-}
-
-std::string CATEGORYtoString(CATEGORY cat)
-{
-    switch(cat)
+    else
     {
-    case WEAPON: return "Оружие";
-                 break;
-    case SHLEM: return "Шлем";
-                break;
-    case NAKIDKA: return "Накидка";
-                  break;
-    case BRIDGY: return "Бриджи";
-                 break;
-    case SAPOGI: return "Сапоги";
-                 break;
-    case NARUCHI: return "Наручи";
-                  break;
-    case PLASCH: return "Плащ";
-                 break;
-    case OZHERELYE: return "Ожерелье";
-                    break;
-    case POYAS: return "Пояс";
-                break;
-    case RING: return "Кольцо";
-               break;
-    default: exit(-9);
+        refineDriver = new ConsoleRefineDriver();
     }
 
-    return "Нет категории";
-}
-
-void refineInfo(TOCHKA t)
-{
-    switch(t)
-    {
-    case UDACH: std::cout << "Улучшение прошло успешно!\n";
-                break;
-    case NEUDACH: std::cout << "Улучшение не прошло. Уровень заточки снизился на 1 уровень.\n";
-                  break;
-    case NEIZMEN: std::cout << "Улучшение не прошло. Уровень заточки не изменился.\n";
-                  break;
-    case RESET: std::cout << "Улучшение не прошло. Уровень заточки снизился до 0.\n";
-                break;
-    default: exit(-12);
-    }
-}
-
-void outputResults(const std::vector<Kuznitsa> &vk)
-{
-    int mirazh = 0;
-    int nebeska = 0;
-    int podzemka = 0;
-    int mirozdanka = 0;
-
-    std::cout.fill(' ');
-
-    std::cout << std::left << std::setw(10) << "Предмет №"
-    << std::setw(10) << "Категория"
-    << std::setw(30) << "Описание"
-    << std::setw(8) << "Заточка"
-    << std::setw(8) << "Миражей"
-    << std::setw(8) << "Небесок"
-    << std::setw(9) << "Подземок"
-    << std::setw(10) << "Мирозданок\n";
-
-    std::cout.fill('.');
-
-    for(unsigned int i = 0; i < vk.size(); ++i)
-    {
-        std::cout << std::left << std::setw(9) << i << " ";
-        std::cout << std::left << std::setw(9) << CATEGORYtoString(vk.at(i).object()->cat()) << " ";
-        std::cout << std::left << std::setw(29) << vk.at(i).object()->pro() << " ";
-        std::cout << std::left << std::setw(7) << vk.at(i).object()->toch() << " ";
-        std::cout << std::left << std::setw(7) << vk.at(i).object()->mirazh() << " ";
-        std::cout << std::left << std::setw(7) << vk.at(i).object()->nebeska() << " ";
-        std::cout << std::left << std::setw(8) << vk.at(i).object()->podzemka() << " ";
-        std::cout << std::left << std::setw(10) << vk.at(i).object()->mirozdanka();
-        std::cout << std::endl;
-
-        mirazh += vk.at(i).object()->mirazh();
-        nebeska += vk.at(i).object()->nebeska();
-        podzemka += vk.at(i).object()->podzemka();
-        mirozdanka += vk.at(i).object()->mirozdanka();
-    }
-
-    std::cout << std::setw(57) << "Всего:" << " "
-    << std::setw(7)<< mirazh << " "
-    << std::setw(7) << nebeska << " "
-    << std::setw(8) << podzemka << " "
-    << std::setw(10) << mirozdanka
-    << std::endl << std::endl;
-}
-
-void zatochka(std::vector<Kuznitsa> &vk)
-{
-    unsigned int i = 0;
-    char choice;
-
-    while(1)
-    {
-        std::cout << "Введите порядковый номер предмета для заточки или вывести список всех предметов (p):\n";
-
-        while(1)
-        {
-            std::vector<unsigned char> vRN;
-            iochecker ioRN(2, &vRN, "0123456789pp");
-
-            ioRN.check(_getch());
-
-            if(iochecker::isDigit(ioRN.charBuffer(iochecker::ALLZEROS)))
-            {
-                i = iochecker::stoi(ioRN.charBuffer(iochecker::ALLZEROS));
-
-                std::cin.get();
-                break;
-            }
-            else
-            {
-                std::cin.get();
-                std::cout << std::endl;
-                outputResults(vk);
-                std::cout << "Введите порядковый номер предмета для заточки или вывести список всех предметов (p):\n";
-            }
-        }
-
-        std::cout << std::endl;
-
-        if(i >= 0 && i < vk.size())
-        {
-            int stone = 0;
-            Refine r;
-
-            std::cout << "Использовать камни?\n\t0 - Ничего, 1 - Небеску, 2 - Подземку, 3 - Мирозданку\n";
-
-            while(1)
-            {
-                std::vector<unsigned char> vStones;
-                iochecker ioStones(1, &vStones, "0123");
-
-                ioStones.check(_getch());
-
-                int ch = iochecker::stoi(ioStones.charBuffer(iochecker::ALLZEROS));
-
-                stone = ch;
-                std::cin.get();
-                break;
-            }
-            std::cout << std::endl;
-
-            switch(stone)
-            {
-            case 0:
-                {
-                    r.goRefining(vk[i].object(), NOSTONE);
-                    break;
-                }
-            case 1:
-                {
-                    r.goRefining(vk[i].object(), NEBESKA);
-                    break;
-                }
-            case 2:
-                {
-                    r.goRefining(vk[i].object(), PODZEMKA);
-                    break;
-                }
-            case 3:
-                {
-                    r.goRefining(vk[i].object(), MIROZDANKA);
-                    break;
-                }
-            default: exit(-11);
-            }
-
-            refineInfo(r.refineResult());
-        }
-
-        std::cout << "Показать список всех предметов (p), продолжить заточку (r) или завершить программу (q)?\n";
-
-        while(1)
-        {
-            std::vector<unsigned char> vPRQ;
-            iochecker ioPRQ(1, &vPRQ, "prq");
-
-            ioPRQ.check(_getch());
-
-            int ch = ioPRQ.buffer(iochecker::ALLZEROS).at(0);
-
-            if( ch == 'r' || ch == 'q')
-            {
-                choice = ch;
-                std::cin.get();
-                std::cout << std::endl;
-                break;
-            }
-            if(ch == 'p')
-            {
-                choice = ch;
-                std::cin.get();
-                std::cout << std::endl;
-                outputResults(vk);
-                std::cout << "Показать список всех предметов (p), продолжить заточку (r) или завершить программу (q)?\n";
-            }
-        }
-
-        if(choice == 'q')
-        {
-            exit(0);
-        }
-    }
-}
-
-int main()
-{
-    //SetConsoleCP(1251);
-    //SetConsoleOutputCP(1251);
-
-    std::vector<Kuznitsa> vk;
-    char choice;
-
-    inputObjects(vk);
-
-    while(1)
-    {
-        std::cout << "Все предметы введены. Показать список всех предметов (p) или начать заточку (r)?\n";
-        while(1)
-        {
-            int ch = _getch(); // Считывает символ из потока, но не выводит его в поток.
-                              // Это своего рода защита ввода
-            if( ch == 'p' || ch == 'r')
-            {
-                choice = ch;
-                std::cout << choice;
-                std::cin.get();
-                break;
-            }
-        }
-        std::cout << std::endl;
-
-        switch(choice)
-        {
-        case 'p': outputResults(vk);
-                  break;
-        case 'r': zatochka(vk);
-                  break;
-        default: exit(-10);
-        }
-    }
+    refineDriver->info();
+    refineDriver->input();
+    refineDriver->driver();
 
     return 0;
 }
 
-/* Введите предметы для заточки.
-Предмет № 1 или выход (q):
+/* ┬тхфшЄх яЁхфьхЄ√ фы  чрЄюўъш.
+╧ЁхфьхЄ ╣ 1 шыш т√їюф (q):
     //0 - WEAPON, 1 - SHLEM, 2 - NAKIDKA, 3 - BRIDGY, 4 - SAPOGI, 5 - PLASCH, 6 - OZHERELYE, 7 - POYAS, 8 - RING
-    0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги, 5 - Плащ, 6 - Ожерелье, 7 - Пояс, 8 - Кольцо
+    0 - ╬Ёєцшх, 1 - ╪ыхь, 2 - ═ръшфър, 3 - ┴Ёшфцш, 4 - ╤ряюуш, 5 - ╧ыр∙, 6 - ╬цхЁхы№х, 7 - ╧ю ё, 8 - ╩юы№Ўю
 0
-Введите название оружия:
-Кастеты с лезвиями
+┬тхфшЄх эрчтрэшх юЁєцш :
+╩рёЄхЄ√ ё ыхчтш ьш
 
-Предмет № 2 или выход (q):
+╧ЁхфьхЄ ╣ 2 шыш т√їюф (q):
     //0 - WEAPON, 1 - SHLEM, 2 - NAKIDKA, 3 - BRIDGY, 4 - SAPOGI, 5 - PLASCH, 6 - OZHERELYE, 7 - POYAS, 8 - RING
-    0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги, 5 - Плащ, 6 - Ожерелье, 7 - Пояс, 8 - Кольцо
+    0 - ╬Ёєцшх, 1 - ╪ыхь, 2 - ═ръшфър, 3 - ┴Ёшфцш, 4 - ╤ряюуш, 5 - ╧ыр∙, 6 - ╬цхЁхы№х, 7 - ╧ю ё, 8 - ╩юы№Ўю
 0
-Введите название оружия:
-Кастеты с лезвиями
+┬тхфшЄх эрчтрэшх юЁєцш :
+╩рёЄхЄ√ ё ыхчтш ьш
 
 ...
 
-Предмет № N или выход (q):
+╧ЁхфьхЄ ╣ N шыш т√їюф (q):
 q
 
-Все предметы введены. Показать список всех предметов (p) или начать заточку (r).
+┬ёх яЁхфьхЄ√ ттхфхэ√. ╧юърчрЄ№ ёяшёюъ тёхї яЁхфьхЄют (p) шыш эрўрЄ№ чрЄюўъє (r).
 p
-Предмет №   Категория   Описание            Заточка     Миражей     Небесок     Подземок    Мирозданок
-0           Оружие      Кастеты с лезвием   +0          0           0           0           0
-1           Оружие      Кастеты с лезвием   +0          0           0           0           0
+╧ЁхфьхЄ ╣   ╩рЄхуюЁш    ╬яшёрэшх            ╟рЄюўър     ╠шЁрцхщ     ═хсхёюъ     ╧юфчхьюъ    ╠шЁючфрэюъ
+0           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +0          0           0           0           0
+1           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +0          0           0           0           0
 
-Все предметы введены. Показать список всех предметов (p) или начать заточку (r).
+┬ёх яЁхфьхЄ√ ттхфхэ√. ╧юърчрЄ№ ёяшёюъ тёхї яЁхфьхЄют (p) шыш эрўрЄ№ чрЄюўъє (r).
 r
 
-Введите порядковый номер предмета для заточки или вывести список всех предметов (p):
+┬тхфшЄх яюЁ фъют√щ эюьхЁ яЁхфьхЄр фы  чрЄюўъш шыш т√тхёЄш ёяшёюъ тёхї яЁхфьхЄют (p):
 0
 
-Использовать:
-    0 - Ничего, 1 - Небеску, 2 - Подземку, 3 - Мирозданку
+╚ёяюы№чютрЄ№:
+    0 - ═шўхую, 1 - ═хсхёъє, 2 - ╧юфчхьъє, 3 - ╠шЁючфрэъє
 0
 
-Улучшение прошло успешно!
-Предмет №   Категория   Описание            Заточка     Миражей     Небесок     Подземок    Мирозданок
-0           Оружие      Кастеты с лезвием   +1          2           0           0           0
+╙ыєў°хэшх яЁю°ыю єёях°эю!
+╧ЁхфьхЄ ╣   ╩рЄхуюЁш    ╬яшёрэшх            ╟рЄюўър     ╠шЁрцхщ     ═хсхёюъ     ╧юфчхьюъ    ╠шЁючфрэюъ
+0           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +1          2           0           0           0
 
-Продолжить заточку (r) или выход (q)?
+╧ЁюфюыцшЄ№ чрЄюўъє (r) шыш т√їюф (q)?
 r
 
-Введите порядковый номер предмета для заточки или вывести список всех предметов (p):
+┬тхфшЄх яюЁ фъют√щ эюьхЁ яЁхфьхЄр фы  чрЄюўъш шыш т√тхёЄш ёяшёюъ тёхї яЁхфьхЄют (p):
 1
 
-Использовать:
-    0 - Ничего, 1 - Небеску, 2 - Подземку, 3 - Мирозданку
+╚ёяюы№чютрЄ№:
+    0 - ═шўхую, 1 - ═хсхёъє, 2 - ╧юфчхьъє, 3 - ╠шЁючфрэъє
 1
 
-Улучшение прошло успешно!
-Предмет №   Категория   Описание            Заточка     Миражей     Небесок     Подземок    Мирозданок
-1           Оружие      Кастеты с лезвием   +1          2           1           0           0
+╙ыєў°хэшх яЁю°ыю єёях°эю!
+╧ЁхфьхЄ ╣   ╩рЄхуюЁш    ╬яшёрэшх            ╟рЄюўър     ╠шЁрцхщ     ═хсхёюъ     ╧юфчхьюъ    ╠шЁючфрэюъ
+1           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +1          2           1           0           0
 
-Продолжить заточку (r) или выход (q)?
+╧ЁюфюыцшЄ№ чрЄюўъє (r) шыш т√їюф (q)?
 q
 
-Результаты зоточки.
-Предмет №   Категория   Описание            Заточка     Миражей     Небесок     Подземок    Мирозданок
-0           Оружие      Кастеты с лезвием   +1          2           0           0           0
-1           Оружие      Кастеты с лезвием   +1          2           1           0           0
+╨хчєы№ЄрЄ√ чюЄюўъш.
+╧ЁхфьхЄ ╣   ╩рЄхуюЁш    ╬яшёрэшх            ╟рЄюўър     ╠шЁрцхщ     ═хсхёюъ     ╧юфчхьюъ    ╠шЁючфрэюъ
+0           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +1          2           0           0           0
+1           ╬Ёєцшх      ╩рёЄхЄ√ ё ыхчтшхь   +1          2           1           0           0
 
-Всего                                                   4           1           0           0
+┬ёхую                                                   4           1           0           0
 */

@@ -3,39 +3,37 @@ CONFIG += console
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    src/weapon.cpp \
-    src/shlem.cpp \
-    src/sapogi.cpp \
-    src/ring.cpp \
-    src/refine.cpp \
-    src/poyas.cpp \
-    src/plasch.cpp \
-    src/ozherelye.cpp \
-    src/object.cpp \
-    src/naruchi.cpp \
-    src/nakidka.cpp \
-    src/matematika.cpp \
-    src/kuznitsa.cpp \
-    src/iochecker.cpp \
-    src/bridgy.cpp
+    refine.cpp \
+    matematika.cpp \
+    iochecker.cpp \
+    armor.cpp \
+    stone.cpp \
+    tienkangstone.cpp \
+    tishastone.cpp \
+    chienkunstone.cpp \
+    miragecelestone.cpp \
+    catalyzerstone.cpp \
+    counthandler.cpp \
+	countmanager.cpp	\
+    refinedriver.cpp    \
+    consolerefinedriver.cpp
 
-HEADERS += \ 
-    include/weapon.h \
-    include/shlem.h \
-    include/sapogi.h \
-    include/ring.h \
-    include/refine.h \
-    include/poyas.h \
-    include/plasch.h \
-    include/ozherelye.h \
-    include/object.h \
-    include/naruchi.h \
-    include/nakidka.h \
-    include/matematika.h \
-    include/kuznitsa.h \
-    include/iochecker.h \
-    include/bridgy.h
+HEADERS += \
+    refine.h \
+    matematika.h \
+    iochecker.h \
+    armor.h \
+    globalenums.h \
+    stone.h \
+    tienkangstone.h \
+    tishastone.h \
+    chienkunstone.h \
+    miragecelestone.h \
+    catalyzerstone.h \
+    counthandler.h \
+	countmanager.h	\
+    refinedriver.h  \
+    consolerefinedriver.h
 
 OTHER_FILES += \
     TODO.txt
-
