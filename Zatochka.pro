@@ -37,8 +37,5 @@ HEADERS += \
     include/bridgy.h
 
 OTHER_FILES += \
-    TODO.txt \
-    draftFile.cpp \
-    newinputfunc.h \
-    draftIochecker.h
+    TODO.txt
 
