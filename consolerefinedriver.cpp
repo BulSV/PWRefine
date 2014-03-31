@@ -15,7 +15,7 @@ ConsoleRefineDriver::~ConsoleRefineDriver()
 void ConsoleRefineDriver::distributor()
 {
 	try {
-		testOnEmptyCountManager();
+		isEmptyCountManager();
 	} catch (EmptyException &e) {
 		std::cout << "\nEmpty exception. Was not input any armor. Program is closing...\n\n";
 		return;
@@ -170,12 +170,14 @@ bool ConsoleRefineDriver::distributorInput(InputChecker& inputChecker)
 	return inputChecker.check(choice, "pr", 1);
 }
 
-void ConsoleRefineDriver::testOnEmptyCountManager() const throw (EmptyException)
+bool ConsoleRefineDriver::isEmptyCountManager() const throw (EmptyException)
 {
 	if(!itsCountManager->size())
 	{
 		throw EmptyException();
 	}
+
+	return false;
 }
 
 void ConsoleRefineDriver::output()
@@ -610,7 +612,7 @@ void ConsoleRefineDriver::refining()
 	while(true)
 	{
 		try {
-			testOnEmptyCountManager();
+			isEmptyCountManager();
 			break;
 		} catch (EmptyException &e) {
 			std::cout << "Empty exception. Was not input any armor\n\n";
