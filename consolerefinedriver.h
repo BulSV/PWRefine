@@ -43,6 +43,7 @@ class ConsoleRefineDriver : public RefineDriver
     void distributor();
     int stoi(const char *str);
     bool isEmptyCountManager() const throw(EmptyException);
+    bool isStringEmpty(std::string str) const throw(EmptyException);
 
 public:
     ConsoleRefineDriver();

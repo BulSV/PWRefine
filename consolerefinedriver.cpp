@@ -43,8 +43,12 @@ void ConsoleRefineDriver::distributor()
 		}
 		choice = inputChecker.str();
 
-		// FIXME add exception on this
-		if(!choice.size()) continue;
+		try {
+			isStringEmpty(choice);
+		} catch (EmptyException &e) {
+			std::cout << "Empty exception. Wasn't selected any conditions\n\n";
+			continue;
+		}
 
 		switch (choice.at(0))
 		{
@@ -170,9 +174,21 @@ bool ConsoleRefineDriver::distributorInput(InputChecker& inputChecker)
 	return inputChecker.check(choice, "pr", 1);
 }
 
-bool ConsoleRefineDriver::isEmptyCountManager() const throw (EmptyException)
+bool ConsoleRefineDriver::isEmptyCountManager() const
+throw (EmptyException)
 {
 	if(!itsCountManager->size())
+	{
+		throw EmptyException();
+	}
+
+	return false;
+}
+
+bool ConsoleRefineDriver::isStringEmpty(std::string str) const
+throw (EmptyException)
+{
+	if(!str.size())
 	{
 		throw EmptyException();
 	}
