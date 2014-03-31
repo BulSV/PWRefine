@@ -15,6 +15,7 @@
 #include "chienkunstone.h"
 #include "catalyzerstone.h"
 #include "inputchecker.h"
+#include "emptyexception.h"
 
 class ConsoleRefineDriver : public RefineDriver
 {
@@ -41,6 +42,7 @@ class ConsoleRefineDriver : public RefineDriver
     bool distributorInput(InputChecker &inputChecker);
     void distributor();
     int stoi(const char *str);
+    void testOnEmptyCountManager() const throw(EmptyException);
 
 public:
     ConsoleRefineDriver();

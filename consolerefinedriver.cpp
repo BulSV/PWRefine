@@ -14,7 +14,12 @@ ConsoleRefineDriver::~ConsoleRefineDriver()
 
 void ConsoleRefineDriver::distributor()
 {
-	if(!itsCountManager->size()) return; // FIXME add exception on this
+	try {
+		testOnEmptyCountManager();
+	} catch (EmptyException &e) {
+		std::cout << "\nEmpty exception. Was not input any armor. Program is closing...\n\n";
+		return;
+	}
 
 	InputChecker inputChecker;
 	bool isWasQuit = false;
@@ -163,6 +168,14 @@ bool ConsoleRefineDriver::distributorInput(InputChecker& inputChecker)
 	std::getline(std::cin, choice);
 
 	return inputChecker.check(choice, "pr", 1);
+}
+
+void ConsoleRefineDriver::testOnEmptyCountManager() const throw (EmptyException)
+{
+	if(!itsCountManager->size())
+	{
+		throw EmptyException();
+	}
 }
 
 void ConsoleRefineDriver::output()
@@ -593,6 +606,17 @@ void ConsoleRefineDriver::refining()
 	std::string messages;
 	std::string stone;
 	InputChecker inputChecker;
+
+	while(true)
+	{
+		try {
+			testOnEmptyCountManager();
+			break;
+		} catch (EmptyException &e) {
+			std::cout << "Empty exception. Was not input any armor\n\n";
+			inputArmors();
+		}
+	}
 
 	while(choice != "q")
 	{
