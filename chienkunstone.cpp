@@ -1,11 +1,12 @@
-#include "chienkunstone.h"
+
 #include <iostream>
 #include <cstdlib>
+#include "chienkunstone.h"
 #include "matematika.h"
 
 std::string ChienkunStone::CATEGORY = "CHIENKUNSTONE";
 
-float ChienkunStone::addChance(const Armor *armor) const
+float ChienkunStone::addChance(const Armor *armor) const throw(RefineLevelException)
 {
 	switch(armor->refineLevel())
 	{
@@ -23,8 +24,8 @@ float ChienkunStone::addChance(const Armor *armor) const
 	case T11: return (100.0/4645.0 - 50.0);
 	default:
 	{
-		std::cout << "\nERROR! Failed to refine armor, because the maximum or minimum level of refinement has\n";
-		exit(-1); // TODO exit(-1)
+		std::string message = "\nERROR! Failed to refine armor, because the maximum or minimum level of refinement has\n";
+		throw RefineLevelException(message);
 	}
 	}
 }

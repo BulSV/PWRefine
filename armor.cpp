@@ -1,5 +1,5 @@
-#include "armor.h"
 #include <stdlib.h>
+#include "armor.h"
 
 Armor::Armor(REFINE_LEVEL refineLevel,
 		int requiredMiragecelestone,

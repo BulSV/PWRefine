@@ -3,7 +3,7 @@
 
 std::string TienkangStone::CATEGORY = "TIENKANG STONE";
 
-float TienkangStone::addChance(const Armor *armor) const /*virtual*/
+float TienkangStone::addChance(const Armor *armor) const throw(RefineLevelException)/*virtual*/
 {
 	switch(armor->refineLevel())
 	{
@@ -21,8 +21,8 @@ float TienkangStone::addChance(const Armor *armor) const /*virtual*/
 	case T11: return -30.0;
 	default:
 	{
-		std::cout << "\nERROR! Failed to refine armor, because the maximum or minimum level of refinement has\n";
-		exit(-1); // TODO exit(-1)
+		std::string message = "\nERROR! Failed to refine armor, because the maximum or minimum level of refinement has\n";
+		throw RefineLevelException(message);
 	}
 	}
 }

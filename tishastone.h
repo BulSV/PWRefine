@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "catalyzerstone.h"
+#include "refinelevelexception.h"
 
 class TishaStone : public CatalyzerStone
 {
@@ -12,7 +13,7 @@ public:
     TishaStone();
     virtual ~TishaStone();
     virtual std::string category() const;
-    virtual float addChance(const Armor *armor) const;
+    virtual float addChance(const Armor *armor) const throw(RefineLevelException);
     virtual REFINE refineRequest(float obtainedChance) const;
 };
 

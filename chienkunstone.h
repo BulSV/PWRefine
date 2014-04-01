@@ -2,6 +2,7 @@
 #define CHIENKUNSTONE_H
 
 #include "catalyzerstone.h"
+#include "refinelevelexception.h"
 
 class ChienkunStone : public CatalyzerStone
 {
@@ -11,7 +12,7 @@ public:
     ChienkunStone();
     virtual ~ChienkunStone();
     virtual std::string category() const;
-    virtual float addChance(const Armor* armor) const;
+    virtual float addChance(const Armor* armor) const throw(RefineLevelException);
     virtual REFINE refineRequest(float obtainedChance) const;
 };
 

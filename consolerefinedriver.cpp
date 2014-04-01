@@ -1,5 +1,6 @@
-#include "consolerefinedriver.h"
 #include <stdlib.h>
+#include "consolerefinedriver.h"
+#include "matematika.h"
 
 ConsoleRefineDriver::ConsoleRefineDriver()
 : itsCountManager(new CountManager())
@@ -114,36 +115,52 @@ REFINE ConsoleRefineDriver::refineArmor(std::string stone, std::string armorNumb
 {
 	REFINE refineResult;
 
-	switch(stoi(stone.c_str()))
+	switch(MLib::stoi(stone.c_str()))
 	{
 	case 0:
 	{
-		refineResult = Refine::goRefining(itsCountManager->at(stoi(armorNumber.c_str()))->armor(), new MirageCelestone());
+		try {
+			refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone());
+		} catch (RefineLevelException &e) {
+			throw RefineLevelException(e);
+		}
 		break;
 	}
 	case 1:
 	{
-		itsCountManager->at(stoi(armorNumber.c_str()))->incTienkangStone();
-		refineResult = Refine::goRefining(itsCountManager->at(stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new TienkangStone());
+		try {
+			refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new TienkangStone());
+		} catch (RefineLevelException &e) {
+			throw RefineLevelException(e);
+		}
+		itsCountManager->at(MLib::stoi(armorNumber.c_str()))->incTienkangStone();
 		break;
 	}
 	case 2:
 	{
-		itsCountManager->at(stoi(armorNumber.c_str()))->incTishaStone();
-		refineResult = Refine::goRefining(itsCountManager->at(stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new TishaStone());
+		try {
+			refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new TishaStone());
+		} catch (RefineLevelException &e) {
+			throw RefineLevelException(e);
+		}
+		itsCountManager->at(MLib::stoi(armorNumber.c_str()))->incTishaStone();
 		break;
 	}
 	case 3:
 	{
-		itsCountManager->at(stoi(armorNumber.c_str()))->incChienkunStone();
-		refineResult = Refine::goRefining(itsCountManager->at(stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new ChienkunStone());
+		try {
+			refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new ChienkunStone());
+		} catch (RefineLevelException &e) {
+			throw RefineLevelException(e);
+		}
+		itsCountManager->at(MLib::stoi(armorNumber.c_str()))->incChienkunStone();
 		break;
 	}
 	default: exit(-11); // TODO exit(-11)
 	}
-	itsCountManager->at(stoi(armorNumber.c_str()))->incMirageCelestone();
+	itsCountManager->at(MLib::stoi(armorNumber.c_str()))->incMirageCelestone();
 
-	if((itsCountManager->at(stoi(armorNumber.c_str()))->armor()->wasRefineLevel() == T0 || itsCountManager->at(stoi(armorNumber.c_str()))->armor()->wasRefineLevel() == T12)
+	if((itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor()->wasRefineLevel() == T0 || itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor()->wasRefineLevel() == T12)
 			&& (refineResult == FAIL || refineResult == RESET))
 	{
 		refineResult = NOCHANGE;
@@ -263,35 +280,8 @@ REFINE_LEVEL ConsoleRefineDriver::intToRefineLevel(int refineLevel)
 		return T12;
 	}
 	default:
-		return T0;
+		return T0; // TODO add exception on this
 	}
-}
-
-int ConsoleRefineDriver::stoi(const char *str)
-{
-	int number=0;
-	int temp;
-	int sign=1;
-	//Проверка на отрицательность
-	if(*str=='-'){
-		str++;
-		sign=-1;
-	}
-	//Преобразование символов строки в разряды числа
-	while(*str){
-		temp=(int)*str++-48;
-		number+=temp;
-		number*=10;
-	}
-	number/=10;
-	//Проверка на вхождения числа в допустимый диапазон значений
-	if((number<-32768)||(number>32767)){
-		std::cout<<"Error 1. ";
-		std::cout<<"Number overload long int"<<std::endl;
-		exit(1); // TODO exit(1)
-	}
-
-	return number*sign;
 }
 
 bool ConsoleRefineDriver::inputArmorCategory(InputChecker &inputChecker)
@@ -332,16 +322,19 @@ bool ConsoleRefineDriver::inputArmorRefineLevel(InputChecker &inputChecker)
 	return inputChecker.check(refineLevel, "0123456789", 2);
 }
 
-void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string property, std::string refineLevel, Armor *&armor)
+void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
+		std::string property,
+		std::string refineLevel,
+		Armor *&armor)
 {
 	std::string category;
-	switch(stoi(choiceCategory.c_str()))
+	switch(MLib::stoi(choiceCategory.c_str()))
 	{
 	case 0:
 	{
 		category = "ОРУЖИЕ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 2, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 2, category, property);
 		break;
 	}
 	case 1:
@@ -349,7 +342,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string p
 
 		category = "ШЛЕМ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	case 2:
@@ -357,7 +350,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string p
 
 		category = "НАКИДКА";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	case 3:
@@ -365,7 +358,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string p
 
 		category = "БРИДЖИ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	case 4:
@@ -373,7 +366,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string p
 
 		category = "САПОГИ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	case 5:
@@ -381,7 +374,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string p
 
 		category = "НАРУЧИ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	case 6:
@@ -389,7 +382,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string p
 
 		category = "ПЛАЩ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	case 7:
@@ -397,7 +390,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string p
 
 		category = "ОЖЕРЕЛЬЕ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	case 8:
@@ -405,7 +398,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string p
 
 		category = "ПОЯС";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	case 9:
@@ -413,7 +406,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory, std::string p
 
 		category = "КОЛЬЦО";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	default: exit(-7); // TODO exit(-7)
@@ -656,9 +649,9 @@ void ConsoleRefineDriver::refining()
 
 		std::cout << std::endl << std::endl;
 
-		if(stoi(armorNumber.c_str()) >= 0 && stoi(armorNumber.c_str()) < itsCountManager->size())
+		if(MLib::stoi(armorNumber.c_str()) >= 0 && MLib::stoi(armorNumber.c_str()) < itsCountManager->size())
 		{
-			outputResults(stoi(armorNumber.c_str()));
+			outputResults(MLib::stoi(armorNumber.c_str()));
 
 			while(true)
 			{
@@ -680,7 +673,7 @@ void ConsoleRefineDriver::refining()
 
 			refineInfo(refineArmor(stone, armorNumber));
 			std::cout << std::endl;
-			outputResults(stoi(armorNumber.c_str()));
+			outputResults(MLib::stoi(armorNumber.c_str()));
 		}
 
 		do {

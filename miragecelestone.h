@@ -4,6 +4,7 @@
 #include <iostream>
 #include "globalenums.h"
 #include "stone.h"
+#include "refinelevelexception.h"
 
 class MirageCelestone: public Stone
 {
@@ -13,7 +14,7 @@ public:
     MirageCelestone();
     virtual ~MirageCelestone();
     virtual std::string category() const;
-    virtual float addChance(const Armor *armor) const;
+    virtual float addChance(const Armor *armor) const throw(RefineLevelException);
     REFINE refineRequest(float obtainedChance) const;
 };
 

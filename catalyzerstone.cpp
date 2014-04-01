@@ -6,5 +6,4 @@ CatalyzerStone::CatalyzerStone()
 
 CatalyzerStone::~CatalyzerStone()
 {
-
 }

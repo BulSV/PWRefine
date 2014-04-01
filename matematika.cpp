@@ -1,6 +1,6 @@
-#include "matematika.h"
 #include <stdlib.h>
 #include <iostream>
+#include "matematika.h"
 
 float Math_Lib::power(float num, int deg)
 {

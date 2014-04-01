@@ -1,8 +1,9 @@
 #ifndef TIENKANGSTONE_H
 #define TIENKANGSTONE_H
 
-#include "catalyzerstone.h"
 #include <iostream>
+#include "catalyzerstone.h"
+#include "refinelevelexception.h"
 
 class TienkangStone : public CatalyzerStone
 {
@@ -12,7 +13,7 @@ public:
     TienkangStone();
     virtual ~TienkangStone();
     virtual std::string category() const;
-    virtual float addChance(const Armor *armor) const;
+    virtual float addChance(const Armor *armor) const throw(RefineLevelException);
     virtual REFINE refineRequest(float obtainedChance) const;
 };
 
