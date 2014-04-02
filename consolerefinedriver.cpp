@@ -119,40 +119,24 @@ REFINE ConsoleRefineDriver::refineArmor(std::string stone, std::string armorNumb
 	{
 	case 0:
 	{
-		try {
-			refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone());
-		} catch (RefineLevelException &e) {
-			throw RefineLevelException(e);
-		}
+		refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone());
 		break;
 	}
 	case 1:
 	{
-		try {
-			refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new TienkangStone());
-		} catch (RefineLevelException &e) {
-			throw RefineLevelException(e);
-		}
+		refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new TienkangStone());
 		itsCountManager->at(MLib::stoi(armorNumber.c_str()))->incTienkangStone();
 		break;
 	}
 	case 2:
 	{
-		try {
-			refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new TishaStone());
-		} catch (RefineLevelException &e) {
-			throw RefineLevelException(e);
-		}
+		refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new TishaStone());
 		itsCountManager->at(MLib::stoi(armorNumber.c_str()))->incTishaStone();
 		break;
 	}
 	case 3:
 	{
-		try {
-			refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new ChienkunStone());
-		} catch (RefineLevelException &e) {
-			throw RefineLevelException(e);
-		}
+		refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone(), new ChienkunStone());
 		itsCountManager->at(MLib::stoi(armorNumber.c_str()))->incChienkunStone();
 		break;
 	}
@@ -671,7 +655,11 @@ void ConsoleRefineDriver::refining()
 
 			std::cout << std::endl;
 
-			refineInfo(refineArmor(stone, armorNumber));
+			try {
+				refineInfo(refineArmor(stone, armorNumber));
+			} catch (RefineLevelException &e) {
+				std::cout << e.message() << std::endl;
+			}
 			std::cout << std::endl;
 			outputResults(MLib::stoi(armorNumber.c_str()));
 		}
