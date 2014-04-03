@@ -21,7 +21,10 @@ float TishaStone::addChance(const Armor *armor) const throw(RefineLevelException
 	case T11: return -41.5;
 	default:
 	{
-		std::string message = "\nERROR! Failed to refine armor, because the maximum or minimum level of refinement has\n";
+		std::string message1 = armor->category();
+		std::string message2 = ": ";
+		std::string message3 = armor->property();
+		std::string message =  "\nERROR!\nFailed to refine armor: \"" + message1 + message2 + message3 + "\",\nbecause the maximum or minimum level of refinement has\n";
 		throw RefineLevelException(message);
 	}
 	}
