@@ -21,10 +21,9 @@ float MirageCelestone::addChance(const Armor *armor) const throw(RefineLevelExce
 	case T11: return -45.0;
 	default:
 	{
-		std::string message1 = armor->category();
-		std::string message2 = ": ";
-		std::string message3 = armor->property();
-		std::string message =  "\nERROR!\nFailed to refine armor: \"" + message1 + message2 + message3 + "\",\nbecause the maximum or minimum level of refinement has\n";
+		std::string message =  "\nERROR!\nFailed to refine armor: \"" +
+				armor->category() + ": " + armor->property() +
+				"\",\nbecause the maximum or minimum level of refinement has\n";
 		throw RefineLevelException(message);
 	}
 	}
