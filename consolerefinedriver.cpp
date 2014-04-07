@@ -79,7 +79,14 @@ void ConsoleRefineDriver::info() const
 
 void ConsoleRefineDriver::input()
 {
-	inputArmors();
+	try {
+		inputArmors();
+	} catch (StoiException &e) {
+		std::cout << e.message();
+		std::cout << "Number was: " << e.number() << std::endl;
+		std::cout << "Program is clossing...\n";
+		return;
+	}
 }
 
 void ConsoleRefineDriver::driver()
@@ -113,7 +120,6 @@ REFINE ConsoleRefineDriver::refineArmor(std::string stone, std::string armorNumb
 {
 	REFINE refineResult;
 
-	std::cout << "in refineArmor...\n";
 	switch(MLib::stoi(stone.c_str()))
 	{
 	case 0:

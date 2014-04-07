@@ -7,14 +7,22 @@
 
 #include "stoiexception.h"
 
-StoiException::StoiException()
+StoiException::StoiException(std::string message, int number)
+: itsMessage(message)
+, itsNumber(number)
 {
-	// TODO Auto-generated constructor stub
-
 }
 
 StoiException::~StoiException()
 {
-	// TODO Auto-generated destructor stub
 }
 
+const std::string StoiException::message() const
+{
+	return itsMessage;
+}
+
+int StoiException::number() const
+{
+	return itsNumber;
+}

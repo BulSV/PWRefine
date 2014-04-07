@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <iostream>
+#include <string>
 #include "matematika.h"
 
 float Math_Lib::power(float num, int deg)
@@ -85,7 +85,7 @@ float Math_Lib::sextaToDeca(float time)
     return time;
 }
 
-int Math_Lib::stoi(const char* str){
+int Math_Lib::stoi(const char* str) throw(StoiException) {
     int number=0;
     int temp;
     int sign=1;
@@ -101,11 +101,11 @@ int Math_Lib::stoi(const char* str){
         number*=10;
     }
     number/=10;
+    number*=sign;
 //Проверка на вхождения числа в допустимый диапазон значений
     if((number<-32768)||(number>32767)){
-        std::cout<<"Error 1. ";
-        std::cout<<"Number overload long int"<<std::endl;
-        exit(1); // TODO exit(1)
+        std::string message = "String to Integer Exception. Number overload long int\n";
+        throw StoiException(message, number);
     }
-    return number*sign;
+    return number;
 }
