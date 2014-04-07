@@ -715,6 +715,11 @@ void ConsoleRefineDriver::refining()
 			std::cout << std::endl;
 			outputResults(MLib::stoi(armorNumber.c_str()));
 		}
+		else
+		{
+			std::cout << "Armor number dosn't in range 0.." << itsCountManager->size() << std::endl;
+			std::cout << "Try agan...\n";
+		}
 
 		do {
 			std::cout << std::endl;
