@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "catalyzerstone.h"
-#include "refinelevelexception.h"
+#include "Exceptions/refinelevelexception.h"
 
 class TienkangStone : public CatalyzerStone
 {

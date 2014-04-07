@@ -4,7 +4,7 @@
 #include <iostream>
 #include "globalenums.h"
 #include "stone.h"
-#include "refinelevelexception.h"
+#include "Exceptions/refinelevelexception.h"
 
 class MirageCelestone: public Stone
 {

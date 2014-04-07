@@ -15,7 +15,8 @@
 #include "chienkunstone.h"
 #include "catalyzerstone.h"
 #include "inputchecker.h"
-#include "emptyexception.h"
+#include "Exceptions/emptyexception.h"
+#include "Exceptions/inttorefinelevelexception.h"
 
 class ConsoleRefineDriver : public RefineDriver
 {
@@ -24,9 +25,12 @@ class ConsoleRefineDriver : public RefineDriver
     bool inputArmorCategory(InputChecker &inputChecker);
     bool inputArmorProperty(InputChecker &inputChecker);
     bool inputArmorRefineLevel(InputChecker &inputChecker);
-    void armorCreator(std::string choiceCategory, std::string property, std::string refineLevel, Armor *&armor);
+    void armorCreator(std::string choiceCategory,
+    		std::string property,
+    		std::string refineLevel,
+    		Armor *&armor);
     void inputArmors();
-    REFINE_LEVEL intToRefineLevel(int refineLevel);
+    REFINE_LEVEL intToRefineLevel(int refineLevel) throw(IntToRefineLevelException);
     void outputResults();
     void outputResults(int index);
     void refineInfo(REFINE refine);

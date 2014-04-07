@@ -2,8 +2,8 @@
 #define IOCHECKER_H
 
 #include <string>
-#include "inputexception.h"
-#include "inputlimitexception.h"
+#include "Exceptions/inputexception.h"
+#include "Exceptions/inputlimitexception.h"
 
 class InputChecker
 {

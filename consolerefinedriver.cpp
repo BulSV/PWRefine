@@ -208,6 +208,7 @@ void ConsoleRefineDriver::output()
 }
 
 REFINE_LEVEL ConsoleRefineDriver::intToRefineLevel(int refineLevel)
+throw(IntToRefineLevelException)
 {
 	switch (refineLevel)
 	{
@@ -264,7 +265,8 @@ REFINE_LEVEL ConsoleRefineDriver::intToRefineLevel(int refineLevel)
 		return T12;
 	}
 	default:
-		return T0; // TODO add exception on this
+		std::string message = "Refine level is not in 0..12\n";
+		throw IntToRefineLevelException(message, (REFINE_LEVEL)refineLevel);
 	}
 }
 
@@ -478,7 +480,13 @@ void ConsoleRefineDriver::inputArmors()
 		}
 		refineLevel = inputChecker.str();
 
+		try {
 		armorCreator(choiceCategory, property, refineLevel, armor);
+		} catch (IntToRefineLevelException &e) {
+			std::cout << cp1251to866(const_cast<char*>(e.message().c_str()));
+			std::cout << "It was: " << e.refineLevel() << ". And it will be set to 0\n";
+			armorCreator(choiceCategory, property, "0", armor);
+		}
 
 		choiceCategory.clear();
 		property.clear();

@@ -8,11 +8,18 @@
 #ifndef INTTOREFINELEVELEXCEPTION_H_
 #define INTTOREFINELEVELEXCEPTION_H_
 
+#include <string>
+#include "../globalenums.h"
+
 class IntToRefineLevelException
 {
+	std::string itsMessage;
+	REFINE_LEVEL itsRefineLevel;
 public:
-	IntToRefineLevelException();
+	IntToRefineLevelException(std::string message, REFINE_LEVEL refineLevel);
 	~IntToRefineLevelException();
+	std::string message() const;
+	REFINE_LEVEL refineLevel() const;
 };
 
 #endif /* INTTOREFINELEVELEXCEPTION_H_ */

@@ -2,7 +2,7 @@
 #define CHIENKUNSTONE_H
 
 #include "catalyzerstone.h"
-#include "refinelevelexception.h"
+#include "Exceptions/refinelevelexception.h"
 
 class ChienkunStone : public CatalyzerStone
 {
