@@ -642,7 +642,6 @@ void ConsoleRefineDriver::refineInfo(REFINE refine)
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 		break;
 	}
-	default: exit(-12); // TODO exit(-12)
 	}
 }
 
@@ -717,7 +716,7 @@ void ConsoleRefineDriver::refining()
 		}
 		else
 		{
-			std::cout << "Armor number dosn't in range 0.." << itsCountManager->size() << std::endl;
+			std::cout << "Armor number dosn't in range 0.." << itsCountManager->size() - 1 << std::endl;
 			std::cout << "Try agan...\n";
 		}
 
