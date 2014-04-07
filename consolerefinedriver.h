@@ -16,7 +16,6 @@
 #include "catalyzerstone.h"
 #include "inputchecker.h"
 #include "Exceptions/emptyexception.h"
-#include "Exceptions/inttorefinelevelexception.h"
 
 class ConsoleRefineDriver : public RefineDriver
 {
@@ -30,7 +29,7 @@ class ConsoleRefineDriver : public RefineDriver
     		std::string refineLevel,
     		Armor *&armor);
     void inputArmors();
-    REFINE_LEVEL intToRefineLevel(int refineLevel) throw(IntToRefineLevelException);
+    REFINE_LEVEL intToRefineLevel(int refineLevel);
     void outputResults();
     void outputResults(int index);
     void refineInfo(REFINE refine);
@@ -47,6 +46,9 @@ class ConsoleRefineDriver : public RefineDriver
     void distributor();
     bool isEmptyCountManager() const throw(EmptyException);
     bool isStringEmpty(std::string str) const throw(EmptyException);
+	void setArmorCategory(InputChecker& inputChecker);
+	void setArmorProperty(InputChecker& inputChecker);
+	void setArmorRefineLevel(InputChecker& inputChecker);
 
 public:
     ConsoleRefineDriver();

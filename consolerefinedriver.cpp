@@ -208,7 +208,6 @@ void ConsoleRefineDriver::output()
 }
 
 REFINE_LEVEL ConsoleRefineDriver::intToRefineLevel(int refineLevel)
-throw(IntToRefineLevelException)
 {
 	switch (refineLevel)
 	{
@@ -265,8 +264,9 @@ throw(IntToRefineLevelException)
 		return T12;
 	}
 	default:
-		std::string message = "Refine level is not in 0..12\n";
-		throw IntToRefineLevelException(message, (REFINE_LEVEL)refineLevel);
+		std::cout << "Refine level is not in range 0..12\n";
+		std::cout <<"It will be set to 0\n";
+		return T0;
 	}
 }
 
@@ -280,7 +280,7 @@ bool ConsoleRefineDriver::inputArmorCategory(InputChecker &inputChecker)
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
 	std::getline(std::cin, cCategory);
 
-	return inputChecker.check(cCategory, "0123456789qp", 1);
+	return inputChecker.check(cCategory, "0123456789qp", 2);
 }
 
 bool ConsoleRefineDriver::inputArmorProperty(InputChecker &inputChecker)
@@ -395,7 +395,86 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
-	default: exit(-7); // TODO exit(-7)
+	default:
+	{
+		category = "ОРУЖИЕ";
+		category = cp1251to866(const_cast<char*>(category.c_str()));
+		std::cout << "Category is not in range 0..9\n";
+		std::cout << "It will be set to \""	<< category << "\"\n";
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 2, category, property);
+	}
+	}
+}
+
+void ConsoleRefineDriver::setArmorCategory(InputChecker& inputChecker)
+{
+	while (true)
+	{
+		try {
+			if (inputArmorCategory(inputChecker))
+			{
+				break;
+			}
+		} catch (InputLimitException& e) {
+			std::cout << "Input limit exception. Maximum characters limit is "
+					<< e.limit() << std::endl << std::endl;
+		} catch (InputException& e)	{
+			std::cout << "Input exception. String " << inputChecker.str()
+							<< " contains non legal characters: " << e.errorString()
+							<< std::endl;
+			std::cout << "Candidates are: " << e.mask() << std::endl
+					<< std::endl;
+		}
+	}
+}
+
+void ConsoleRefineDriver::setArmorProperty(InputChecker& inputChecker)
+{
+	while (true)
+	{
+		try
+		{
+			if (inputArmorProperty(inputChecker))
+			{
+				break;
+			}
+		} catch (InputLimitException& e)
+		{
+			std::cout << "Input limit exception. Maximum characters limit is "
+					<< e.limit() << std::endl << std::endl;
+		} catch (InputException& e)
+		{
+			std::cout << "Input exception. String " << inputChecker.str()
+					<< " contains non legal characters: " << e.errorString()
+					<< std::endl;
+			std::cout << "Candidates are: " << e.mask() << std::endl
+					<< std::endl;
+		}
+	}
+}
+
+void ConsoleRefineDriver::setArmorRefineLevel(InputChecker& inputChecker)
+{
+	while (true)
+	{
+		try
+		{
+			if (inputArmorRefineLevel(inputChecker))
+			{
+				break;
+			}
+		} catch (InputLimitException& e)
+		{
+			std::cout << "Input limit exception. Maximum characters limit is "
+					<< e.limit() << std::endl << std::endl;
+		} catch (InputException& e)
+		{
+			std::cout << "Input exception. String " << inputChecker.str()
+					<< " contains non legal characters: " << e.errorString()
+					<< std::endl;
+			std::cout << "Candidates are: " << e.mask() << std::endl
+					<< std::endl;
+		}
 	}
 }
 
@@ -418,20 +497,7 @@ void ConsoleRefineDriver::inputArmors()
 		messages = ", вывести список всех доспехов (p) или выход (q):\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
-		while(true)
-		{
-			try {
-				if(inputArmorCategory(inputChecker))
-				{
-					break;
-				}
-			} catch (InputLimitException &e) {
-				std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
-			} catch (InputException &e) {
-				std::cout << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
-				std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
-			}
-		}
+		setArmorCategory(inputChecker);
 		choiceCategory = inputChecker.str();
 
 		if(choiceCategory == "p")
@@ -448,45 +514,13 @@ void ConsoleRefineDriver::inputArmors()
 
 		armorNumber++;
 
-		while(true)
-		{
-			try {
-				if(inputArmorProperty(inputChecker))
-				{
-					break;
-				}
-			} catch (InputLimitException &e) {
-				std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
-			} catch (InputException &e) {
-				std::cout << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
-				std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
-			}
-		}
+		setArmorProperty(inputChecker);
 		property = inputChecker.str();
 
-		while(true)
-		{
-			try {
-				if(inputArmorRefineLevel(inputChecker))
-				{
-					break;
-				}
-			} catch (InputLimitException &e) {
-				std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
-			} catch (InputException &e) {
-				std::cout << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
-				std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
-			}
-		}
+		setArmorRefineLevel(inputChecker);
 		refineLevel = inputChecker.str();
 
-		try {
 		armorCreator(choiceCategory, property, refineLevel, armor);
-		} catch (IntToRefineLevelException &e) {
-			std::cout << cp1251to866(const_cast<char*>(e.message().c_str()));
-			std::cout << "It was: " << e.refineLevel() << ". And it will be set to 0\n";
-			armorCreator(choiceCategory, property, "0", armor);
-		}
 
 		choiceCategory.clear();
 		property.clear();
