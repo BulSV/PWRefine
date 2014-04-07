@@ -64,8 +64,6 @@ void ConsoleRefineDriver::distributor()
 			isWasQuit = true;
 			break;
 		}
-		default:
-			exit(-10); // TODO exit(-10)
 		}
 	}
 }
@@ -115,6 +113,7 @@ REFINE ConsoleRefineDriver::refineArmor(std::string stone, std::string armorNumb
 {
 	REFINE refineResult;
 
+	std::cout << "in refineArmor...\n";
 	switch(MLib::stoi(stone.c_str()))
 	{
 	case 0:
@@ -140,7 +139,12 @@ REFINE ConsoleRefineDriver::refineArmor(std::string stone, std::string armorNumb
 		itsCountManager->at(MLib::stoi(armorNumber.c_str()))->incChienkunStone();
 		break;
 	}
-	default: exit(-11); // TODO exit(-11)
+	default:
+	{
+		std::cout << "Stone with index " << stone << " - dosn't exist\n";
+		std::cout <<"It will be set to 0\n";
+		refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone());
+	}
 	}
 	itsCountManager->at(MLib::stoi(armorNumber.c_str()))->incMirageCelestone();
 
@@ -280,7 +284,7 @@ bool ConsoleRefineDriver::inputArmorCategory(InputChecker &inputChecker)
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
 	std::getline(std::cin, cCategory);
 
-	return inputChecker.check(cCategory, "0123456789qp", 2);
+	return inputChecker.check(cCategory, "0123456789qp", 1);
 }
 
 bool ConsoleRefineDriver::inputArmorProperty(InputChecker &inputChecker)
