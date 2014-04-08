@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "consolerefinedriver.h"
 #include "matematika.h"
 
@@ -71,8 +70,8 @@ void ConsoleRefineDriver::distributor()
 void ConsoleRefineDriver::info() const
 {
 	std::string message1 = "**********************************************************************\n";
-	std::string message2 = "** Это программа-эмулятор улучшения доспехов для игры Perfect World **\n";
-	std::string message3 = "** ========================== Версия 1.2 ========================== **\n";
+	std::string message2 = "** пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ Perfect World **\n";
+	std::string message3 = "** ========================== пїЅпїЅпїЅпїЅпїЅпїЅ 1.2 ========================== **\n";
 	std::string message = "\n" + message1 + message2 + message3 + message1 + "\n";
 	std::cout << cp1251to866(const_cast<char*>(message.c_str()));
 }
@@ -84,7 +83,7 @@ void ConsoleRefineDriver::input()
 	} catch (StoiException &e) {
 		std::cout << e.message();
 		std::cout << "Number was: " << e.number() << std::endl;
-		std::cout << "Program is clossing...\n";
+		std::cout << "Program is closing...\n";
 		return;
 	}
 }
@@ -98,7 +97,7 @@ bool ConsoleRefineDriver::refineArmorNumber(InputChecker& inputChecker)
 {
 	std::string messages;
 	std::string armorNumber;
-	messages = "Введите порядковый номер доспеха для заточки:\n";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ:\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, armorNumber);
 
@@ -109,7 +108,7 @@ bool ConsoleRefineDriver::refineStoneChoice(InputChecker& inputChecker)
 {
 	std::string messages;
 	std::string stone;
-	messages = "Использовать камни?\n\t0 (или ENTER) - Миражи, 1 - Небески, 2 - Подземки, 3 - Мирозданки\n";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ?\n\t0 (пїЅпїЅпїЅ ENTER) - пїЅпїЅпїЅпїЅпїЅпїЅ, 1 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, 2 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, 3 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, stone);
 
@@ -168,7 +167,7 @@ bool ConsoleRefineDriver::refineContinue(InputChecker& inputChecker)
 	std::string messages;
 	std::string choice;
 	std::cout << std::endl;
-	messages = "Показать список всех доспехов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (p), пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (r пїЅпїЅпїЅ ENTER) пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (q)?\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, choice);
 
@@ -178,7 +177,7 @@ bool ConsoleRefineDriver::refineContinue(InputChecker& inputChecker)
 bool ConsoleRefineDriver::distributorInput(InputChecker& inputChecker)
 {
 	std::string choice;
-	std::string messages = "Все доспехи введены. Показать список всех доспехов (p) или начать заточку (r)?\n";
+	std::string messages = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (p) пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (r)?\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, choice);
 
@@ -212,7 +211,7 @@ void ConsoleRefineDriver::output()
 	outputResults();
 
 	std::string message1 = "**********************************************************************\n";
-	std::string message2 = "** ====================== Программа завершена ===================== **\n";
+	std::string message2 = "** ====================== пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ===================== **\n";
 	std::string message = message1 + message2 + message1 + "\n";
 	std::cout << cp1251to866(const_cast<char*>(message.c_str()));
 }
@@ -284,9 +283,9 @@ bool ConsoleRefineDriver::inputArmorCategory(InputChecker &inputChecker)
 {
 	std::string messages;
 	std::string cCategory;
-	messages = "0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги,";
+	messages = "0 - пїЅпїЅпїЅпїЅпїЅпїЅ, 1 - пїЅпїЅпїЅпїЅ, 2 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, 3 - пїЅпїЅпїЅпїЅпїЅпїЅ, 4 - пїЅпїЅпїЅпїЅпїЅпїЅ,";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
-	messages = "5 - Наручи, 6 - Плащ, 7 - Ожерелье, 8 - Пояс, 9 - Кольцо";
+	messages = "5 - пїЅпїЅпїЅпїЅпїЅпїЅ, 6 - пїЅпїЅпїЅпїЅ, 7 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, 8 - пїЅпїЅпїЅпїЅ, 9 - пїЅпїЅпїЅпїЅпїЅпїЅ";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
 	std::getline(std::cin, cCategory);
 
@@ -297,11 +296,11 @@ bool ConsoleRefineDriver::inputArmorProperty(InputChecker &inputChecker)
 {
 	std::string messages;
 	std::string property;
-	messages = "\nВведите название доспеха ";
+	messages = "\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = " (или ENTER):\n";
+	messages = " (пїЅпїЅпїЅ ENTER):\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ -";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅЕЁпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ -";
 	std::getline(std::cin, property);
 
 	return inputChecker.check(property, cp1251to866(const_cast<char*>(messages.c_str())), 29);
@@ -311,7 +310,7 @@ bool ConsoleRefineDriver::inputArmorRefineLevel(InputChecker &inputChecker)
 {
 	std::string messages;
 	std::string refineLevel;
-	messages = "Введите уровень заточки (или ENTER):\n";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ ENTER):\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, refineLevel);
 
@@ -328,7 +327,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	{
 	case 0:
 	{
-		category = "ОРУЖИЕ";
+		category = "пїЅпїЅпїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 2, category, property);
 		break;
@@ -336,7 +335,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 1:
 	{
 
-		category = "ШЛЕМ";
+		category = "пїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -344,7 +343,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 2:
 	{
 
-		category = "НАКИДКА";
+		category = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -352,7 +351,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 3:
 	{
 
-		category = "БРИДЖИ";
+		category = "пїЅпїЅпїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -360,7 +359,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 4:
 	{
 
-		category = "САПОГИ";
+		category = "пїЅпїЅпїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -368,7 +367,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 5:
 	{
 
-		category = "НАРУЧИ";
+		category = "пїЅпїЅпїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -376,7 +375,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 6:
 	{
 
-		category = "ПЛАЩ";
+		category = "пїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -384,7 +383,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 7:
 	{
 
-		category = "ОЖЕРЕЛЬЕ";
+		category = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -392,7 +391,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 8:
 	{
 
-		category = "ПОЯС";
+		category = "пїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -400,14 +399,14 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 9:
 	{
 
-		category = "КОЛЬЦО";
+		category = "пїЅпїЅпїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	default:
 	{
-		category = "ОРУЖИЕ";
+		category = "пїЅпїЅпїЅпїЅпїЅпїЅ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		std::cout << "Category is not in range 0..9\n";
 		std::cout << "It will be set to \""	<< category << "\"\n";
@@ -497,14 +496,14 @@ void ConsoleRefineDriver::inputArmors()
 	InputChecker inputChecker;
 	Armor *armor = 0;
 
-	std::string messages = "Введите доспехи для заточки.";
+	std::string messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
 
 	while(true)
 	{
-		messages = "Доспех № ";
+		messages = "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ ";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << armorNumber;
-		messages = ", вывести список всех доспехов (p) или выход (q):\n";
+		messages = ", пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (p) пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (q):\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
 		setArmorCategory(inputChecker);
@@ -546,28 +545,28 @@ void ConsoleRefineDriver::headOutputResults()
 {
 	std::string messages;
 	std::cout.fill(' ');
-	messages = "Доспех №";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ";
 	std::cout << std::left << std::setw(10)	<< cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Категория";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 	std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Описание";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 	std::cout << std::setw(30) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Заточка";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 	std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Миражей";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 	std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Небесок";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 	std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Подземок";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 	std::cout << std::setw(9) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Мирозданок\n";
+	messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\n";
 	std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
 }
 
 void ConsoleRefineDriver::tailOutputResults()
 {
 	std::string messages;
-	messages = "Всего:";
+	messages = "пїЅпїЅпїЅпїЅпїЅ:";
 	std::cout << std::setw(57)
 	<< cp1251to866(const_cast<char*>(messages.c_str())) << " "
 	<< std::setw(7) << itsCountManager->totalMirageCelestone() << " "
@@ -620,25 +619,25 @@ void ConsoleRefineDriver::refineInfo(REFINE refine)
 	{
 	case SUCCESS:
 	{
-		messages = "Улучшение прошло успешно!\n";
+		messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 		break;
 	}
 	case FAIL:
 	{
-		messages = "Улучшение не прошло. Уровень заточки снизился на 1 уровень.\n";
+		messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 		break;
 	}
 	case NOCHANGE:
 	{
-		messages = "Улучшение не прошло. Уровень заточки не изменился.\n";
+		messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 		break;
 	}
 	case RESET:
 	{
-		messages = "Улучшение не прошло. Уровень заточки снизился до 0.\n";
+		messages = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0.\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 		break;
 	}
@@ -717,7 +716,7 @@ void ConsoleRefineDriver::refining()
 		else
 		{
 			std::cout << "Armor number dosn't in range 0.." << itsCountManager->size() - 1 << std::endl;
-			std::cout << "Try agan...\n";
+			std::cout << "Try again...\n";
 		}
 
 		do {
@@ -751,23 +750,23 @@ char* ConsoleRefineDriver::cp1251to866(char *c) const
 
 	while(*c)
 	{
-		if(*c >= -16 && *c <= -1) // р...я
+		if(*c >= -16 && *c <= -1) // пїЅ...пїЅ
 		{
 			*c -= 16;
 		}
-		else if(*c <= -17 && *c >= -64) // А...Я, а...п
+		else if(*c <= -17 && *c >= -64) // пїЅ...пїЅ, пїЅ...пїЅ
 		{
 			*c -= 64;
 		}
-		else if(*c == -71) // №
+		else if(*c == -71) // пїЅ
 		{
 			*c +=67;
 		}
-		else if(*c == -72) // ё
+		else if(*c == -72) // пїЅ
 		{
 			*c +=57;
 		}
-		else if(*c == -88) // Ё
+		else if(*c == -88) // пїЅ
 		{
 			*c +=72;
 		}
