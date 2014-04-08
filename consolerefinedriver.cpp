@@ -17,7 +17,7 @@ void ConsoleRefineDriver::distributor()
 	try {
 		isEmptyCountManager();
 	} catch (EmptyException &e) {
-		std::cout << "\nEmpty exception. Was not input any armor. Program is closing...\n\n";
+		std::cerr << "\nEmpty exception. Was not input any armor. Program is closing...\n\n";
 		return;
 	}
 
@@ -35,10 +35,10 @@ void ConsoleRefineDriver::distributor()
 					break;
 				}
 			} catch (InputLimitException &e) {
-				std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
+				std::cerr << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
 			} catch (InputException &e) {
-				std::cout << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
-				std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
+				std::cerr << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
+				std::cerr << "Candidates are: " << e.mask() << std::endl << std::endl;
 			}
 		}
 		choice = inputChecker.str();
@@ -46,7 +46,7 @@ void ConsoleRefineDriver::distributor()
 		try {
 			isStringEmpty(choice);
 		} catch (EmptyException &e) {
-			std::cout << "Empty exception. Wasn't selected any conditions\n\n";
+			std::cerr << "Empty exception. Wasn't selected any conditions\n\n";
 			continue;
 		}
 
@@ -70,8 +70,8 @@ void ConsoleRefineDriver::distributor()
 void ConsoleRefineDriver::info() const
 {
 	std::string message1 = "**********************************************************************\n";
-	std::string message2 = "** Р­С‚Рѕ РїСЂРѕРіСЂР°РјРјР°-СЌРјСѓР»СЏС‚РѕСЂ СѓР»СѓС‡С€РµРЅРёСЏ РґРѕСЃРїРµС…РѕРІ РґР»СЏ РёРіСЂС‹ Perfect World **\n";
-	std::string message3 = "** ========================== Р’РµСЂСЃРёСЏ 1.2 ========================== **\n";
+	std::string message2 = "** Это программа-эмулятор улучшения доспехов для игры Perfect World **\n";
+	std::string message3 = "** ========================== Версия 1.2 ========================== **\n";
 	std::string message = "\n" + message1 + message2 + message3 + message1 + "\n";
 	std::cout << cp1251to866(const_cast<char*>(message.c_str()));
 }
@@ -81,9 +81,9 @@ void ConsoleRefineDriver::input()
 	try {
 		inputArmors();
 	} catch (StoiException &e) {
-		std::cout << e.message();
-		std::cout << "Number was: " << e.number() << std::endl;
-		std::cout << "Program is closing...\n";
+		std::cerr << e.message();
+		std::cerr << "Number was: " << e.number() << std::endl;
+		std::cerr << "Program is closing...\n";
 		return;
 	}
 }
@@ -97,7 +97,7 @@ bool ConsoleRefineDriver::refineArmorNumber(InputChecker& inputChecker)
 {
 	std::string messages;
 	std::string armorNumber;
-	messages = "Р’РІРµРґРёС‚Рµ РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РґРѕСЃРїРµС…Р° РґР»СЏ Р·Р°С‚РѕС‡РєРё:\n";
+	messages = "Введите порядковый номер доспеха для заточки:\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, armorNumber);
 
@@ -108,7 +108,7 @@ bool ConsoleRefineDriver::refineStoneChoice(InputChecker& inputChecker)
 {
 	std::string messages;
 	std::string stone;
-	messages = "РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєР°РјРЅРё?\n\t0 (РёР»Рё ENTER) - РњРёСЂР°Р¶Рё, 1 - РќРµР±РµСЃРєРё, 2 - РџРѕРґР·РµРјРєРё, 3 - РњРёСЂРѕР·РґР°РЅРєРё\n";
+	messages = "Использовать камни?\n\t0 (или ENTER) - Миражи, 1 - Небески, 2 - Подземки, 3 - Мирозданки\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, stone);
 
@@ -146,8 +146,8 @@ REFINE ConsoleRefineDriver::refineArmor(std::string stone, std::string armorNumb
 	}
 	default:
 	{
-		std::cout << "Stone with index " << stone << " - dosn't exist\n";
-		std::cout <<"It will be set to 0\n";
+		std::cerr << "Stone with index " << stone << " - dosn't exist\n";
+		std::cerr <<"It will be set to 0\n";
 		refineResult = Refine::goRefining(itsCountManager->at(MLib::stoi(armorNumber.c_str()))->armor(), new MirageCelestone());
 	}
 	}
@@ -167,7 +167,7 @@ bool ConsoleRefineDriver::refineContinue(InputChecker& inputChecker)
 	std::string messages;
 	std::string choice;
 	std::cout << std::endl;
-	messages = "РџРѕРєР°Р·Р°С‚СЊ СЃРїРёСЃРѕРє РІСЃРµС… РґРѕСЃРїРµС…РѕРІ (p), РїСЂРѕРґРѕР»Р¶РёС‚СЊ Р·Р°С‚РѕС‡РєСѓ (r РёР»Рё ENTER) РёР»Рё Р·Р°РІРµСЂС€РёС‚СЊ РїСЂРѕРіСЂР°РјРјСѓ (q)?\n";
+	messages = "Показать список всех доспехов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, choice);
 
@@ -177,7 +177,7 @@ bool ConsoleRefineDriver::refineContinue(InputChecker& inputChecker)
 bool ConsoleRefineDriver::distributorInput(InputChecker& inputChecker)
 {
 	std::string choice;
-	std::string messages = "Р’СЃРµ РґРѕСЃРїРµС…Рё РІРІРµРґРµРЅС‹. РџРѕРєР°Р·Р°С‚СЊ СЃРїРёСЃРѕРє РІСЃРµС… РґРѕСЃРїРµС…РѕРІ (p) РёР»Рё РЅР°С‡Р°С‚СЊ Р·Р°С‚РѕС‡РєСѓ (r)?\n";
+	std::string messages = "Все доспехи введены. Показать список всех доспехов (p) или начать заточку (r)?\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, choice);
 
@@ -211,7 +211,7 @@ void ConsoleRefineDriver::output()
 	outputResults();
 
 	std::string message1 = "**********************************************************************\n";
-	std::string message2 = "** ====================== РџСЂРѕРіСЂР°РјРјР° Р·Р°РІРµСЂС€РµРЅР° ===================== **\n";
+	std::string message2 = "** ====================== Программа завершена ===================== **\n";
 	std::string message = message1 + message2 + message1 + "\n";
 	std::cout << cp1251to866(const_cast<char*>(message.c_str()));
 }
@@ -273,8 +273,8 @@ REFINE_LEVEL ConsoleRefineDriver::intToRefineLevel(int refineLevel)
 		return T12;
 	}
 	default:
-		std::cout << "Refine level is not in range 0..12\n";
-		std::cout <<"It will be set to 0\n";
+		std::cerr << "Refine level is not in range 0..12\n";
+		std::cerr <<"It will be set to 0\n";
 		return T0;
 	}
 }
@@ -283,9 +283,9 @@ bool ConsoleRefineDriver::inputArmorCategory(InputChecker &inputChecker)
 {
 	std::string messages;
 	std::string cCategory;
-	messages = "0 - РћСЂСѓР¶РёРµ, 1 - РЁР»РµРј, 2 - РќР°РєРёРґРєР°, 3 - Р‘СЂРёРґР¶Рё, 4 - РЎР°РїРѕРіРё,";
+	messages = "0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги,";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
-	messages = "5 - РќР°СЂСѓС‡Рё, 6 - РџР»Р°С‰, 7 - РћР¶РµСЂРµР»СЊРµ, 8 - РџРѕСЏСЃ, 9 - РљРѕР»СЊС†Рѕ";
+	messages = "5 - Наручи, 6 - Плащ, 7 - Ожерелье, 8 - Пояс, 9 - Кольцо";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
 	std::getline(std::cin, cCategory);
 
@@ -296,11 +296,11 @@ bool ConsoleRefineDriver::inputArmorProperty(InputChecker &inputChecker)
 {
 	std::string messages;
 	std::string property;
-	messages = "\nР’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РґРѕСЃРїРµС…Р° ";
+	messages = "\nВведите название доспеха ";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = " (РёР»Рё ENTER):\n";
+	messages = " (или ENTER):\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Р°Р±РІРіРґРµС‘Р¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰СЉС‹СЊСЌСЋСЏРђР‘Р’Р“Р”Р•РЃР–Р—РР™РљР›РњРќРћРџР РЎРўРЈР¤РҐР¦Р§РЁР©РЄР«Р¬Р­Р®РЇ -";
+	messages = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ -";
 	std::getline(std::cin, property);
 
 	return inputChecker.check(property, cp1251to866(const_cast<char*>(messages.c_str())), 29);
@@ -310,7 +310,7 @@ bool ConsoleRefineDriver::inputArmorRefineLevel(InputChecker &inputChecker)
 {
 	std::string messages;
 	std::string refineLevel;
-	messages = "Р’РІРµРґРёС‚Рµ СѓСЂРѕРІРµРЅСЊ Р·Р°С‚РѕС‡РєРё (РёР»Рё ENTER):\n";
+	messages = "Введите уровень заточки (или ENTER):\n";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 	std::getline(std::cin, refineLevel);
 
@@ -327,7 +327,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	{
 	case 0:
 	{
-		category = "РћР РЈР–РР•";
+		category = "ОРУЖИЕ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 2, category, property);
 		break;
@@ -335,7 +335,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 1:
 	{
 
-		category = "РЁР›Р•Рњ";
+		category = "ШЛЕМ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -343,7 +343,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 2:
 	{
 
-		category = "РќРђРљРР”РљРђ";
+		category = "НАКИДКА";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -351,7 +351,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 3:
 	{
 
-		category = "Р‘Р РР”Р–Р";
+		category = "БРИДЖИ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -359,7 +359,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 4:
 	{
 
-		category = "РЎРђРџРћР“Р";
+		category = "САПОГИ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -367,7 +367,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 5:
 	{
 
-		category = "РќРђР РЈР§Р";
+		category = "НАРУЧИ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -375,7 +375,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 6:
 	{
 
-		category = "РџР›РђР©";
+		category = "ПЛАЩ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -383,7 +383,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 7:
 	{
 
-		category = "РћР–Р•Р Р•Р›Р¬Р•";
+		category = "ОЖЕРЕЛЬЕ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -391,7 +391,7 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 8:
 	{
 
-		category = "РџРћРЇРЎ";
+		category = "ПОЯС";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
@@ -399,17 +399,17 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 	case 9:
 	{
 
-		category = "РљРћР›Р¬Р¦Рћ";
+		category = "КОЛЬЦО";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
 		break;
 	}
 	default:
 	{
-		category = "РћР РЈР–РР•";
+		category = "ОРУЖИЕ";
 		category = cp1251to866(const_cast<char*>(category.c_str()));
-		std::cout << "Category is not in range 0..9\n";
-		std::cout << "It will be set to \""	<< category << "\"\n";
+		std::cerr << "Category is not in range 0..9\n";
+		std::cerr << "It will be set to \""	<< category << "\"\n";
 		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 2, category, property);
 	}
 	}
@@ -425,13 +425,13 @@ void ConsoleRefineDriver::setArmorCategory(InputChecker& inputChecker)
 				break;
 			}
 		} catch (InputLimitException& e) {
-			std::cout << "Input limit exception. Maximum characters limit is "
+			std::cerr << "Input limit exception. Maximum characters limit is "
 					<< e.limit() << std::endl << std::endl;
 		} catch (InputException& e)	{
-			std::cout << "Input exception. String " << inputChecker.str()
+			std::cerr << "Input exception. String " << inputChecker.str()
 							<< " contains non legal characters: " << e.errorString()
 							<< std::endl;
-			std::cout << "Candidates are: " << e.mask() << std::endl
+			std::cerr << "Candidates are: " << e.mask() << std::endl
 					<< std::endl;
 		}
 	}
@@ -449,14 +449,14 @@ void ConsoleRefineDriver::setArmorProperty(InputChecker& inputChecker)
 			}
 		} catch (InputLimitException& e)
 		{
-			std::cout << "Input limit exception. Maximum characters limit is "
+			std::cerr << "Input limit exception. Maximum characters limit is "
 					<< e.limit() << std::endl << std::endl;
 		} catch (InputException& e)
 		{
-			std::cout << "Input exception. String " << inputChecker.str()
+			std::cerr << "Input exception. String " << inputChecker.str()
 					<< " contains non legal characters: " << e.errorString()
 					<< std::endl;
-			std::cout << "Candidates are: " << e.mask() << std::endl
+			std::cerr << "Candidates are: " << e.mask() << std::endl
 					<< std::endl;
 		}
 	}
@@ -474,14 +474,14 @@ void ConsoleRefineDriver::setArmorRefineLevel(InputChecker& inputChecker)
 			}
 		} catch (InputLimitException& e)
 		{
-			std::cout << "Input limit exception. Maximum characters limit is "
+			std::cerr << "Input limit exception. Maximum characters limit is "
 					<< e.limit() << std::endl << std::endl;
 		} catch (InputException& e)
 		{
-			std::cout << "Input exception. String " << inputChecker.str()
+			std::cerr << "Input exception. String " << inputChecker.str()
 					<< " contains non legal characters: " << e.errorString()
 					<< std::endl;
-			std::cout << "Candidates are: " << e.mask() << std::endl
+			std::cerr << "Candidates are: " << e.mask() << std::endl
 					<< std::endl;
 		}
 	}
@@ -496,14 +496,14 @@ void ConsoleRefineDriver::inputArmors()
 	InputChecker inputChecker;
 	Armor *armor = 0;
 
-	std::string messages = "Р’РІРµРґРёС‚Рµ РґРѕСЃРїРµС…Рё РґР»СЏ Р·Р°С‚РѕС‡РєРё.";
+	std::string messages = "Введите доспехи для заточки.";
 	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
 
 	while(true)
 	{
-		messages = "Р”РѕСЃРїРµС… в„– ";
+		messages = "Доспех № ";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << armorNumber;
-		messages = ", РІС‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє РІСЃРµС… РґРѕСЃРїРµС…РѕРІ (p) РёР»Рё РІС‹С…РѕРґ (q):\n";
+		messages = ", вывести список всех доспехов (p) или выход (q):\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 
 		setArmorCategory(inputChecker);
@@ -545,28 +545,28 @@ void ConsoleRefineDriver::headOutputResults()
 {
 	std::string messages;
 	std::cout.fill(' ');
-	messages = "Р”РѕСЃРїРµС… в„–";
+	messages = "Доспех №";
 	std::cout << std::left << std::setw(10)	<< cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "РљР°С‚РµРіРѕСЂРёСЏ";
+	messages = "Категория";
 	std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "РћРїРёСЃР°РЅРёРµ";
+	messages = "Описание";
 	std::cout << std::setw(30) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Р—Р°С‚РѕС‡РєР°";
+	messages = "Заточка";
 	std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "РњРёСЂР°Р¶РµР№";
+	messages = "Миражей";
 	std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "РќРµР±РµСЃРѕРє";
+	messages = "Небесок";
 	std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "РџРѕРґР·РµРјРѕРє";
+	messages = "Подземок";
 	std::cout << std::setw(9) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "РњРёСЂРѕР·РґР°РЅРѕРє\n";
+	messages = "Мирозданок\n";
 	std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
 }
 
 void ConsoleRefineDriver::tailOutputResults()
 {
 	std::string messages;
-	messages = "Р’СЃРµРіРѕ:";
+	messages = "Всего:";
 	std::cout << std::setw(57)
 	<< cp1251to866(const_cast<char*>(messages.c_str())) << " "
 	<< std::setw(7) << itsCountManager->totalMirageCelestone() << " "
@@ -619,25 +619,25 @@ void ConsoleRefineDriver::refineInfo(REFINE refine)
 	{
 	case SUCCESS:
 	{
-		messages = "РЈР»СѓС‡С€РµРЅРёРµ РїСЂРѕС€Р»Рѕ СѓСЃРїРµС€РЅРѕ!\n";
+		messages = "Улучшение прошло успешно!\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 		break;
 	}
 	case FAIL:
 	{
-		messages = "РЈР»СѓС‡С€РµРЅРёРµ РЅРµ РїСЂРѕС€Р»Рѕ. РЈСЂРѕРІРµРЅСЊ Р·Р°С‚РѕС‡РєРё СЃРЅРёР·РёР»СЃСЏ РЅР° 1 СѓСЂРѕРІРµРЅСЊ.\n";
+		messages = "Улучшение не прошло. Уровень заточки снизился на 1 уровень.\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 		break;
 	}
 	case NOCHANGE:
 	{
-		messages = "РЈР»СѓС‡С€РµРЅРёРµ РЅРµ РїСЂРѕС€Р»Рѕ. РЈСЂРѕРІРµРЅСЊ Р·Р°С‚РѕС‡РєРё РЅРµ РёР·РјРµРЅРёР»СЃСЏ.\n";
+		messages = "Улучшение не прошло. Уровень заточки не изменился.\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 		break;
 	}
 	case RESET:
 	{
-		messages = "РЈР»СѓС‡С€РµРЅРёРµ РЅРµ РїСЂРѕС€Р»Рѕ. РЈСЂРѕРІРµРЅСЊ Р·Р°С‚РѕС‡РєРё СЃРЅРёР·РёР»СЃСЏ РґРѕ 0.\n";
+		messages = "Улучшение не прошло. Уровень заточки снизился до 0.\n";
 		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
 		break;
 	}
@@ -658,7 +658,7 @@ void ConsoleRefineDriver::refining()
 			isEmptyCountManager();
 			break;
 		} catch (EmptyException &e) {
-			std::cout << "Empty exception. Was not input any armor\n\n";
+			std::cerr << "Empty exception. Was not input any armor\n\n";
 			inputArmors();
 		}
 	}
@@ -673,10 +673,10 @@ void ConsoleRefineDriver::refining()
 					break;
 				}
 			} catch (InputLimitException &e) {
-				std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
+				std::cerr << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
 			} catch (InputException &e) {
-				std::cout << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
-				std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
+				std::cerr << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
+				std::cerr << "Candidates are: " << e.mask() << std::endl << std::endl;
 			}
 		}
 		armorNumber = inputChecker.str();
@@ -695,10 +695,10 @@ void ConsoleRefineDriver::refining()
 						break;
 					}
 				} catch (InputLimitException &e) {
-					std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
+					std::cerr << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
 				} catch (InputException &e) {
-					std::cout << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
-					std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
+					std::cerr << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
+					std::cerr << "Candidates are: " << e.mask() << std::endl << std::endl;
 				}
 			}
 			stone = inputChecker.str();
@@ -708,15 +708,15 @@ void ConsoleRefineDriver::refining()
 			try {
 				refineInfo(refineArmor(stone, armorNumber));
 			} catch (RefineLevelException &e) {
-				std::cout << e.message() << std::endl;
+				std::cerr << e.message() << std::endl;
 			}
 			std::cout << std::endl;
 			outputResults(MLib::stoi(armorNumber.c_str()));
 		}
 		else
 		{
-			std::cout << "Armor number dosn't in range 0.." << itsCountManager->size() - 1 << std::endl;
-			std::cout << "Try again...\n";
+			std::cerr << "Armor number dosn't in range 0.." << itsCountManager->size() - 1 << std::endl;
+			std::cerr << "Try again...\n";
 		}
 
 		do {
@@ -732,10 +732,10 @@ void ConsoleRefineDriver::refining()
 						break;
 					}
 				} catch (InputLimitException &e) {
-					std::cout << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
+					std::cerr << "Input limit exception. Maximum characters limit is " << e.limit() << std::endl << std::endl;
 				} catch (InputException &e) {
-					std::cout << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
-					std::cout << "Candidates are: " << e.mask() << std::endl << std::endl;
+					std::cerr << "Input exception. String " << inputChecker.str() << " contains non legal characters: " << e.errorString() << std::endl;
+					std::cerr << "Candidates are: " << e.mask() << std::endl << std::endl;
 				}
 			}
 			choice = inputChecker.str();
@@ -750,23 +750,23 @@ char* ConsoleRefineDriver::cp1251to866(char *c) const
 
 	while(*c)
 	{
-		if(*c >= -16 && *c <= -1) // пїЅ...пїЅ
+		if(*c >= -16 && *c <= -1)  // р...я
 		{
 			*c -= 16;
 		}
-		else if(*c <= -17 && *c >= -64) // пїЅ...пїЅ, пїЅ...пїЅ
+		else if(*c <= -17 && *c >= -64) // А...Я, а...п
 		{
 			*c -= 64;
 		}
-		else if(*c == -71) // пїЅ
+		else if(*c == -71) // №
 		{
 			*c +=67;
 		}
-		else if(*c == -72) // пїЅ
+		else if(*c == -72) // ё
 		{
 			*c +=57;
 		}
-		else if(*c == -88) // пїЅ
+		else if(*c == -88) // Ё
 		{
 			*c +=72;
 		}

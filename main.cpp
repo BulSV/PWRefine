@@ -1,4 +1,5 @@
 #include <iostream>
+#include <new>
 #include "refinedriver.h"
 #include "consolerefinedriver.h"
 
@@ -15,13 +16,26 @@ int main(int argc, char **argv)
     }
     else
     {
-        refineDriver = new ConsoleRefineDriver();
+    	try {
+    		refineDriver = new ConsoleRefineDriver();
+    	} catch (std::bad_alloc &ba) {
+    		std::cerr << "bad_alloc caught: " << ba.what() << '\n';
+    		return -1;
+    	}
     }
 
-    refineDriver->info();
-    refineDriver->input();
-    refineDriver->driver();
-    refineDriver->output();
+    try {
+    	refineDriver->info();
+    	refineDriver->input();
+    	refineDriver->driver();
+    	refineDriver->output();
+    } catch (std::bad_alloc &ba) {
+    	std::cerr << "bad_alloc caught: " << ba.what() << '\n';
+    	return -1;
+    }
+
+    refineDriver = 0;
+    delete refineDriver;
 
     return 0;
 }
