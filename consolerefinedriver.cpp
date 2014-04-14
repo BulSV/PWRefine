@@ -743,7 +743,6 @@ void ConsoleRefineDriver::refining()
 	}
 }
 
-
 char* ConsoleRefineDriver::cp1251to866(char *c) const
 {
 	int i = 0;
