@@ -15,10 +15,13 @@
 #include "catalyzerstone.h"
 #include "inputchecker.h"
 #include "Exceptions/emptyexception.h"
+#include "AbstractIO.h"
+#include "Exceptions/DecodingException.h"
 
 class ConsoleRefineDriver : public RefineDriver
 {
     CountManager *itsCountManager;
+    AbstractIO* itsAbstractIO;
 
     bool inputArmorCategory(InputChecker &inputChecker);
     bool inputArmorProperty(InputChecker &inputChecker);
@@ -37,7 +40,6 @@ class ConsoleRefineDriver : public RefineDriver
     REFINE refineArmor(std::string stone, std::string armorNumber);
     bool refineContinue(InputChecker &inputChecker);
     void refining();
-    char* cp1251to866(char *c) const;
     void headOutputResults();
     void detaleArmorOutputResults(int index);
     void tailOutputResults();

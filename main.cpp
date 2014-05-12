@@ -32,10 +32,16 @@ int main(int argc, char **argv)
     } catch (std::bad_alloc &ba) {
     	std::cerr << "bad_alloc caught: " << ba.what() << '\n';
     	return -1;
+    } catch (DecodingException &e) {
+    	std::cerr << e.getMessage() << "\nError letter is \"0x"
+    			 << std::uppercase << std::hex
+    			<< e.getErrorLetter() << "\"\n";
     }
 
-    refineDriver = 0;
     delete refineDriver;
+    refineDriver = 0;
+
+    std::cin.get();
 
     return 0;
 }

@@ -1,7 +1,7 @@
 /*
  * countmanager.cpp
  *
- *  Created on: 11 марта 2014 г.
+ *  Created on: 11 пїЅпїЅпїЅпїЅпїЅ 2014 пїЅ.
  *      Author: Sergey
  */
 

@@ -1,8 +1,12 @@
 #include "consolerefinedriver.h"
 #include "matematika.h"
+#include "ConsoleIO.h"
+#include "Utf8ToWinDecoderIO.h"
+#include "WinToDosDecoderIO.h"
 
 ConsoleRefineDriver::ConsoleRefineDriver()
 : itsCountManager(new CountManager())
+, itsAbstractIO(new WinToDosDecoderIO(new Utf8ToWinDecoderIO(new ConsoleIO())))
 {
 }
 
@@ -70,10 +74,10 @@ void ConsoleRefineDriver::distributor()
 void ConsoleRefineDriver::info() const
 {
 	std::string message1 = "**********************************************************************\n";
-	std::string message2 = "** Это программа-эмулятор улучшения доспехов для игры Perfect World **\n";
-	std::string message3 = "** ========================== Версия 1.2 ========================== **\n";
-	std::string message = "\n" + message1 + message2 + message3 + message1 + "\n";
-	std::cout << cp1251to866(const_cast<char*>(message.c_str()));
+	std::string message2 = "** Р­С‚Рѕ РїСЂРѕРіСЂР°РјРјР°-СЌРјСѓР»СЏС‚РѕСЂ СѓР»СѓС‡С€РµРЅРёСЏ РґРѕСЃРїРµС…РѕРІ РґР»СЏ РёРіСЂС‹ Perfect World **\n";
+	std::string message3 = "** ========================== Р’РµСЂСЃРёСЏ 1.2 ========================== **\n";
+
+	std::cout << itsAbstractIO->input("\n" + message1 + message2 + message3 + message1 + "\n");
 }
 
 void ConsoleRefineDriver::input()
@@ -95,10 +99,8 @@ void ConsoleRefineDriver::driver()
 
 bool ConsoleRefineDriver::refineArmorNumber(InputChecker& inputChecker)
 {
-	std::string messages;
 	std::string armorNumber;
-	messages = "Введите порядковый номер доспеха для заточки:\n";
-	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+	std::cout << itsAbstractIO->input("Р’РІРµРґРёС‚Рµ РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РґРѕСЃРїРµС…Р° РґР»СЏ Р·Р°С‚РѕС‡РєРё:\n");
 	std::getline(std::cin, armorNumber);
 
 	return inputChecker.check(armorNumber, "0123456789", itsCountManager->size());
@@ -106,10 +108,8 @@ bool ConsoleRefineDriver::refineArmorNumber(InputChecker& inputChecker)
 
 bool ConsoleRefineDriver::refineStoneChoice(InputChecker& inputChecker)
 {
-	std::string messages;
 	std::string stone;
-	messages = "Использовать камни?\n\t0 (или ENTER) - Миражи, 1 - Небески, 2 - Подземки, 3 - Мирозданки\n";
-	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+	std::cout << itsAbstractIO->input("РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєР°РјРЅРё?\n\t0 (РёР»Рё ENTER) - РњРёСЂР°Р¶Рё, 1 - РќРµР±РµСЃРєРё, 2 - РџРѕРґР·РµРјРєРё, 3 - РњРёСЂРѕР·РґР°РЅРєРё\n");
 	std::getline(std::cin, stone);
 
 	return inputChecker.check(stone, "0123", 1);
@@ -164,11 +164,8 @@ REFINE ConsoleRefineDriver::refineArmor(std::string stone, std::string armorNumb
 
 bool ConsoleRefineDriver::refineContinue(InputChecker& inputChecker)
 {
-	std::string messages;
 	std::string choice;
-	std::cout << std::endl;
-	messages = "Показать список всех доспехов (p), продолжить заточку (r или ENTER) или завершить программу (q)?\n";
-	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+	std::cout << itsAbstractIO->input("\nРџРѕРєР°Р·Р°С‚СЊ СЃРїРёСЃРѕРє РІСЃРµС… РґРѕСЃРїРµС…РѕРІ (p), РїСЂРѕРґРѕР»Р¶РёС‚СЊ Р·Р°С‚РѕС‡РєСѓ (r РёР»Рё ENTER) РёР»Рё Р·Р°РІРµСЂС€РёС‚СЊ РїСЂРѕРіСЂР°РјРјСѓ (q)?\n");
 	std::getline(std::cin, choice);
 
 	return inputChecker.check(choice, "prq", 1);
@@ -177,8 +174,7 @@ bool ConsoleRefineDriver::refineContinue(InputChecker& inputChecker)
 bool ConsoleRefineDriver::distributorInput(InputChecker& inputChecker)
 {
 	std::string choice;
-	std::string messages = "Все доспехи введены. Показать список всех доспехов (p) или начать заточку (r)?\n";
-	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+	std::cout << itsAbstractIO->input("Р’СЃРµ РґРѕСЃРїРµС…Рё РІРІРµРґРµРЅС‹. РџРѕРєР°Р·Р°С‚СЊ СЃРїРёСЃРѕРє РІСЃРµС… РґРѕСЃРїРµС…РѕРІ (p) РёР»Рё РЅР°С‡Р°С‚СЊ Р·Р°С‚РѕС‡РєСѓ (r)?\n");
 	std::getline(std::cin, choice);
 
 	return inputChecker.check(choice, "pr", 1);
@@ -211,9 +207,8 @@ void ConsoleRefineDriver::output()
 	outputResults();
 
 	std::string message1 = "**********************************************************************\n";
-	std::string message2 = "** ====================== Программа завершена ===================== **\n";
-	std::string message = message1 + message2 + message1 + "\n";
-	std::cout << cp1251to866(const_cast<char*>(message.c_str()));
+	std::string message2 = "** ====================== РџСЂРѕРіСЂР°РјРјР° Р·Р°РІРµСЂС€РµРЅР° ===================== **\n";
+	std::cout << itsAbstractIO->input(message1 + message2 + message1 + "\n");
 }
 
 REFINE_LEVEL ConsoleRefineDriver::intToRefineLevel(int refineLevel)
@@ -281,12 +276,9 @@ REFINE_LEVEL ConsoleRefineDriver::intToRefineLevel(int refineLevel)
 
 bool ConsoleRefineDriver::inputArmorCategory(InputChecker &inputChecker)
 {
-	std::string messages;
 	std::string cCategory;
-	messages = "0 - Оружие, 1 - Шлем, 2 - Накидка, 3 - Бриджи, 4 - Сапоги,";
-	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
-	messages = "5 - Наручи, 6 - Плащ, 7 - Ожерелье, 8 - Пояс, 9 - Кольцо";
-	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
+	std::cout << itsAbstractIO->input("0 - РћСЂСѓР¶РёРµ, 1 - РЁР»РµРј, 2 - РќР°РєРёРґРєР°, 3 - Р‘СЂРёРґР¶Рё, 4 - РЎР°РїРѕРіРё,\n");
+	std::cout << itsAbstractIO->input("5 - РќР°СЂСѓС‡Рё, 6 - РџР»Р°С‰, 7 - РћР¶РµСЂРµР»СЊРµ, 8 - РџРѕСЏСЃ, 9 - РљРѕР»СЊС†Рѕ\n");
 	std::getline(std::cin, cCategory);
 
 	return inputChecker.check(cCategory, "0123456789qp", 1);
@@ -294,24 +286,19 @@ bool ConsoleRefineDriver::inputArmorCategory(InputChecker &inputChecker)
 
 bool ConsoleRefineDriver::inputArmorProperty(InputChecker &inputChecker)
 {
-	std::string messages;
 	std::string property;
-	messages = "\nВведите название доспеха ";
-	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = " (или ENTER):\n";
-	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ -";
+	std::cout << itsAbstractIO->input("\nР’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РґРѕСЃРїРµС…Р° ");
+	std::cout << itsAbstractIO->input(" (РёР»Рё ENTER):\n");
+	itsAbstractIO->input("Р°Р±РІРіРґРµС‘Р¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰СЉС‹СЊСЌСЋСЏРђР‘Р’Р“Р”Р•РЃР–Р—РР™РљР›РњРќРћРџР РЎРўРЈР¤РҐР¦Р§РЁР©РЄР«Р¬Р­Р®РЇ -");
 	std::getline(std::cin, property);
 
-	return inputChecker.check(property, cp1251to866(const_cast<char*>(messages.c_str())), 29);
+	return inputChecker.check(property, itsAbstractIO->output(), 29);
 }
 
 bool ConsoleRefineDriver::inputArmorRefineLevel(InputChecker &inputChecker)
 {
-	std::string messages;
 	std::string refineLevel;
-	messages = "Введите уровень заточки (или ENTER):\n";
-	std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+	std::cout << itsAbstractIO->input("Р’РІРµРґРёС‚Рµ СѓСЂРѕРІРµРЅСЊ Р·Р°С‚РѕС‡РєРё (РёР»Рё ENTER):\n");
 	std::getline(std::cin, refineLevel);
 
 	return inputChecker.check(refineLevel, "0123456789", 2);
@@ -322,95 +309,63 @@ void ConsoleRefineDriver::armorCreator(std::string choiceCategory,
 		std::string refineLevel,
 		Armor *&armor)
 {
-	std::string category;
 	switch(MLib::stoi(choiceCategory.c_str()))
 	{
 	case 0:
 	{
-		category = "ОРУЖИЕ";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 2, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 2, itsAbstractIO->input("РћР РЈР–РР•"), property);
 		break;
 	}
 	case 1:
 	{
-
-		category = "ШЛЕМ";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, itsAbstractIO->input("РЁР›Р•Рњ"), property);
 		break;
 	}
 	case 2:
 	{
-
-		category = "НАКИДКА";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, itsAbstractIO->input("РќРђРљРР”РљРђ"), property);
 		break;
 	}
 	case 3:
 	{
-
-		category = "БРИДЖИ";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, itsAbstractIO->input("Р‘Р РР”Р–Р"), property);
 		break;
 	}
 	case 4:
 	{
-
-		category = "САПОГИ";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, itsAbstractIO->input("РЎРђРџРћР“Р"), property);
 		break;
 	}
 	case 5:
 	{
-
-		category = "НАРУЧИ";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, itsAbstractIO->input("РќРђР РЈР§Р"), property);
 		break;
 	}
 	case 6:
 	{
-
-		category = "ПЛАЩ";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, itsAbstractIO->input("РџР›РђР©"), property);
 		break;
 	}
 	case 7:
 	{
-
-		category = "ОЖЕРЕЛЬЕ";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, itsAbstractIO->input("РћР–Р•Р Р•Р›Р¬Р•"), property);
 		break;
 	}
 	case 8:
 	{
-
-		category = "ПОЯС";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, itsAbstractIO->input("РџРћРЇРЎ"), property);
 		break;
 	}
 	case 9:
 	{
-
-		category = "КОЛЬЦО";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, category, property);
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 1, itsAbstractIO->input("РљРћР›Р¬Р¦Рћ"), property);
 		break;
 	}
 	default:
 	{
-		category = "ОРУЖИЕ";
-		category = cp1251to866(const_cast<char*>(category.c_str()));
 		std::cerr << "Category is not in range 0..9\n";
-		std::cerr << "It will be set to \""	<< category << "\"\n";
-		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 2, category, property);
+		std::cerr << "It will be set to \""	<< itsAbstractIO->input("РћР РЈР–РР•") << "\"\n";
+		armor = new Armor(intToRefineLevel(MLib::stoi(refineLevel.c_str())), 2, itsAbstractIO->output(), property);
 	}
 	}
 }
@@ -496,15 +451,13 @@ void ConsoleRefineDriver::inputArmors()
 	InputChecker inputChecker;
 	Armor *armor = 0;
 
-	std::string messages = "Введите доспехи для заточки.";
-	std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << "\n";
+
+	std::cout << itsAbstractIO->input("Р’РІРµРґРёС‚Рµ РґРѕСЃРїРµС…Рё РґР»СЏ Р·Р°С‚РѕС‡РєРё.\n");
 
 	while(true)
 	{
-		messages = "Доспех № ";
-		std::cout << cp1251to866(const_cast<char*>(messages.c_str())) << armorNumber;
-		messages = ", вывести список всех доспехов (p) или выход (q):\n";
-		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+		std::cout << itsAbstractIO->input("Р”РѕСЃРїРµС… в„– ") << armorNumber;
+		std::cout << itsAbstractIO->input(", РІС‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє РІСЃРµС… РґРѕСЃРїРµС…РѕРІ (p) РёР»Рё РІС‹С…РѕРґ (q):\n");
 
 		setArmorCategory(inputChecker);
 		choiceCategory = inputChecker.str();
@@ -543,32 +496,22 @@ void ConsoleRefineDriver::inputArmors()
 
 void ConsoleRefineDriver::headOutputResults()
 {
-	std::string messages;
 	std::cout.fill(' ');
-	messages = "Доспех №";
-	std::cout << std::left << std::setw(10)	<< cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Категория";
-	std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Описание";
-	std::cout << std::setw(30) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Заточка";
-	std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Миражей";
-	std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Небесок";
-	std::cout << std::setw(8) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Подземок";
-	std::cout << std::setw(9) << cp1251to866(const_cast<char*>(messages.c_str()));
-	messages = "Мирозданок\n";
-	std::cout << std::setw(10) << cp1251to866(const_cast<char*>(messages.c_str()));
+	std::cout << std::left << std::setw(10)	<< itsAbstractIO->input("Р”РѕСЃРїРµС… в„–");
+	std::cout << std::setw(10) << itsAbstractIO->input("РљР°С‚РµРіРѕСЂРёСЏ");
+	std::cout << std::setw(30) << itsAbstractIO->input("РћРїРёСЃР°РЅРёРµ");
+	std::cout << std::setw(8) << itsAbstractIO->input("Р—Р°С‚РѕС‡РєР°");
+	std::cout << std::setw(8) << itsAbstractIO->input("РњРёСЂР°Р¶РµР№");
+	std::cout << std::setw(8) << itsAbstractIO->input("РќРµР±РµСЃРѕРє");
+	std::cout << std::setw(9) << itsAbstractIO->input("РџРѕРґР·РµРјРѕРє");
+	std::cout << std::setw(10) << itsAbstractIO->input("РњРёСЂРѕР·РґР°РЅРѕРє\n");
 }
 
 void ConsoleRefineDriver::tailOutputResults()
 {
-	std::string messages;
-	messages = "Всего:";
+
 	std::cout << std::setw(57)
-	<< cp1251to866(const_cast<char*>(messages.c_str())) << " "
+	<< itsAbstractIO->input("Р’СЃРµРіРѕ: ")
 	<< std::setw(7) << itsCountManager->totalMirageCelestone() << " "
 	<< std::setw(7) << itsCountManager->totalTienkangStone() << " "
 	<< std::setw(8) << itsCountManager->totalTishaStone() << " "
@@ -613,32 +556,26 @@ void ConsoleRefineDriver::outputResults(int index)
 
 void ConsoleRefineDriver::refineInfo(REFINE refine)
 {
-	std::string messages;
-
 	switch(refine)
 	{
 	case SUCCESS:
 	{
-		messages = "Улучшение прошло успешно!\n";
-		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+		std::cout << itsAbstractIO->input("РЈР»СѓС‡С€РµРЅРёРµ РїСЂРѕС€Р»Рѕ СѓСЃРїРµС€РЅРѕ!\n");
 		break;
 	}
 	case FAIL:
 	{
-		messages = "Улучшение не прошло. Уровень заточки снизился на 1 уровень.\n";
-		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+		std::cout << itsAbstractIO->input("РЈР»СѓС‡С€РµРЅРёРµ РЅРµ РїСЂРѕС€Р»Рѕ. РЈСЂРѕРІРµРЅСЊ Р·Р°С‚РѕС‡РєРё СЃРЅРёР·РёР»СЃСЏ РЅР° 1 СѓСЂРѕРІРµРЅСЊ.\n");
 		break;
 	}
 	case NOCHANGE:
 	{
-		messages = "Улучшение не прошло. Уровень заточки не изменился.\n";
-		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+		std::cout << itsAbstractIO->input("РЈР»СѓС‡С€РµРЅРёРµ РЅРµ РїСЂРѕС€Р»Рѕ. РЈСЂРѕРІРµРЅСЊ Р·Р°С‚РѕС‡РєРё РЅРµ РёР·РјРµРЅРёР»СЃСЏ.\n");
 		break;
 	}
 	case RESET:
 	{
-		messages = "Улучшение не прошло. Уровень заточки снизился до 0.\n";
-		std::cout << cp1251to866(const_cast<char*>(messages.c_str()));
+		std::cout << itsAbstractIO->input("РЈР»СѓС‡С€РµРЅРёРµ РЅРµ РїСЂРѕС€Р»Рѕ. РЈСЂРѕРІРµРЅСЊ Р·Р°С‚РѕС‡РєРё СЃРЅРёР·РёР»СЃСЏ РґРѕ 0.\n");
 		break;
 	}
 	}
@@ -741,42 +678,4 @@ void ConsoleRefineDriver::refining()
 			choice = inputChecker.str();
 		} while(choice == "p");
 	}
-}
-
-char* ConsoleRefineDriver::cp1251to866(char *c) const
-{
-	int i = 0;
-
-	while(*c)
-	{
-		if(*c >= -16 && *c <= -1)  // р...я
-		{
-			*c -= 16;
-		}
-		else if(*c <= -17 && *c >= -64) // А...Я, а...п
-		{
-			*c -= 64;
-		}
-		else if(*c == -71) // №
-		{
-			*c +=67;
-		}
-		else if(*c == -72) // ё
-		{
-			*c +=57;
-		}
-		else if(*c == -88) // Ё
-		{
-			*c +=72;
-		}
-		c++;
-		i++;
-	}
-
-	while(i--)
-	{
-		c--;
-	}
-
-	return c;
 }
