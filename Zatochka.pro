@@ -5,7 +5,6 @@ CONFIG -= qt
 SOURCES += main.cpp \
     refine.cpp \
     matematika.cpp \
-    iochecker.cpp \
     armor.cpp \
     stone.cpp \
     tienkangstone.cpp \
@@ -14,14 +13,19 @@ SOURCES += main.cpp \
     miragecelestone.cpp \
     catalyzerstone.cpp \
     counthandler.cpp \
-	countmanager.cpp	\
+    countmanager.cpp	\
     refinedriver.cpp    \
-    consolerefinedriver.cpp
+    consolerefinedriver.cpp \
+    inputchecker.cpp \
+    Exceptions/emptyexception.cpp \
+    Exceptions/inputexception.cpp \
+    Exceptions/inputlimitexception.cpp \
+    Exceptions/refinelevelexception.cpp \
+    Exceptions/stoiexception.cpp
 
 HEADERS += \
     refine.h \
     matematika.h \
-    iochecker.h \
     armor.h \
     globalenums.h \
     stone.h \
@@ -31,9 +35,15 @@ HEADERS += \
     miragecelestone.h \
     catalyzerstone.h \
     counthandler.h \
-	countmanager.h	\
+    countmanager.h	\
     refinedriver.h  \
-    consolerefinedriver.h
+    consolerefinedriver.h \
+    inputchecker.h \
+    Exceptions/emptyexception.h \
+    Exceptions/inputexception.h \
+    Exceptions/inputlimitexception.h \
+    Exceptions/refinelevelexception.h \
+    Exceptions/stoiexception.h
 
 OTHER_FILES += \
     TODO.txt

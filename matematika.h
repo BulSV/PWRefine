@@ -13,7 +13,7 @@ namespace Math_Lib
     int power(int num, int deg);
     float decaToSexta(float time);
     float sextaToDeca(float time);
-    int stoi(const char* str) throw(StoiException);
+    int stoi(const char* str);
 }
 
 namespace MLib = Math_Lib;

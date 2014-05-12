@@ -3,7 +3,7 @@
 
 Armor::Armor(REFINE_LEVEL refineLevel,
 		int requiredMiragecelestone,
-		std::string category,
+		ArmorCategory category,
 		std::string property)
 : itsCategory(category)
 , itsProperty(property)
@@ -19,7 +19,7 @@ Armor::~Armor() /*virtual*/
 
 std::string Armor::category() const
 {
-	return itsCategory;
+	return itsCategory.getCategory();
 }
 
 std::string Armor::property() const

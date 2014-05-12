@@ -1,9 +1,7 @@
 #include "tienkangstone.h"
 #include "matematika.h"
 
-std::string TienkangStone::CATEGORY = "TIENKANG STONE";
-
-float TienkangStone::addChance(const Armor *armor) const throw(RefineLevelException)/*virtual*/
+float TienkangStone::addChance(const Armor *armor) const/*virtual*/
 {
 	switch(armor->refineLevel())
 	{
@@ -30,17 +28,11 @@ float TienkangStone::addChance(const Armor *armor) const throw(RefineLevelExcept
 }
 
 TienkangStone::TienkangStone()
-: itsCategory(CATEGORY)
 {
 }
 
 TienkangStone::~TienkangStone() /*virtual*/
 {
-}
-
-std::string TienkangStone::category() const
-{
-	return itsCategory;
 }
 
 REFINE TienkangStone::refineRequest(float obtainedChance) const

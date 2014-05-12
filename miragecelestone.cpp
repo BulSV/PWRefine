@@ -1,9 +1,7 @@
 #include "miragecelestone.h"
 #include "matematika.h"
 
-std::string MirageCelestone::CATEGORY = "MIRAGE CELESTONE";
-
-float MirageCelestone::addChance(const Armor *armor) const throw(RefineLevelException)
+float MirageCelestone::addChance(const Armor *armor) const
 {
 	switch(armor->refineLevel())
 	{
@@ -30,17 +28,11 @@ float MirageCelestone::addChance(const Armor *armor) const throw(RefineLevelExce
 }
 
 MirageCelestone::MirageCelestone()
-: itsCategory(CATEGORY)
 {
 }
 
 MirageCelestone::~MirageCelestone()
 {
-}
-
-std::string MirageCelestone::category() const
-{
-	return itsCategory;
 }
 
 REFINE MirageCelestone::refineRequest(float obtainedChance) const

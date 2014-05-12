@@ -1,8 +1,6 @@
 #include "tishastone.h"
 #include "matematika.h"
 
-std::string TishaStone::CATEGORY = "TISHA STONE";
-
 float TishaStone::addChance(const Armor *armor) const throw(RefineLevelException)
 {
 	switch(armor->refineLevel())
@@ -30,17 +28,11 @@ float TishaStone::addChance(const Armor *armor) const throw(RefineLevelException
 }
 
 TishaStone::TishaStone()
-: itsCategory(CATEGORY)
 {
 }
 
 TishaStone::~TishaStone() /*virtual*/
 {
-}
-
-std::string TishaStone::category() const
-{
-	return itsCategory;
 }
 
 REFINE TishaStone::refineRequest(float obtainedChance) const

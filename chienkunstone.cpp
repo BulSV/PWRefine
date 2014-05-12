@@ -4,8 +4,6 @@
 #include "chienkunstone.h"
 #include "matematika.h"
 
-std::string ChienkunStone::CATEGORY = "CHIENKUNSTONE";
-
 float ChienkunStone::addChance(const Armor *armor) const throw(RefineLevelException)
 {
 	switch(armor->refineLevel())
@@ -33,17 +31,11 @@ float ChienkunStone::addChance(const Armor *armor) const throw(RefineLevelExcept
 }
 
 ChienkunStone::ChienkunStone()
-: itsCategory(CATEGORY)
 {
 }
 
 ChienkunStone::~ChienkunStone()
 {
-}
-
-std::string ChienkunStone::category() const
-{
-	return itsCategory;
 }
 
 REFINE ChienkunStone::refineRequest(float obtainedChance) const
